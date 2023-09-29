@@ -53,7 +53,7 @@ else {
     $hide = array();
 }
 
-$sql = safe_query("SELECT themes_modulname, modulname, re_activated FROM ".PREFIX."settings_module WHERE re_activated = '1' AND themes_modulname='$themes_modulname'");
+$sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 're_activated' AND themes_modulname='$themes_modulname'");
 if(mysqli_num_rows($sql)) {
     while($row = mysqli_fetch_array($sql)) {
         $hide1[] = $row['modulname'];
@@ -63,7 +63,7 @@ else {
     $hide1 = array();
 }
 
-$sql = safe_query("SELECT themes_modulname, modulname, le_activated FROM ".PREFIX."settings_module WHERE le_activated = '1' AND themes_modulname='$themes_modulname'");
+$sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'le_activated' AND themes_modulname='$themes_modulname'");
 if(mysqli_num_rows($sql)) {
     while($row = mysqli_fetch_array($sql)) {
         $hide2[] = $row['modulname'];
@@ -73,7 +73,7 @@ else {
     $hide2 = array();
 }
 
-$sql = safe_query("SELECT themes_modulname, modulname, all_activated FROM ".PREFIX."settings_module WHERE all_activated = '1' AND themes_modulname='$themes_modulname'");
+$sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'activated' AND themes_modulname='$themes_modulname'");
 if(mysqli_num_rows($sql)) {
     while($row = mysqli_fetch_array($sql)) {
         $hide3[] = $row['modulname'];
@@ -123,16 +123,6 @@ else {
     $hide7 = array();
 }
 
-$sql = safe_query("SELECT themes_modulname, modulname, full_activated FROM ".PREFIX."settings_module WHERE full_activated = '1' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide8[] = $row['modulname'];
-    }
-}
-else {
-    $hide8 = array();
-}
-
 }
 
 
@@ -157,7 +147,7 @@ if (in_array($site, $hide1)) {
 
 # content Ausgabe für die index.php
 function get_mainContent() { 
-
+echo'<div class="">';
 # muss noch getestet werden was alles benötigt wird
     global $cookievalue, $userID, $date, $loggedin, $_language, $tpl, $myclanname, $hp_url, $imprint_type, $admin_email, $admin_name;
     global $maxtopics, $plugin_path, $maxposts, $page, $action, $preview, $message, $topicID, $_database, $maxmessages, $new_chmod;
@@ -215,7 +205,8 @@ function get_mainContent() {
                     }
                     include("includes/modules/".$site . ".php");
                 }
-               echo'<br />';
+               #echo'<br />';
+                echo'</div>';
 } 
 
 
@@ -228,7 +219,7 @@ function get_navigation_modul(){
 }
 
 
-#Ausgabe Head
+#Ausgabe Head elements
 function get_head_modul() {
 
     GLOBAL $hide;
@@ -239,68 +230,71 @@ function get_head_modul() {
             $widget_menu->registerWidget("page_head_widget");
         } else {
             
-            $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_headelements WHERE side='".$site."'"));
-            if(@$dx[ 'side' ] != ''.$site.'') {
+            $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_headelements WHERE site='".$site."' AND displayed='1'"));
+            if(@$dx[ 'site' ] != $site) {
 
                 $head_elements = '';
             
             } else {
-                if(file_exists('./images/headelements/'.$site.'.jpg')){
-                    $pic='<figure class="figure">
-                    <img src="./images/headelements/'.$site.'.jpg" class="figure-img img-fluid rounded" alt="...">
-                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_text">'.$dx[ 'name' ].'</p></figcaption>
+
+
+                if(@$dx[ 'headelementID' ] != '') {
+                    $headelementID = $dx[ 'headelementID' ];
+                } else {
+                    $headelementID = '';
+                } 
+                if(@$dx[ 'name' ] != '') {   
+                    $name = $dx[ 'name' ];
+                } else {
+                    $name = '';
+                }
+                if(@$dx[ 'info' ] != '') {  
+                    $info = $dx[ 'info' ];
+                } else {
+                    $info = '';
+                }
+
+                if(file_exists('./images/headelements/'.$headelementID.'.jpg')){
+                    $pic='<figure class="overlay">
+                    <img src="./images/headelements/'.$headelementID.'.jpg" class="figure-img im1g-fluid rounded" alt="...">
+                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
+                    <p class="noheadcol_text">'.$info.'</p>
+                    <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
                     </figure>';
-                    $style= '';
-                } elseif(file_exists('./images/headelements/'.$site.'.jpeg')){
-                    $pic='<figure class="figure">
-                    <img src="./images/headelements/'.$site.'.jpeg" class="figure-img img-fluid rounded" alt="...">
-                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_text">'.$dx[ 'name' ].'</p></figcaption>
+                } elseif(file_exists('./images/headelements/'.$headelementID.'.jpeg')){
+                    $pic='<figure class="overlay">
+                    <img src="./images/headelements/'.$headelementID.'.jpeg" class="figure-img im1g-fluid rounded" alt="...">
+                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
+                    <p class="noheadcol_text">'.$info.'</p>
+                    <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
                     </figure>';
-                    $style= '';
-                } elseif(file_exists('./images/headelements/'.$site.'.png')){
-                    $pic='<figure class="figure">
-                    <img src="./images/headelements/'.$site.'.png" class="figure-img img-fluid rounded" alt="...">
-                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_text">'.$dx[ 'name' ].'</p></figcaption>
+                } elseif(file_exists('./images/headelements/'.$headelementID.'.png')){
+                    $pic='<figure class="overlay">
+                    <img src="./images/headelements/'.$headelementID.'.png" class="figure-img im1g-fluid rounded" alt="...">
+                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
+                    <p class="noheadcol_text">'.$info.'</p>
+                    <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
                     </figure>';
-                    $style= '';
-                } elseif(file_exists('./images/headelements/'.$site.'.gif')){
-                    $pic='<figure class="figure">
-                    <img src="./images/headelements/'.$site.'.gif" class="figure-img img-fluid rounded" alt="...">
-                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_text">'.$dx[ 'name' ].'</p></figcaption>
+                } elseif(file_exists('./images/headelements/'.$headelementID.'.gif')){
+                    $pic='<figure class="overlay">
+                    <img src="./images/headelements/'.$headelementID.'.gif" class="figure-img im1g-fluid rounded" alt="...">
+                    <figcaption class="figure-caption"><p class="animated fadeInUp noheadcol_title">'.$name.'</p>
+                    <p class="noheadcol_text">'.$info.'</p>
+                    <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
                     </figure>';
-                    $style= '';
                 } else{
                    $pic='';
                 }
                 
                 $head_elements = $pic;
             }
-            echo''.$head_elements.''; 
+            echo''.$head_elements.'';
         } 
 }
 
-#Ausgabe Content volle Breite für login, lostpassword, register
-function get_content() {
-    global $hide8,$site,$modulname;
-
-    if (@in_array($site, $hide8, $modulname)) {
-
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname='$modulname'"));
-        if (@$dx[ 'modulname' ] != $modulname) {
-        echo "<div class='container'>";
-        } else {
-        echo "<div class='container-fluid'>";
-        }
-    } else {        
-        echo "<div class='container'>";        
-    }
-
-}          
-
-
 #Ausgabe Foot
 function get_foot_modul(){
-            
+      global $themes_modulname;      
     $widget_menu = new widgets();
     $widget_menu->registerWidget("page_footer_widget");
 }
@@ -308,12 +302,14 @@ function get_foot_modul(){
 #Ausgabe Left Side
 function get_left_side() {
         global $themes_modulname;
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins_widgets WHERE description='left_side_widget' AND themes_modulname='$themes_modulname'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE description='left_side_widget' AND themes_modulname='$themes_modulname'"));
         if (@$dx[ 'description' ] != 'left_side_widget') {
             $left_page = '<div class="head-boxes">
+                            <span class="head-boxes-head">Info<small style="font-size: 10px;">(left side)</small></span>
                             <h2 class="head-h2">
-                            <span class="head-boxes-title">Info <small style="font-size: 10px;">(left side)</small>
+                            <span class="head-boxes-title">Info<small style="font-size: 10px;">(left side)</small></span>
                             </h2>
+                            <p class="head-boxes-foot">(left side)</p>
                         </div>
                         <div class="alert alert-danger" role="alert">Widget not found!</div>';
             return $left_page;
@@ -326,14 +322,17 @@ function get_left_side() {
 #Ausgabe Right Side
 function get_right_side() {
         global $themes_modulname;
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins_widgets WHERE description='right_side_widget' AND themes_modulname='$themes_modulname'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_widgets WHERE description='right_side_widget' AND themes_modulname='$themes_modulname'"));
         if (@$dx[ 'description' ] != 'right_side_widget') {
             $right_page = '<div class="head-boxes">
+                            <span class="head-boxes-head">Info<small style="font-size: 10px;">(right side)</small></span>
                             <h2 class="head-h2">
-                            <span class="head-boxes-title">Info <small style="font-size: 10px;">(right side)</small>
+                            <span class="head-boxes-title">Info<small style="font-size: 10px;">(right side)</small></span>
                             </h2>
-                           </div>
-                           <div class="alert alert-danger" role="alert">Widget not found!</div>';
+                            <p class="head-boxes-foot">(right side)</p>
+                        </div>
+                        <div class="alert alert-danger" role="alert">Widget not found!</div>';
+                           
             return $right_page;
         } else {
             $right_page = $widget_menu = new widgets();
@@ -341,13 +340,13 @@ function get_right_side() {
         }
 }
 
-#Ausgabe content Head
+#Ausgabe center Head
 function get_center_head() {
     $widget_menu = new widgets();
     $widget_menu->registerWidget("center_head_widget");
 }
 
-#Ausgabe content Foot
+#Ausgabe center Foot
 function get_center_footer() {
     $widget_menu = new widgets();
     $widget_menu->registerWidget("center_footer_widget");
@@ -364,4 +363,17 @@ function get_foot_section() {
     $widget_menu = new widgets();
     $widget_menu->registerWidget("foot_section_widget");
 }
+
+function get_lock_modul() {
+global $closed;
+$dm = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings where closed='1'"));
+        if (@$closed != '1') { 
+
+        } else {
+            echo'<div class="text-bg-danger lock_modul"><center>
+                    Die Seite befindet sich im Wartungsmodus
+                </center></div>';   
+        }
+}
+
 

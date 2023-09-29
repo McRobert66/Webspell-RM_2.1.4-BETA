@@ -30,7 +30,7 @@ $language_array = Array(
 /* do not edit above this line */
 
   
-  'tooltip_1'=>'Dies ist die URL der Seite, z.B. (deinedomain.de/pfad/webspell).<br>Mit http:// oder https:// am Anfang und nicht mit Slash enden!',
+  'tooltip_1'=>'Dies ist die URL der Seite, z.B. (https://deinedomain.de).<br>Mit http:// oder https:// am Anfang und nicht mit Slash enden!',
   'tooltip_2'=>'Das ist der Titel der Seite, wird auch als Browser Titel angezeigt',
   'tooltip_3'=>'Der Name der Organisation',
   'tooltip_4'=>'Das Kürzel der Organisation',
@@ -111,7 +111,7 @@ $language_array = Array(
 
 /*===================================================================*/
 /*Einstellungen */
-  'settings'=>'Einstellungen',
+  'settings'=>'Allgemeine Einstellungen',
   'additional_options_startpage'=>'Frontend (Website) deaktivieren und Startpage wählen',
   'page_title'=>'Homepage Titel',
   'page_url'=>'Homepage URL',

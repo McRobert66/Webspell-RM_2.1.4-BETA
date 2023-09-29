@@ -37,26 +37,27 @@
     $ergebnis=safe_query("SELECT * FROM ".PREFIX."settings_themes WHERE active = 1");
         $ds=mysqli_fetch_array($ergebnis);
     ?>
-    <link href="/includes/plugins/navigation_default/css/styles.css" rel="stylesheet" />
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container logo-box">
-             
-            <span class="logo"><a class="navbar-brand" href="#"><img class="float-left bg-primary rounded" src="./includes/themes/<?php echo $theme_name; ?>/images/<?php echo $logo; ?>" alt=""></span>
-                <div class="box">
-                    <span class="webspell"><?php echo $ds[ 'logotext1' ];?></span>
-                    <span class="slogan"><?php echo $ds[ 'logotext2' ];?></span>
-               </div>
-            </a>
-             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar" aria-label="Toggle">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mob-navbar">
-                <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
-                    <?php include("./includes/modules/navigation.php"); ?>
-                    <?php include("./includes/modules/navigation_login.php"); ?>
-                    <?php include("./includes/modules/language.php"); ?>
-                </ul>
-            </div>
+   
+   <nav class="navbar navbar-expand-lg navbar-dark bg-pr1imary fixed-top">
+  <div class="container">
+    <span class="logo"><a class="navbar-brand" href="#"><img class="float-left bg-primary img-fluid" style="max-width:100%;height: 75px;" src="../includes/themes/<?php echo $theme_name; ?>/images/<?php echo $ds[ 'logo_pic' ]; ?>" alt=""></span>
+        <div class="box">
+            <span class="webspell"><?php echo $ds[ 'logotext1' ];?></span>
+            <span class="slogan"><?php echo $ds[ 'logotext2' ];?></span>
         </div>
-    </nav>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav <?php echo $ds[ 'nav_text_alignment' ];?>">
+        <?php include("./includes/modules/navigation.php"); ?>
+        <?php include("./includes/modules/navigation_login.php"); ?>
+        <?php include("./includes/modules/language.php"); ?>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+

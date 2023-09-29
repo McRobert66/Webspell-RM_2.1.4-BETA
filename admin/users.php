@@ -75,8 +75,9 @@ if (isset($_POST[ 'add' ])) {
                 $mime_types = array('image/jpeg','image/png','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
+
                     if (is_array($imageInformation)) {
-                        if ($imageInformation[0] < 91 && $imageInformation[1] < 91) {
+                        if ($imageInformation[0] < 480 && $imageInformation[1] < 481) {
                             switch ($imageInformation[ 2 ]) {
                                 case 1:
                                     $endung = '.gif';
@@ -89,7 +90,18 @@ if (isset($_POST[ 'add' ])) {
                                     break;
                             }
                             $file = $id.$endung;
-                            if ($upload->saveAs($filepath.$file, true)) {
+
+                            if (file_exists($filepath . $id . '.gif')) {
+                                unlink($filepath . $id . '.gif');
+                            }
+                            if (file_exists($filepath . $id . '.jpg')) {
+                                unlink($filepath . $id . '.jpg');
+                            }
+                            if (file_exists($filepath . $id . '.png')) {
+                                unlink($filepath . $id . '.png');
+                            }
+
+                            if ($upload->saveAs($filepath.$file)) {
                                 @chmod($filepath.$file, $new_chmod);
                                 safe_query(
                                     "UPDATE "
@@ -101,7 +113,7 @@ if (isset($_POST[ 'add' ])) {
                                 );
                             }
                         } else {
-                            $error_array[] = sprintf($_language->module[ 'image_too_big' ], 90, 90);
+                            $error_array[] = sprintf($_language->module[ 'image_too_big' ], 480, 480);
                         }
                     } else {
                         $error_array[] = $_language->module[ 'broken_image' ];
@@ -123,8 +135,9 @@ if (isset($_POST[ 'add' ])) {
                 $mime_types = array('image/jpeg','image/png','image/gif');
                 if ($upload->supportedMimeType($mime_types)) {
                     $imageInformation =  getimagesize($upload->getTempFile());
+
                     if (is_array($imageInformation)) {
-                        if ($imageInformation[0] < 251 && $imageInformation[1] < 286) {
+                        if ($imageInformation[0] < 480 && $imageInformation[1] < 481) {
                             switch ($imageInformation[ 2 ]) {
                                 case 1:
                                     $endung = '.gif';
@@ -137,7 +150,18 @@ if (isset($_POST[ 'add' ])) {
                                     break;
                             }
                             $file = $id.$endung;
-                            if ($upload->saveAs($filepath.$file, true)) {
+
+                            if (file_exists($filepath . $id . '.gif')) {
+                                unlink($filepath . $id . '.gif');
+                            }
+                            if (file_exists($filepath . $id . '.jpg')) {
+                                unlink($filepath . $id . '.jpg');
+                            }
+                            if (file_exists($filepath . $id . '.png')) {
+                                unlink($filepath . $id . '.png');
+                            }
+
+                            if ($upload->saveAs($filepath.$file)) {
                                 @chmod($filepath.$file, $new_chmod);
                                 safe_query(
                                     "UPDATE "
@@ -148,7 +172,7 @@ if (isset($_POST[ 'add' ])) {
                                 );
                             }
                         } else {
-                            $error_array[] = sprintf($_language->module[ 'image_too_big' ], 250, 285);
+                            $error_array[] = sprintf($_language->module[ 'image_too_big' ], 480, 480);
                         }
                     } else {
                         $error_array[] = $_language->module[ 'broken_image' ];
@@ -184,10 +208,10 @@ if (isset($_POST[ 'add' ])) {
 									 email='" . $_POST[ 'email' ] . "',
 									 firstname='" . $_POST[ 'firstname' ] . "',
 									 lastname='" . $_POST[ 'lastname' ] . "',
-									 gender='" . $_POST[ 'sex' ] . "',
+									 gender='" . $_POST[ 'gender' ] . "',
 									 town='" . $_POST[ 'town' ] . "',
 									 birthday='" . $birthday . "',
-									 icq='" . $_POST[ 'icq' ] . "',
+									 discord='" . $_POST[ 'discord' ] . "',
 									 usertext='" . $_POST[ 'usertext' ] . "',
 									 twitch='" . $_POST[ 'twitch' ] . "',
                                      youtube='" . $_POST[ 'youtube' ] . "',
@@ -197,10 +221,11 @@ if (isset($_POST[ 'add' ])) {
                                      steam='" . $_POST[ 'steam' ] . "',
 									 homepage='" . $_POST[ 'homepage' ] . "',
 									 about='" . $_POST[ 'about' ] . "',
+                                     acc_type='" . $_POST[ 'acc_type' ] . "',
 									 special_rank = '".$_POST['special_rank']."' WHERE userID='" . $id . "' "
             );
             safe_query(
-                "UPDATE " . PREFIX . "nickname SET nickname='" . $nickname . "' WHERE userID='" . $id . "' "
+                "UPDATE " . PREFIX . "user_nickname SET nickname='" . $nickname . "' WHERE userID='" . $id . "' "
             );
 
             if (isset($_POST[ 'avatar' ])) {
@@ -234,7 +259,7 @@ if (isset($_POST[ 'add' ])) {
                 "', 1) "
             );
             safe_query("
-              INSERT INTO " . PREFIX . "nickname ( userID,nickname ) values ('" . mysqli_insert_id($_database) ."','" . $newnickname ."')
+              INSERT INTO " . PREFIX . "user_nickname ( userID,nickname ) values ('" . mysqli_insert_id($_database) ."','" . $newnickname ."')
             ");
             safe_query(
                 "INSERT INTO " . PREFIX . "user_groups ( userID ) values('" . mysqli_insert_id($_database) .
@@ -414,13 +439,13 @@ if ($action == "activate") {
 			
             <form class="form-horizontal" method="post" action="admincenter.php?site=users" enctype="multipart/form-data">
 
-             <div class="form-group row">
+             <div class="mb-3 row">
                 <label class="col-md-2 control-label">' . $_language->module[ 'nickname' ] . ':</label>
             <div class="col-md-8"><h4>' . $nickname . '</h4>
             </div>
             </div>   
   
-            <div class="form-group row"  id="until_date" ' . $hide . '>
+            <div class="mb-3 row"  id="until_date" ' . $hide . '>
                 <label class="col-md-2 control-label">' . $_language->module[ 'ban_until' ] . ':</label>
             <div class="col-md-1">
                 <input class="form-control" type="text" name="u_day" onchange="kill_form(\'until\');" id="u_day" size="2" value="' . $u_day . '" placeholder="dd"/>.
@@ -437,7 +462,7 @@ if ($action == "activate") {
             </div>
             
 
-            <div class="form-group row" id="ban_for" ' . $hide . '>
+            <div class="mb-3 row" id="ban_for" ' . $hide . '>
                 <label class="col-md-2 control-label">' . $_language->module[ 'ban_for' ] . ':</label>
             <div class="col-md-1">
                 <input class="form-control" type="text" name="ban_num" onchange="kill_form(\'\');" id="ban_num" size="1" placeholder="No."/>
@@ -449,14 +474,14 @@ if ($action == "activate") {
             </div>
             
             
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-md-2 control-label">' . $_language->module[ 'permanently' ] . ':</label>
             <div class="col-md-1">
                 <input type="checkbox" id="permanent" onchange="hide_forms();" value="1" name="permanent" ' . $checked . ' />
             </div>
             </div>   
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-md-2 control-label">' . $_language->module[ 'reason' ] . ':</label>
             <div class="col-md-8"><span class="text-muted small"><em>
                 <textarea class="ckeditor" id="ckeditor" name="reason" rows="3" cols="" style="width: 50%;">' . $reason . '</textarea></em></span>
@@ -464,7 +489,7 @@ if ($action == "activate") {
             </div>';
 
             if ($data[ 'banned' ]) {
-                echo '<div class="form-group row">
+                echo '<div class="mb-3 row">
                             <label class="col-md-2 control-label">' . $_language->module[ 'remove_ban' ] . ':</label>
                         <div class="col-md-8"><span class="text-muted small"><em>
                             <input type="checkbox" name="remove_ban" value="1" /></em></span>
@@ -475,7 +500,7 @@ if ($action == "activate") {
 			
 
 
-            <div class="form-group row">
+            <div class="mb-3 row">
             <div class="col-md-offset-2 col-md-10">
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="' . $id . '" />
                 <button class="btn btn-success" type="submit" name="ban"  />' . $_language->module[ 'edit_ban' ] . '</button>
@@ -522,33 +547,33 @@ if ($action == "activate") {
 
 
  echo'<form class="form-horizontal" method="post" action="admincenter.php?site=users&amp;page='.(int)$_GET['page'].'">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-md-2 control-label">'.$_language->module['nickname'].':</label>
         <div class="col-md-8"><h4>'.$nickname.'</h4>
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-md-2 control-label">'.$_language->module['squad'].':</label>
         <div class="col-md-8"><select class="form-control" name="squad">'.$squads.'</select>
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-md-2 control-label">'.$_language->module['position'].':</label>
         <div class="col-md-8"><input class="form-control" type="text" name="position" size="20" />
         </div>
     </div>
  
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-md-2 control-label">'.$_language->module['activity'].':</label>
-        <div class="col-md-8">
-        <input type="radio" name="activity" value="1" checked="checked" /> '.$_language->module['active'].' &nbsp; 
-        <input type="radio" name="activity" value="0" /> '.$_language->module['inactive'].'
+        <div class="col-md-8 form-check form-switch">
+        <input class="form-check-input" type="radio" name="activity" value="1" checked="checked" />&nbsp;&nbsp;'.$_language->module['active'].'  <br><br>
+        <input class="form-check-input" type="radio" name="activity" value="0" />&nbsp;&nbsp;'.$_language->module['inactive'].'
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-md-offset-2 col-md-8"><input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$id.'" />
         <button class="btn btn-success" type="submit" name="add">'.$_language->module['add_to_clan'].'</button>
         </div>
@@ -577,27 +602,27 @@ if ($action == "activate") {
 
 
 
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module[ 'nickname' ] . ':</label>
     <div class="col-md-8"><span class="text-muted small"><em>
     <input class="form-control" type="text" name="nickname" size="60" /></em></span>
     </div>
   </div>
 
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module[ 'email' ] . ':</label>
     <div class="col-md-8"><span class="text-muted small"><em>
     <input class="form-control" type="text" name="email" size="60" /></em></span>
     </div>
   </div>
 
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module[ 'password' ] . ':</label>
     <div class="col-md-8"><span class="text-muted small"><em>
     <input class="form-control" type="password" name="pass" size="60" /></em></span>
     </div>
   </div>
-<div class="form-group row">
+<div class="mb-3 row">
     <div class="col-md-offset-2 col-md-10">
         <input type="hidden" name="captcha_hash" value="'.$hash.'" />
         <button class="btn btn-success" type="submit" name="newuser"  />' . $_language->module[ 'add_new_user' ] . '</button>
@@ -624,23 +649,45 @@ if ($action == "activate") {
     $id = $_GET[ 'id' ];
     $ds = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "user WHERE userID='$id'"));
 
-    if ($ds[ 'userpic' ]) {
-        $viewpic = '<a href="javascript:void(0);" onclick="window.open(\'../images/userpics/' . $ds[ 'userpic' ] .
-            '\',\'userpic\',\'width=250,height=230\')">' . $_language->module[ 'picture' ] . '</a>';
+    #if ($ds[ 'userpic' ]) {
+    #    $viewpic = '<a href="javascript:void(0);" onclick="window.open(\'../images/userpics/' . $ds[ 'userpic' ] .
+    #        '\',\'userpic\',\'width=380,height=380\')">' . $_language->module[ 'picture' ] . '</a>';
+    #} else {
+    #    $viewpic = $_language->module[ 'picture' ];
+    #}
+
+    if (!empty($ds[ 'userpic' ])) {
+        $viewpic = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 150px" src="../images/userpics/' . $ds[ 'userpic' ] . '" alt="">';
     } else {
-        $viewpic = $_language->module[ 'picture' ];
+        $viewpic = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 150px" src="../images/userpics/' . 'no-image.jpg" alt="">';
     }
-    if ($ds[ 'avatar' ]) {
-        $viewavatar = '<a href="javascript:void(0);" onclick="window.open(\'../images/avatars/' . $ds[ 'avatar' ] .
-            '\',\'avatar\',\'width=120,height=120\')">' . $_language->module[ 'avatar' ] . '</a>';
+
+    if (!empty($ds[ 'avatar' ])) {
+        $viewavatar = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 150px" src="../images/avatars/' . $ds[ 'avatar' ] . '" alt="">';
     } else {
-        $viewavatar = $_language->module[ 'avatar' ];
+        $viewavatar = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 150px" src="../images/avatars/' . 'no-image.jpg" alt="">';
     }
-    $sex = '<option value="male">' . $_language->module[ 'male' ] . '</option><option value="female">' .
-        $_language->module[ 'female' ] . '</option><option value="diverse">' .
-        $_language->module[ 'diverse' ] . '</option><option value="u">' . $_language->module[ 'not_available' ] .
+
+
+    #if ($ds[ 'avatar' ]) {
+    #    $viewavatar = '<a href="javascript:void(0);" onclick="window.open(\'../images/avatars/' . $ds[ 'avatar' ] .
+    #        '\',\'avatar\',\'width=120,height=120\')">' . $_language->module[ 'avatar' ] . '</a>';
+    #} else {
+    #    $viewavatar = $_language->module[ 'avatar' ];
+    #}
+
+    $gender = '<option value="male">' . $_language->module[ 'male' ] . '</option><option value="female">' .
+        $_language->module[ 'female' ] . '</option><option value="divers">' .
+        $_language->module[ 'diverse' ] . '</option><option value="select_gender">' . $_language->module[ 'select_gender' ] .
         '</option>';
-    $sex = str_replace('value="' . $ds[ 'gender' ] . '"', 'value="' . $ds[ 'gender' ] . '" selected="selected"', $sex);
+    $gender = str_replace('value="' . $ds[ 'gender' ] . '"', 'value="' . $ds[ 'gender' ] . '" selected="selected"', $gender);
+
+    $acc_type = '<option value="Admin">' . $_language->module[ 'admin' ] . '</option><option value="Seller">' .
+        $_language->module[ 'seller' ] . '</option><option value="Costumer">' .
+        $_language->module[ 'costumer' ] . '</option>';
+    $acc_type = str_replace('value="' . $ds[ 'acc_type' ] . '"', 'value="' . $ds[ 'acc_type' ] . '" selected="selected"', $acc_type);
+
+
     $b_day = mb_substr($ds[ 'birthday' ], 8, 2);
     $b_month = mb_substr($ds[ 'birthday' ], 5, 2);
     $b_year = mb_substr($ds[ 'birthday' ], 0, 4);
@@ -677,32 +724,32 @@ if ($action == "activate") {
 
     echo '<form class="form-horizontal" method="post" enctype="multipart/form-data" action="admincenter.php?site=users&amp;page='.$_GET['page'].'">
 
-   <div class="form-group row">
+   <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['user_id'].'</label>
     <div class="col-md-8">
       <p class="form-control-static">'.$ds['userID'].'</p>
     </div>
   </div>
   <form class="form-horizontal">
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label"><h3>'.$_language->module['general'].'</h3></label>
     <div class="col-md-8">
       <p class="form-control-static"></p>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['nickname'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="nickname" value="'.$ds['nickname'].'" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['email'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="email" value="'.getinput($ds['email']).'" />
     </div>
   </div>
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['special_rank'].'</label>
     <div class="col-md-8">
     <select class="form-control" name="special_rank">' . $ranks . '</select>
@@ -718,44 +765,46 @@ if ($action == "activate") {
 
 
   <form class="form-horizontal">
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label"><h3>'.$_language->module['pictures'].'</h3></label>
     <div class="col-md-8">
       <p class="form-control-static"></p>
     </div>
   </div>
-  <div class="form-group row">
-    <label class="col-md-2 control-label">'.$viewavatar.'</label>
+  <div class="mb-3 row">
+    <label class="col-md-2 control-label">'.$_language->module[ 'avatar' ].'</label>
     <div class="col-md-8">
+    '.$viewavatar.'
     <input class="btn btn-info" name="avatar" type="file" size="40" /> <small>'.$_language->module['max_90x90'].'</small><br><input type="checkbox" name="avatar" value="1" /> '.$_language->module['delete_avatar'].'
     </div>
   </div>
-  <div class="form-group row">
-    <label class="col-md-2 control-label">'.$viewpic.'</label>
+  <div class="mb-3 row">
+    <label class="col-md-2 control-label">'.$_language->module[ 'picture' ].'</label>
     <div class="col-md-8">
+    '.$viewpic.'
     <input class="btn btn-info" name="userpic" type="file" size="40" /> <small>'.$_language->module['max_285x250'].'</small><br><input type="checkbox" name="userpic" value="1" /> '.$_language->module['delete_picture'].'
     </div>
   </div>
   <form class="form-horizontal">
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label"><h3>'.$_language->module['personal'].'</h3></label>
     <div class="col-md-8">
       <p class="form-control-static"></p>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['firstname'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="firstname" value="'.getinput($ds['firstname']).'" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['lastname'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="lastname" value="'.getinput($ds['lastname']).'" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['birthday'].'</label>
     <div class="col-md-1">
     <input class="form-control" type="text" name="b_day" value="'.getinput($b_day).'" size="2" />
@@ -765,43 +814,43 @@ if ($action == "activate") {
       <input class="form-control" type="text" name="b_year" value="'.getinput($b_year).'" size="4" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['gender'].'</label>
     <div class="col-md-8">
-    <select class="form-control" name="sex">'.$sex.'</select>
+    <select class="form-control" name="gender">'.$gender.'</select>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['town'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="town" value="'.getinput($ds['town']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
-    <label class="col-md-2 control-label">'.$_language->module['icq'].'</label>
+  <div class="mb-3 row">
+    <label class="col-md-2 control-label">'.$_language->module['discord'].'</label>
     <div class="col-md-8">
-    <input class="form-control" type="text" name="icq" value="'.getinput($ds['icq']).'" size="60" />
+    <input class="form-control" type="text" name="discord" value="'.getinput($ds['discord']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['homepage'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="homepage" value="'.getinput($ds['homepage']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['signatur'].'</label>
     <div class="col-md-8">
     <textarea class="ckeditor" id="ckeditor" name="usertext" rows="5" cols="">'.getinput($ds['usertext']).'</textarea>
     </div>
-  </div><div class="form-group row">
+  </div><div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['about_myself'].'</label>
     <div class="col-md-8">
     <textarea class="ckeditor" id="ckeditor" name="about" rows="5" cols="">'.getinput($ds['about']).'</textarea>
     </div>
   </div>
   <form class="form-horizontal">
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label"><h3>'.$_language->module['social-media'].'</h3></label>
     <div class="col-md-8">
       <p class="form-control-static"></p>
@@ -809,46 +858,53 @@ if ($action == "activate") {
   </div>
   
 
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['twitch'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="twitch" value="'.getinput($ds['twitch']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['youtube'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="youtube" value="'.getinput($ds['youtube']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['twitter'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="twitter" value="'.getinput($ds['twitter']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['instagram'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="instagram" value="'.getinput($ds['instagram']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['facebook'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="facebook" value="'.getinput($ds['facebook']).'" size="60" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">'.$_language->module['stream'].'</label>
     <div class="col-md-8">
     <input class="form-control" type="text" name="steam" value="'.getinput($ds['steam']).'" size="60" />
     </div>
   </div>
 
+  <div class="mb-3 row">
+    <label class="col-md-2 control-label">Shop</label>
+    <div class="col-md-8">
+    <select class="form-control" name="acc_type">'.$acc_type.'</select>
+    </div>
+  </div>
 
 
-  <div class="form-group row">
+
+  <div class="mb-3 row">
     <div class="col-md-offset-2 col-md-8">
     <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$id.'" />
       <button class="btn btn-primary" type="submit" name="edit" />'.$_language->module['edit_profile'].'</button>
@@ -928,6 +984,7 @@ if ($action == "activate") {
         <th><b>' . $_language->module[ 'registered_since' ] . '</b></th>
         <th><b>' . $_language->module[ 'nickname' ] . '</b></th>
         <th><b>' . $_language->module[ 'status' ] . '</b></th>
+        <th><b>Shop ' . $_language->module[ 'status' ] . '</b></th>
         <th><b>' . $_language->module[ 'ban_status' ] . '</b></th>
         <th><b>' . $_language->module[ 'actions' ] . '</b></th>
         <th><b>' . $_language->module[ 'sort' ] . '</b></th>
@@ -942,6 +999,7 @@ if ($action == "activate") {
             $id = $ds[ 'userID' ];
             $registered = getformatdatetime($ds[ 'registerdate' ]);
             $nickname = getnickname($ds[ 'userID' ]);
+            $acc_type = $ds[ 'acc_type' ];
 
             if (issuperadmin($ds[ 'userID' ]) && isclanmember($ds[ 'userID' ])) {
                 $status = $_language->module[ 'superadmin' ] . '<br />&amp; ' . $_language->module[ 'clanmember' ];
@@ -988,18 +1046,45 @@ if ($action == "activate") {
         <td><a href="../index.php?site=profile&amp;id=' . $id . '" target="_blank">' .
                 strip_tags(stripslashes($nickname)) . '</a></td>
         <td><small>' . $status . '</small></td>
+        <td><small>' . $acc_type . '</small></td>
         <td>' . $banned . '</td>
         <td>' . $actions . '</td>
         <td align="center" width="6%">
-        <input class="btn btn-danger" type="button" onclick="MM_confirm(\'' . $_language->module['really_delete'] . '\', \'admincenter.php?site=users&amp;page=' . $page .
-                '&amp;delete=true&amp;id=' .
-                $ds[ 'userID' ] . '&amp;captcha_hash=' . $hash . '\')" value="' . $_language->module['delete'] . '" />     
+        
 
+
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=users&amp;page=' . $page .
+                '&amp;delete=true&amp;id=' .
+                $ds[ 'userID' ] . '&amp;captcha_hash=' . $hash . '">
+    ' . $_language->module['delete'] . '
+    </button></th>';echo'
+   
       
      </td>
         </tr>';
 
             $i++;
+            echo'<!-- Button trigger modal END-->            
+
+              <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                             <h5 class="modal-title" id="modalLabel">' . $_language->module['user'] . '</h5>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                             <p>' . $_language->module['really_delete'] . '</p>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+<!-- Modal END -->';
         }
         echo '</tbody></table>
     <br /><br /><a class="btn btn-primary" type="button" href="admincenter.php?site=users&amp;action=adduser"><b>' .

@@ -1,96 +1,4 @@
-<style type="text/css">#icon {
- 
-  /*background: #333;*/
-  
-  /*padding: 20px;*/ }
-
-#icon img {
-    width: 100px !important;
-  /*width: 350px !important; 
-  padding-left: 90px !important;*/
-   padding-top: 15px;
-    -moz-transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-    -webkit-filter: grayscale(100%);
-    /* Chrome, Safari, Opera */
-    filter: grayscale(100%);
-    
-     }
-    #icon img:hover {
-      -webkit-filter: grayscale(0);
-      /* Chrome, Safari, Opera */
-      filter: grayscale(0); }
-
-
-div.gallery {
-  margin: 5px;
-  border: 0px solid #ccc;
-  float: left;
-  /*width: 80px;*/
-}
-
-div.gallery:hover {
-  border: 0px solid #777;
-}
-
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
-
-div.desc {
-  padding: 15px;
-  text-align: center;
-}
-
-#border-right {
-        border-right: 2px solid rgb(0, 0, 0)
-    }
-
-#blue-background {
-    background-color: rgba(153,41,226,1)
-}
-.application {color: #000}  
-
-.profile-team-bg {
-    height: 170px;
-    min-width: 370px;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: grayscale(100%);
-    transition: all 0.4s ease 0s;
-}
-.profile-team-bg:hover {
-    filter: grayscale(0%);
-    transition: all 0.4s ease 0s;
-}
-
-.profile-team-bg h4 {
-   color: #FFF;
-   font-size: 18px;
-   font-weight: 500;
-   margin: 0px !important;
-}
-
-.profile-team-bg .top {
-   position: absolute;
-   top: 0;
-   left: 0;
-   padding: 10px;
-   background: linear-gradient(270deg, rgba(15,15,15,0) 0%, rgba(15,15,15,1) 100%);
-}
-
-.profile-team-bg .bottom {
-   position: absolute;
-   bottom: 0;
-   right: 0;
-   padding: 10px;
-   background: linear-gradient(90deg, rgba(15,15,15,0) 0%, rgba(15,15,15,1) 100%);
-}  
-
-</style><?php
+<?php
 /**
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*  
  *                                    Webspell-RM      /                        /   /                                                 *
@@ -150,11 +58,12 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
         $data_array['$profilelast'] = $profilelast;
         $data_array['$banned'] = $banned;
         
-        $data_array['$profile'] = $_language->module[ 'profile' ];
+        $data_array['$title'] = $_language->module[ 'profile' ];
+        $data_array['$subtitle']='Last posts';
         $template = $tpl->loadTemplate("profile","head", $data_array);
         echo $template;
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $last_post = '';
         } else {
@@ -163,7 +72,7 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='usergallery'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
         if (@$dx[ 'modulname' ] != 'usergallery') {
         $gallery = '';
         } else {
@@ -172,8 +81,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
           $awardlist = '';
         } else {
           $awardlist = '
@@ -227,7 +136,7 @@ echo '<ul class="nav nav-tabs">
                 $posttime = getformatdatetime($db[ 'date' ]);
 
                 $topiclist .= '<tr><td>
-                        <div style="overflow:hidden;">
+                        <div class="thumb">
                             <div class="pull-right"><small>' . $posttime . '</small></div>
                             <a href="index.php?site=forum_topic&amp;topic=' . $db[ 'topicID' ] . '">
                                 <strong>' . $db[ 'topic' ] . '</strong>
@@ -348,12 +257,12 @@ echo '<ul class="nav nav-tabs">
         $data_array['$profilelast'] = $profilelast;
         $data_array['$banned'] = $banned;
         
-        $data_array['$profile'] = $_language->module[ 'profile' ];
-        
+        $data_array['$title'] = $_language->module[ 'profile' ];
+        $data_array['$subtitle']='Gallery';
         $template = $tpl->loadTemplate("profile","head", $data_array);
         echo $template;
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $last_post = '';
         } else {
@@ -362,7 +271,7 @@ echo '<ul class="nav nav-tabs">
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='usergallery'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
         if (@$dx[ 'modulname' ] != 'usergallery') {
         $gallery = '';
         } else {
@@ -371,8 +280,8 @@ echo '<ul class="nav nav-tabs">
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
           $awardlist = '';
         } else {
           $awardlist = '
@@ -472,12 +381,12 @@ echo'</table></div></div>';
         $data_array['$profilelast'] = $profilelast;
         $data_array['$banned'] = $banned;
         
-        $data_array['$profile'] = $_language->module[ 'profile' ];
-        
+        $data_array['$title'] = $_language->module[ 'profile' ];
+        $data_array['$subtitle']='Award list';
         $template = $tpl->loadTemplate("profile","head", $data_array);
         echo $template;
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $last_post = '';
         } else {
@@ -486,7 +395,7 @@ echo'</table></div></div>';
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='usergallery'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
         if (@$dx[ 'modulname' ] != 'usergallery') {
         $gallery = '';
         } else {
@@ -495,8 +404,8 @@ echo'</table></div></div>';
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
           $awardlist = '';
         } else {
           $awardlist = '
@@ -601,11 +510,12 @@ echo'</table></div></div>';
         $data_array['$profilelast'] = $profilelast;
         $data_array['$banned'] = $banned;
         
-        $data_array['$profile'] = $_language->module[ 'profile' ];
+        $data_array['$title'] = $_language->module[ 'profile' ];
+        $data_array['$subtitle']='Profil';
         $template = $tpl->loadTemplate("profile","head", $data_array);
         echo $template;
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $last_post = '';
         } else {
@@ -614,7 +524,7 @@ echo'</table></div></div>';
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='usergallery'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
         if (@$dx[ 'modulname' ] != 'usergallery') {
         $gallery = '';
         } else {
@@ -623,8 +533,8 @@ echo'</table></div></div>';
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
           $awardlist = '';
         } else {
           $awardlist = '
@@ -664,7 +574,7 @@ echo '<ul class="nav nav-tabs">
                             " . PREFIX . "user_visitors
                         WHERE
                             userID='" . $id . "' AND
-                            visitor='" . (int)$userID."'"
+                            visitor='" . $userID."'"
                 )
             )
             ) {
@@ -675,7 +585,7 @@ echo '<ul class="nav nav-tabs">
                             date='" . $date . "'
                         WHERE
                             userID='" . $id . "'AND
-                            visitor='" . (int)$userID."'"
+                            visitor='" . $userID."'"
                 );
             } else {
                 safe_query(
@@ -721,37 +631,53 @@ echo '<ul class="nav nav-tabs">
         }
 
         if ($ds[ 'email_hide' ]) {
-            $email = $_language->module[ 'n_a' ];
+            $email = '';
         } else {
-            $email = '<a href="mailto:' . mail_protect($ds[ 'email' ]) .
-                '"><i class="fas fa-at fa-2x"></i></a>';
+            $email = '<td><a href="mailto:' . mail_protect($ds[ 'email' ]) .
+                '"><i class="fas fa-at"></i> eMail</a></td>';
         }
         $sem = '/[0-9]{4,11}/si';
+
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
+        if (@$dx[ 'modulname' ] != 'messenger') {
         
-        if ($loggedin && $ds[ 'userID' ] != $userID) {
-            $pm = '<a href="index.php?site=messenger&amp;action=touser&amp;touser=' . $ds[ 'userID' ] . '">
-                <i class="fas fa-comment fa-2x"></i></a>';
-            
+            $pm = '';
+
+
         } else {
-            $pm = $_language->module[ 'n_a' ];
+            $pm = '';
+
+            if ($loggedin && $ds[ 'userID' ] != $userID) {
+                $pm = '<td><a href="index.php?site=messenger&amp;action=touser&amp;touser=' . $ds[ 'userID' ] . '"><i class="fas fa-comment"></i> PM</a></td>';            
+            } else {
+                $pm = '';
+            }
+        }
+
+        if ($ds[ 'discord' ]) {            
+            $discord = '<td><i class="discord fab fa-discord"></i> '.$ds[ 'discord' ].'</td>';
+        } else {
+            $discord = '';        
         }
 
 
         if ($ds['homepage'] != '') {
             if (stristr($ds[ 'homepage' ], "https://")) {
-                $homepage = '<a href="' . htmlspecialchars($ds[ 'homepage' ]) . '" target="_blank" rel="nofollow"><i class="fas fa-globe-europe fa-2x"></i></a>';//https
+            //https
+                $homepage = '<td><a href="' . htmlspecialchars($ds[ 'homepage' ]) . '" target="_blank" rel="nofollow"><i class="fas fa-globe-europe"></i> Website</a></td>';
             } else {
-                $homepage = '<a href="http://' . htmlspecialchars($ds[ 'homepage' ]) . '" target="_blank" rel="nofollow"><i class="fas fa-globe-europe fa-2x"></i></a>';//http
+            //http
+                $homepage = '<td><a href="http://' . htmlspecialchars($ds[ 'homepage' ]) . '" target="_blank" rel="nofollow"><i class="fas fa-globe-europe"></i> Website</a></td>';
             }
         } else {
-            $homepage = $_language->module[ 'n_a' ];
+            $homepage = '';
         }
 
         if ($ds[ 'twitch' ] != '') {
             if (stristr($ds[ 'twitch' ], "https://")) {
-                $twitch = '<a href="' . htmlspecialchars($ds[ 'twitch' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitch fa-3x"></i></a>';
+                $twitch = '<a class="twitch" href="' . htmlspecialchars($ds[ 'twitch' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitch fa-3x"></i></a>';
             } else {
-                $twitch = '<a href="http://' . htmlspecialchars($ds[ 'twitch' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitch fa-3x"></i></a>';
+                $twitch = '<a class="twitch" href="http://' . htmlspecialchars($ds[ 'twitch' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitch fa-3x"></i></a>';
             }
         } else {
             $twitch = '';
@@ -759,9 +685,9 @@ echo '<ul class="nav nav-tabs">
 
         if ($ds[ 'youtube' ] != '') {
             if (stristr($ds[ 'youtube' ], "https://")) {
-                $youtube = '<a href="' . htmlspecialchars($ds[ 'youtube' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-youtube fa-3x"></i></a>';
+                $youtube = '<a class="youtube" href="' . htmlspecialchars($ds[ 'youtube' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-youtube fa-3x"></i></a>';
             } else {
-                $youtube = '<a href="http://' . htmlspecialchars($ds[ 'youtube' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-youtube fa-3x"></i></a>';
+                $youtube = '<a class="youtube" href="http://' . htmlspecialchars($ds[ 'youtube' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-youtube fa-3x"></i></a>';
             }
         } else {
             $youtube = '';
@@ -769,9 +695,9 @@ echo '<ul class="nav nav-tabs">
 
         if ($ds[ 'twitter' ] != '') {
             if (stristr($ds[ 'twitter' ], "https://")) {
-                $twitter = '<a href="' . htmlspecialchars($ds[ 'twitter' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitter-square fa-3x"></i></a>';
+                $twitter = '<a class="twitter" href="' . htmlspecialchars($ds[ 'twitter' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitter-square fa-3x"></i></a>';
             } else {
-                $twitter = '<a href="http://' . htmlspecialchars($ds[ 'twitter' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitter-square fa-3x"></i></a>';
+                $twitter = '<a class="twitter" href="http://' . htmlspecialchars($ds[ 'twitter' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-twitter-square fa-3x"></i></a>';
             }
         } else {
             $twitter = '';
@@ -779,9 +705,9 @@ echo '<ul class="nav nav-tabs">
 
         if ($ds[ 'instagram' ] != '') {
             if (stristr($ds[ 'instagram' ], "https://")) {
-                $instagram = '<a href="' . htmlspecialchars($ds[ 'instagram' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-instagram fa-3x"></i></a>';
+                $instagram = '<a class="instagram" href="' . htmlspecialchars($ds[ 'instagram' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-instagram fa-3x"></i></a>';
             } else {
-                $instagram = '<a href="http://' . htmlspecialchars($ds[ 'instagram' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-instagram fa-3x"></i></a>';
+                $instagram = '<a class="instagram" href="http://' . htmlspecialchars($ds[ 'instagram' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-instagram fa-3x"></i></a>';
             }
         } else {
             $instagram = '';
@@ -789,9 +715,9 @@ echo '<ul class="nav nav-tabs">
 
         if ($ds[ 'facebook' ] != '') {
             if (stristr($ds[ 'facebook' ], "https://")) {
-                $facebook = '<a href="' . htmlspecialchars($ds[ 'facebook' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-facebook-square fa-3x"></i></a>';
+                $facebook = '<a class="facebook" href="' . htmlspecialchars($ds[ 'facebook' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-facebook-square fa-3x"></i></a>';
             } else {
-                $facebook = '<a href="http://' . htmlspecialchars($ds[ 'facebook' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-facebook-square fa-3x"></i></a>';
+                $facebook = '<a class="facebook" href="http://' . htmlspecialchars($ds[ 'facebook' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-facebook-square fa-3x"></i></a>';
             }
         } else {
             $facebook = '';
@@ -799,28 +725,23 @@ echo '<ul class="nav nav-tabs">
 
         if ($ds[ 'steam' ] != '') {
             if (stristr($ds[ 'steam' ], "https://")) {
-                $steam = '<a href="' . htmlspecialchars($ds[ 'steam' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-steam fa-3x"></i></a>';
+                $steam = '<a class="steam" href="' . htmlspecialchars($ds[ 'steam' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-steam fa-3x"></i></a>';
             } else {
-                $steam = '<a href="http://' . htmlspecialchars($ds[ 'steam' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-steam fa-3x"></i></a>';
+                $steam = '<a class="steam" href="http://' . htmlspecialchars($ds[ 'steam' ]) . '" target="_blank" rel="nofollow"><i class="fab fa-steam fa-3x"></i></a>';
             }
         } else {
             $steam = '';
         }
         
-        $firstname = $ds[ 'firstname' ];
-        if ($firstname == '') {
-            $firstname = $_language->module[ 'n_a' ];
-        }
-
-        $lastname = $ds[ 'lastname' ];
-        if ($lastname == '') {
-            $lastname = "";
-        }
+        if ($ds[ 'firstname' ] || $ds[ 'lastname' ]) {            
+            $firstname = '<td>'.$ds[ 'firstname' ].'';
+            $lastname = ''.$ds[ 'lastname' ].'</td>';
+        } else {
+            $firstname = '';
+            $lastname = '';         
+        }        
 
         $birthday = getformatdate(strtotime($ds['birthday']));
-        if ($birthday == '01.01.0001') {
-            $birthday = $_language->module[ 'n_a' ];
-        }
 
         if ($lastlogin == '01.01.1970 - 01:00') {
             $lastlogin = $_language->module[ 'n_a' ];
@@ -837,36 +758,46 @@ echo '<ul class="nav nav-tabs">
             );
         $cur = mysqli_fetch_array($res);
 
-        if ($cur[ 'age' ] == '2021') {
+        if ($cur[ 'age' ] == '2022') {
             $cur[ 'age' ] = $_language->module[ 'n_a' ];
         }
-        
-        $birthday = $birthday;
 
         $age = (int)$cur[ 'age' ];
 
-        
-        if ($ds[ 'gender' ] == "female") {
-            $gender = $_language->module[ 'female' ];
-        } elseif ($ds[ 'gender' ] == "male") {
-            $gender = $_language->module[ 'male' ];
-        } elseif ($ds[ 'gender' ] == "diverse") {
-            $gender = $_language->module[ 'diverse' ];
+        if ($birthday) {            
+            $birth_day = '<td>'.$birthday.' / '.$_language->module[ 'age' ].': '.$age.'</td>';
         } else {
-            $gender = $_language->module[ 'select_gender' ];
+            $birth_day = '';       
+        }
+
+        
+        if ($ds[ 'gender' ]) {
+            if ($ds[ 'gender' ] == "female") {
+                $gender = '<td>'.$_language->module[ 'female' ].'</td>';  
+            } elseif ($ds[ 'gender' ] == "male") {
+                $gender = '<td>'.$_language->module[ 'male' ].'</td>';  
+            } elseif ($ds[ 'gender' ] == "diverse") {
+                $gender = '<td>'.$_language->module[ 'diverse' ].'</td>';  
+            } else {
+                $gender = '';
+            }
+
+        } else {
+            $gender = '';
         }
         
                 
-        $town = $ds[ 'town' ];
-        if ($town == '') {
-            $town = $_language->module[ 'n_a' ];
+        if ($ds[ 'town' ]) {
+            $town = '<td>'.$ds[ 'town' ].'</td>';            
+        } else {
+            $town = '';
         }
 
 
         #----forumposts ----
         function getuserforumposts($userID)
         {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         '';
         } else {
@@ -874,7 +805,7 @@ echo '<ul class="nav nav-tabs">
         }
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $new_forum_posts = '<i  class="application fas fa-times"></i>';
         } else {
@@ -882,10 +813,10 @@ echo '<ul class="nav nav-tabs">
         }
 
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $usertype = '';
-        $rang = $_language->module[ 'n_a' ];
+        $rang = '';
         $specialrank = '';
         } else {
         
@@ -916,6 +847,7 @@ echo '<ul class="nav nav-tabs">
         }
 
         $specialrank = '';
+        $specialtype = "";
         $getrank = safe_query(
             "SELECT IF
                 (u.special_rank = 0, 0, CONCAT_WS('__', r.rank, r.pic)) as RANK
@@ -929,11 +861,16 @@ echo '<ul class="nav nav-tabs">
         if ($rank_data[ 'RANK' ] != '0') {
             $specialrank  = '<br/>';
             $tmp_rank = explode("__", $rank_data[ 'RANK' ], 2);
-            $specialrank .= $tmp_rank[0];
-            if (!empty($tmp_rank[1]) && file_exists("/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1])) {
-                $specialrank .= '<br/>';
-                $specialrank .= "<img src='/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1] . "' alt = '' />";
+            
+            #if (!empty($tmp_rank[1]) && file_exists("/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1])) {
+            if (!empty($tmp_rank[1]) && file_exists("includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1]) && deleteduser($ds[ 'userID' ]) == '0') {
+                #$special_rank .= '<br/>';
+                $specialrank .= "<img src='/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1] . "' alt = 'rank' />";
             }
+            $specialrank .= '<br/>';
+            $specialrank .= '<small>(';
+            $specialrank .= $tmp_rank[0];
+            $specialrank .= ')</small>';
         }
 
 
@@ -956,13 +893,12 @@ echo '<ul class="nav nav-tabs">
                 }
             }
         } else {
-            $games .= $_language->module[ 'n_a' ];
+            $games .= '';
         }
 
         /*-----------game images END--------------*/
 
         /*-----------squad images --------------*/
-
 
         $banner = ""; 
 
@@ -990,16 +926,13 @@ echo '<ul class="nav nav-tabs">
                    ';
 
                 } else {
-                $banner .= $_language->module[ 'n_a' ];
+                $banner .= '';
                 }
 
             }
             
         }
         /*-----------squad images END--------------*/ 
-
-
-
 
         if ($ds[ 'about' ]) {
             $about = $ds[ 'about' ];
@@ -1009,22 +942,22 @@ echo '<ul class="nav nav-tabs">
             $about = $translate->getTextByLanguage($about);
             
         } else {
-            $about = $_language->module[ 'n_a' ];
+            $about = '';
         }
 
         #----news ----
         function getusernewsposts($userID)
         {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='news'"));
-        if (@$dx[ 'modulname' ] != 'news') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
+        if (@$dx[ 'modulname' ] != 'news_manager') {
         $new_posts = '';
         } else {
         return mysqli_num_rows(safe_query("SELECT newsID FROM `" . PREFIX . "plugins_news` WHERE `poster` = " . (int)$userID));
         } 
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='news'"));
-        if (@$dx[ 'modulname' ] != 'news') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
+        if (@$dx[ 'modulname' ] != 'news_manager') {
         $new_posts = '<i  class="application fas fa-times"></i>';
         } else {
         $new_posts = getusernewsposts($ds['userID']);
@@ -1033,16 +966,16 @@ echo '<ul class="nav nav-tabs">
         #----news_comments ----
         function getusernewscomments($userID)
         {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='news'"));
-        if (@$dx[ 'modulname' ] != 'news') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
+        if (@$dx[ 'modulname' ] != 'news_manager') {
         '';
         } else {
         return mysqli_num_rows(safe_query("SELECT commentID FROM `" . PREFIX . "plugins_news_comments` WHERE `userID` = " . (int)$userID . " AND `type` = 'ne'"));
         }
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='news'"));
-        if (@$dx[ 'modulname' ] != 'news') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
+        if (@$dx[ 'modulname' ] != 'news_manager') {
         $news_comments = '<i  class="application fas fa-times"></i>';
         } else {
         $news_comments = getusernewscomments($ds['userID']);
@@ -1051,7 +984,7 @@ echo '<ul class="nav nav-tabs">
         #----forumtopics ----
         function getuserforumtopics($userID)
         {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         '';
         } else {
@@ -1059,7 +992,7 @@ echo '<ul class="nav nav-tabs">
         }
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $new_forum_topics = '<i  class="application fas fa-times"></i>';
         } else {
@@ -1068,14 +1001,14 @@ echo '<ul class="nav nav-tabs">
         
 
         #----messenger ----
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
         if (@$dx[ 'modulname' ] != 'messenger') {
         $pm_got = '<i  class="application fas fa-times"></i>';
         } else {
         $pm_got = $ds[ 'pmgot' ];
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
         if (@$dx[ 'modulname' ] != 'messenger') {
         $pm_sent = '<i  class="application fas fa-times"></i>';
         } else {
@@ -1083,6 +1016,7 @@ echo '<ul class="nav nav-tabs">
         }
 
         $lastvisits = "";
+        $id = $ds[ 'userID' ];
         $visitors = safe_query(
             "SELECT
                 v.*,
@@ -1097,28 +1031,44 @@ echo '<ul class="nav nav-tabs">
                 v.date DESC
                 LIMIT 0,5"
         );
+
         if (mysqli_num_rows($visitors)) {
             $n = 1;
             while ($dv = mysqli_fetch_array($visitors)) {
                 
                 $nicknamevisitor = $dv[ 'nickname' ];
-                if (isonline($dv[ 'visitor' ]) == "offline") {
-                    $statuspic = '<small>' . $_language->module[ 'offline' ] . '</small>';
+
+                if(isonline($dv[ 'visitor' ])=="offline") {
+                    $statuspic = '<span class="badge bg-danger">offline</span>';
                 } else {
-                    $statuspic = '<small>' . $_language->module[ 'online' ] . '</small>';
+                    $statuspic = '<span class="badge bg-success">online</span>';
                 }
+
                 $time = time();
+                
                 $visittime = $dv[ 'date' ];
 
                 $sec = $time - $visittime;
-                $days = $sec / 86400;                                // sekunden / (60*60*24)
-                $days = mb_substr($days, 0, mb_strpos($days, "."));        // kommastelle
+                $days = $sec / 86400;                               // sekunden / (60*60*24)
+                $days = mb_substr($days, 0, mb_strpos($days, "."));     // kommastelle
 
                 #$sec = $sec - $days * 86400;
+                if (is_numeric($days) && is_numeric(86400)) {
+                    $sec = ($sec - $days * 86400);
+                } else {
+                    // do some error handling...
+                }
+
                 $hours = $sec / 3600;
                 $hours = mb_substr($hours, 0, mb_strpos($hours, "."));
 
                 #$sec = $sec - $hours * 3600;
+                if (is_numeric($days) && is_numeric(3600)) {
+                    $sec = ($sec - $hours * 3600);
+                } else {
+                    // do some error handling...
+                }
+
                 $minutes = $sec / 60;
                 $minutes = mb_substr($minutes, 0, mb_strpos($minutes, "."));
 
@@ -1129,15 +1079,15 @@ echo '<ul class="nav nav-tabs">
                     $minutes = "";
                 } else {
                     $now = '';
-                    $days == 0 ? $days = "" : $days = $days . 'd';
-                    $hours == 0 ? $hours = "" : $hours = $hours . 'h';
+                    $days == 0 ? $days = "" : $days = $days . 'd / ';
+                    $hours == 0 ? $hours = "" : $hours = $hours . 'h / ';
                     $minutes == 0 ? $minutes = "" : $minutes = $minutes . 'm';
                 }
 
                 $lastvisits .= '<tr>
                 <td><a href="index.php?site=profile&amp;id=' . $dv[ 'visitor' ] . '">' .
                     $nicknamevisitor . '</a></td>
-                <td class="text-right"><small>' . $now . $days . $hours . '</small> ' . $statuspic . '</td>
+                <td class="text-end">'.$now.$days.$hours.$minutes.' '. $statuspic . '</td>
             </tr>';
 
                 $n++;
@@ -1155,7 +1105,7 @@ echo '<ul class="nav nav-tabs">
         $data_array['$firstname'] = $firstname;
         $data_array['$lastname'] = $lastname;
         $data_array['$gender'] = $gender;
-        $data_array['$birthday'] = $birthday;
+        $data_array['$birth_day'] = $birth_day;
         $data_array['$age'] = $age;
         $data_array['$town'] = $town;
         $data_array['$status'] = $status;
@@ -1164,6 +1114,7 @@ echo '<ul class="nav nav-tabs">
         $data_array['$email'] = $email;
         $data_array['$pm'] = $pm;
 
+        $data_array['$discord'] = $discord;
         $data_array['$homepage'] = $homepage;
         $data_array['$twitch'] = $twitch;
         $data_array['$youtube'] = $youtube;
@@ -1204,6 +1155,7 @@ echo '<ul class="nav nav-tabs">
         $data_array['$iemail'] = $_language->module[ 'iemail' ];
 
         $data_array['$social_media'] = $_language->module[ 'social-media' ];
+        $data_array['$lang_discord'] = $_language->module[ 'discord' ];
         $data_array['$lang_homepage'] = $_language->module[ 'homepage' ];
         $data_array['$media_about'] = $_language->module[ 'about' ];
         $data_array['$newsposts'] = $_language->module[ 'newsposts' ];
@@ -1218,9 +1170,9 @@ echo '<ul class="nav nav-tabs">
         $data_array['$latest_visitors'] = $_language->module[ 'latest_visitors' ];
         $data_array['$statistics'] = $_language->module[ 'statistics' ];
         
-$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
-    $awards = '';    
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
+            $awards = '';    
         } else {
 
         ######    Award System    ######
@@ -1280,15 +1232,15 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
         $communityribbon = '';
         $awards = '';
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $anzforumposts = '';
         } else {
         $anzforumposts = mysqli_num_rows(safe_query("SELECT poster FROM ".PREFIX."plugins_forum_posts WHERE poster='" . $id . "'"));
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='news'"));
-        if (@$dx[ 'modulname' ] != 'news') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
+        if (@$dx[ 'modulname' ] != 'news_manager') {
         $anznewsposts = '';
         } else {
         $anznewsposts = mysqli_num_rows(safe_query("SELECT poster FROM ".PREFIX."plugins_news WHERE poster='" . $id . "'"));
@@ -1304,8 +1256,8 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
         $membertime = $aktuell - $alt;
         $membertime = $membertime / 86400;
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
         $status = '';
         } else {
         $ds1 = mysqli_fetch_array(safe_query("SELECT * FROM ".PREFIX."plugins_user_award_settings"));
@@ -1391,8 +1343,8 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
         }
 
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='news'"));
-        if (@$dx[ 'modulname' ] != 'news') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
+        if (@$dx[ 'modulname' ] != 'news_manager') {
         $status = '';
         } else {
             if(getawardpoints('Kommentare',$awcomments) != '' ) {
@@ -1414,14 +1366,14 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
         }
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $status = '';
         } else {
             if($awcomments+$anzforumposts>=1000) $communityribbon='<img src="includes/plugins/useraward/images/userawards/dist_com_rib.png" width="80" height="100" border="0" title="Aktivit&auml;tsaward Plus - F&uuml;r mindestens 1000 Forenposts und Kommentare" />';
         }
         
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='clanwars'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
         if (@$dx[ 'modulname' ] != 'clanwars') {
         $playercws = '';
         } else {
@@ -1441,7 +1393,7 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
         }
 
         
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='clanwars'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
         if (@$dx[ 'modulname' ] != 'clanwars') {
         $playercws = '';
         } else {
@@ -1475,8 +1427,8 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
           $awards.='<img src="includes/plugins/useraward/images/userawards/awards_right.png" width="40" height="100" border="0" />'; 
         }
         
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='user_award'"));
-        if (@$dx[ 'modulname' ] != 'user_award') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
+        if (@$dx[ 'modulname' ] != 'useraward') {
         
         } else {
         $specialaward = '0';
@@ -1519,7 +1471,87 @@ $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE m
 
         $data_array['$award'] = $awards;
         
-        $template = $tpl->loadTemplate("profile","content", $data_array);
+        $template = $tpl->loadTemplate("profile","contentstart_one", $data_array);
+        echo $template;
+        
+        if($firstname != '' ) {
+          $template = $tpl->loadTemplate("profile","name", $data_array);
+          echo $template;  
+        }
+
+        if($birthday != '30.11.-0001') {
+          $template = $tpl->loadTemplate("profile","birthday", $data_array);
+          echo $template;  
+        }
+
+        if($gender != '' ) {
+          $template = $tpl->loadTemplate("profile","gender", $data_array);
+          echo $template;  
+        }
+        
+        if($town != '' ) {
+          $template = $tpl->loadTemplate("profile","town", $data_array);
+          echo $template;  
+        }
+
+        
+        if($discord != '' ) {
+          $template = $tpl->loadTemplate("profile","discord", $data_array);
+          echo $template;  
+        }
+
+        if($homepage != '' ) {
+          $template = $tpl->loadTemplate("profile","homepage", $data_array);
+          echo $template;  
+        }
+
+        if($pm != '') {
+          $template = $tpl->loadTemplate("profile","pm", $data_array);
+          echo $template; 
+        }  
+
+        if($ds[ 'email_hide' ] != '1' ) {
+          $template = $tpl->loadTemplate("profile","email", $data_array);
+          echo $template;  
+        }
+
+        $template = $tpl->loadTemplate("profile","contentstart_two", $data_array);
+        echo $template;
+
+        if($rang != '') {
+          $template = $tpl->loadTemplate("profile","usertitle", $data_array);
+          echo $template; 
+        }
+
+        $template = $tpl->loadTemplate("profile","contentstart_three", $data_array);
+        echo $template; 
+
+        if($facebook != '' || $twitter != '' || $twitch != '' || $youtube != '' || $instagram != '' || $steam != '') {
+          $template = $tpl->loadTemplate("profile","social", $data_array);
+          echo $template;  
+        }
+
+
+        if($games != '') {
+          $template = $tpl->loadTemplate("profile","games", $data_array);
+          echo $template;  
+        }
+
+        if($banner != '') {
+          $template = $tpl->loadTemplate("profile","squad", $data_array);
+          echo $template;  
+        }
+
+        if($about != '') {
+          $template = $tpl->loadTemplate("profile","about", $data_array);
+          echo $template;  
+        }
+
+
+
+
+
+        $template = $tpl->loadTemplate("profile","contentend", $data_array);
         echo $template;     
 } 
 } else {

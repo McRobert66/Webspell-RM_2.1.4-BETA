@@ -49,9 +49,9 @@ $language_array = Array(
   'you_can_use_html'=>'You can use HTML-Tags',
   'tags'=>'Tags',
   'options'=>'Options',
-  'info'=> '<div class="alert alert-warning" role="alert"><b>Voice Application:</b><br>
-The headline and the text must have a corresponding language tag, which looks like this.<br>{[de]} Überschrift und Text in deutscher Sprache.<br>
-{[en]} Heading and text in English.</div>'
+  'saved successfully'=>'saved successfully',
+  'delete_info'=>'Are you sure you want to remove this Static Page? <br><br>Everything will be permanently deleted.',
+  'editor_is_displayed' => 'Editor off / on'
 );
 
 

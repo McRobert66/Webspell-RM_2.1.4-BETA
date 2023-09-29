@@ -51,11 +51,6 @@ $language_array = array(
     'no_new_messages' => 'No new messages.',
     'one_new_message' => '<span style="color: #D7171A"> You have a new message. </span>',
     'x_new_message' => '<span style="color: #D7171A"> You have% new_messages% new messages. </span>',
-    /* 'info' => 'Please register and let's go!',
-    'info1' => 'You don't have a user account on our site yet?',
-    'info2' => 'Register for free',
-    'info3' => 'and take part in our community!',
-    'info4' => 'Create user account', */
     'cookie_title' => 'Accept cookies',
     'cookie_text' => 'To be able to use the full scope of the homepage, you have to accept cookies!',
     'info1' => 'Welcome back!',
@@ -68,7 +63,7 @@ $language_array = array(
     'reg' => 'Register here for free!',
     'forgotten_your_login' => 'You want to log in?',
     'info_login' => 'Before you start, you have to log in or register if you don´t have an account yet.',
-    'enter_your_email' => 'Enter your email',
-    'enter_password' => 'Enter your password'
+    'enter_your_email' => 'Enter your e-mail address',
+    'enter_password' => 'Enter password'
 );
 

@@ -51,7 +51,9 @@ $language_array = Array(
   'add_template'=>'Template hinzufügen',
   'banner'=>'Banner',
   'banner_to_big'=>'Banner ist zu groß',
-  'current_banner'=>'Aktueller Banner',
+   'image_too_big'=>'Logo ist zu groß',
+  'current_banner'=>'Aktuelles Logo in der Navigation',
+  'login_banner'=>'Aktuelles Hintergrungbild der Loginseite',
   'format_incorrect'=>'Das Format des Banner war falsch. Bitte lade nur Banner im *.gif, *.jpg oder *.png Format hoch.',
   'stylesheet'=>'Stylesheet',
   'stylesheet_info'=>'Lösche keine Klassen, wenn du nicht 100%ig sicher bist, was du damit tust!',
@@ -64,5 +66,31 @@ $language_array = Array(
   'modulname_info' => '(Wird zum Deinstallieren verwendet)',
   'version' => 'Version',
   'template_design' => 'Style ändern',
-  'template_design_info' => ' (Hier könnt ihr das Design / Style anpassen und habt Zugriff auf die globale Struktur und Formatierung Eurer Webseite. Der Designwizard gibt Euch den Zugriff auf die entsprechenden Bereiche bzw. Navigation, Body, Typography, Footer und Button.)'
+  'template_design_info' => ' (Hier könnt ihr das Design / Style anpassen und habt Zugriff auf die globale Struktur und Formatierung Eurer Webseite. Der Designwizard gibt Euch den Zugriff auf die entsprechenden Bereiche bzw. Navigation, Body, Typography, Footer und Button.)',
+  'template_active'=>'Template aktivieren',
+
+
+  'tooltip_1'=>'Navigation Hintergrundfarbe',
+  'tooltip_2'=>'Schriftgröße der Navigation',
+  'tooltip_3'=>'Border-Höhe über der Navigation',
+  'tooltip_4'=>'Border-Farbe über der Navigation',
+  'tooltip_5'=>'Farbe a:link - ein normaler, unbesuchter Link der Navigation',
+  'tooltip_6'=>'Farbe a:hover - ein Link, wenn der Benutzer die Maus darüber bewegt der Navigation',
+  'tooltip_7'=>'Farbe bg a:hover - der Hintergrund bei einem Link, wenn der Benutzer die Maus darüber bewegt der Navigation',
+
+  'tooltip_8'=>'Farbe Sub a:link - ein normaler, unbesuchter Link der Sub-Navigation',
+  'tooltip_9'=>'Farbe Sub a:hover - ein Link, wenn der Benutzer die Maus darüber bewegt der Sub-Navigation',
+  'tooltip_10'=>'Hintergrundfarbe der Sub-Navigation',
+  'tooltip_11'=>'Farbe Sub bg a:hover - der Hintergrund bei einem Link, wenn der Benutzer die Maus darüber bewegt der Sub-Navigation',
+
+  'tooltip_12'=>'Name deiner Webseite (oder leer lassen für nichts anzeigen)',
+  'tooltip_13'=>'Slogan der Webseite (oder leer lassen für nichts anzeigen)',
+  'tooltip_14'=>'Farbe die über das Login-Hintergrungbild gelegt wird',
+  'tooltip_15'=>'Schriftfarbe auf der linken Seite der Loginpage',
+
+  'tooltip_16'=>'Template mit allen Ordnern und Daten werden gelöscht',
+
+  'really_delete_background_pic'=>'Dieses Background Picture wirklich löschen?',
+  'background_pic'=>'Background Picture',
+  'delete_background_pic'=>'Background Picture löschen'
 );

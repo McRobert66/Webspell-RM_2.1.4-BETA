@@ -61,25 +61,25 @@ if ($action == "add") {
      <div class="card-body">';
 	
 	echo'<form class="form-horizontal" method="post" action="admincenter.php?site=settings_games" enctype="multipart/form-data">
-	<div class="form-group row">
+	<div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['game_icon'] . ':</label>
     <div class="col-md-8">
       <input class="btn btn-info" name="icon" class="form-control-file" type="file" size="40" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['game_name'] . ':</label>
     <div class="col-md-8">
       <input class="form-control" type="text" name="name" maxlength="255" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['game_tag'] . ':</label>
     <div class="col-md-8">
       <input class="form-control" type="text" name="tag" size="7" maxlength="10" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <div class="col-md-offset-2 col-md-10">
 		<input type="hidden" name="captcha_hash" value="'.$hash.'" />
 		<button class="btn btn-success" type="submit" name="save"  />' . $_language->module['add'] . '</button>
@@ -125,31 +125,31 @@ if ($action == "add") {
 	echo'<form class="form-horizontal" method="post" action="admincenter.php?site=settings_games" enctype="multipart/form-data">
   <input type="hidden" name="gameID" value="' . $ds['gameID'] . '" />
   
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['present_icon'] . ':</label>
     <div class="col-md-8">
       <p class="form-control-static">'.$gameicon.'</p>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['game_icon'] . ':</label>
     <div class="col-md-8">
       <input class="btn btn-info" name="icon" class="form-control-file" type="file" size="40" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['game_name'] . ':</label>
     <div class="col-md-8">
       <input class="form-control" type="text" name="name" maxlength="255" value="' . getinput($ds['name']) . '" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <label class="col-md-2 control-label">' . $_language->module['game_tag'] . ':</label>
     <div class="col-md-8">
       <input class="form-control" type="text" name="tag" size="7" maxlength="10" value="' . getinput($ds['tag']) . '" />
     </div>
   </div>
-  <div class="form-group row">
+  <div class="mb-3 row">
     <div class="col-md-offset-2 col-md-10">
 		<input type="hidden" name="captcha_hash" value="' . $hash . '" />
 		<button class="btn btn-warning" type="submit" name="saveedit"  />' . $_language->module['edit'] . '</button>
@@ -346,7 +346,7 @@ if ($action == "add") {
 
 <div class="card-body">
 
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
     <div class="col-md-8">
       <a href="admincenter.php?site=settings_games&amp;action=add" class="btn btn-primary" type="button">' . $_language->module[ 'new_game_submit' ] . '</a>
@@ -394,7 +394,30 @@ if ($action == "add") {
         <th>' . getinput($ds['tag']) . '</th>
         <th><a href="admincenter.php?site=settings_games&amp;action=edit&amp;gameID=' . $ds['gameID'] . '" class="btn btn-warning" type="button">' . $_language->module[ 'edit' ] . '</a>
 
-         <input class="btn btn-danger" type="button" onclick="MM_confirm(\'' . $_language->module['really_delete'] . '\', \'admincenter.php?site=settings_games&amp;delete=true&amp;gameID=' . $ds['gameID'] . '&amp;captcha_hash=' . $hash . '\')" value="' . $_language->module['delete'] . '" />  
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_games&amp;delete=true&amp;gameID=' . $ds['gameID'] . '&amp;captcha_hash=' . $hash . '">
+    ' . $_language->module['delete'] . '
+    </button>
+    <!-- Button trigger modal END-->
+
+     <!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'games' ] . '</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
 
        </th>
       </tr>';

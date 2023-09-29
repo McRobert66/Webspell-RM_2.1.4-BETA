@@ -35,6 +35,8 @@ if ($loggedin && $cookievalue == 'accepted') {
     if ($userID && !isset($_GET[ 'userID' ]) && !isset($_POST[ 'userID' ])) {
         $data_array = array();
         $data_array['$title'] = $_language->module[ 'overview' ];
+        $data_array['$subtitle']='Overview';
+
         $template = $tpl->loadTemplate("loginoverview", "head", $data_array);
         echo $template;
         $ds = mysqli_fetch_array(
@@ -45,19 +47,97 @@ if ($loggedin && $cookievalue == 'accepted') {
                     WHERE `userID` = " . $userID
             )
         );
-        $username = '<a class="btn btn-info btn-sm" href="index.php?site=profile&amp;id=' . $userID . '"><i class="fa fa-user"></i> ' . getnickname($userID) . '</a>';
+        $username = '<h2>' . getnickname($userID) . '</h2>';
+        $to_profil = '<a class="btn btn-info btn-sm" href="index.php?site=profile&amp;id=' . $userID . '">'.$_language->module[ 'to_profil' ].'</a>';
         $lastlogin = getformatdatetime($ds[ 'lastlogin' ]);
         $registerdate = getformatdatetime($ds[ 'registerdate' ]);
 
+        #$id = $ds[ 'userID' ];
+
+        if ($getuserpic = getuserpic($userID)) {
+            $userpic = '<img style="width: 250px;height: 250px;border-radius: 100%; vertical-align:middle;" class="img-fluid rounded-circle" src="images/userpics/' . $getuserpic . '" alt="">';
+        } else {
+            $userpic = '';
+        }
+
+        if (isclanmember($userID)) {
+            $member = '<i class="fa fa-user" style="color: #5cb85c"></i> '.$_language->module[ 'clanmember' ].' ';
+        } else {
+            $member = '';
+        }
+
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+        if (@$dx[ 'modulname' ] != 'forum') {
+        $usertype = '';
+        $rang = '';
+        $special_rank = '';
+        } else {
+        
+        if (isforumadmin($ds[ 'userID' ])) {
+            $usertype = $_language->module[ 'administrator' ];
+            $rang = '<img src="/includes/plugins/forum/images/icons/ranks/admin.png" alt="">';
+        } elseif (isanymoderator($ds[ 'userID' ])) {
+            $usertype = $_language->module[ 'moderator' ];
+            $rang = '<img src="/includes/plugins/forum/images/icons/ranks/moderator.png" alt="">';
+        } else {
+            $posts = getuserforumposts($ds[ 'userID' ]);
+            
+            $ergebnis =
+                safe_query(
+                    "SELECT
+                        *
+                    FROM
+                        " . PREFIX . "plugins_forum_ranks
+                    WHERE
+                        " . $posts . " >= postmin AND
+                        " . $posts . " <= postmax AND
+                        postmax > 0 AND
+                        special='0'"
+                );
+            $dt = mysqli_fetch_array($ergebnis);
+            $usertype = $dt[ 'rank' ];
+            $rang = '<img src="/includes/plugins/forum/images/icons/ranks/' . $dt[ 'pic' ] . '" alt="">';
+        }
+
+        $special_rank = '';
+        $specialtype = "";
+        $getrank = safe_query(
+            "SELECT IF
+                (u.special_rank = 0, 0, CONCAT_WS('__', r.rank, r.pic)) as RANK
+            FROM
+                " . PREFIX . "user u LEFT JOIN " . PREFIX . "plugins_forum_ranks r ON u.special_rank = r.rankID
+            WHERE
+                userID='" . $ds[ 'userID' ] . "'"
+        );
+        $rank_data = mysqli_fetch_assoc($getrank);
+
+        if ($rank_data[ 'RANK' ] != '0') {
+            $special_rank  = '<br/>';
+            $tmp_rank = explode("__", $rank_data[ 'RANK' ], 2);
+            
+            #if (!empty($tmp_rank[1]) && file_exists("/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1])) {
+            if (!empty($tmp_rank[1]) && file_exists("includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1]) && deleteduser($ds[ 'userID' ]) == '0') {
+                #$special_rank .= '<br/>';
+                $special_rank .= "<img src='/includes/plugins/forum/images/icons/ranks/" . $tmp_rank[1] . "' alt = 'rank' />";
+            }
+            $special_rank .= '<br/>';
+            $special_rank .= '<small>(';
+            $special_rank .= $tmp_rank[0];
+            $special_rank .= ')</small>';
+        }
+
+
+        }
+
         //messages?
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
         if (@$dx[ 'modulname' ] != 'messenger') {
         $newmessages = '';
         } else {
         $newmessages = $newmessages = getnewmessages($userID);
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
         if (@$dx[ 'modulname' ] != 'messenger') {
         $button_newmessages = '';
         } else {
@@ -81,7 +161,7 @@ if ($loggedin && $cookievalue == 'accepted') {
         $button_newmessages = $_language->module[ 'button_no_new_messages' ];
     }
 
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
         if (@$dx[ 'modulname' ] != 'messenger') {
         $new_messages = '';
         } else {
@@ -92,7 +172,7 @@ if ($loggedin && $cookievalue == 'accepted') {
     </tr>';*/
     }
 
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
         if (@$dx[ 'modulname' ] != 'messenger') {
         $new_messages_button = '';
         } else {
@@ -102,7 +182,7 @@ if ($loggedin && $cookievalue == 'accepted') {
 
     #--------------------------------------
 
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='calendar'"));
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='calendar'"));
         if (@$dx[ 'modulname' ] != 'calendar') {
         $upcoming = '';
         } else {    
@@ -220,7 +300,7 @@ if ($loggedin && $cookievalue == 'accepted') {
     }
     unset($events);
 #}
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='calendar'"));
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='calendar'"));
         if (@$dx[ 'modulname' ] != 'calendar') {
         $upcoming = '';
         } else {    
@@ -262,7 +342,7 @@ if ($loggedin && $cookievalue == 'accepted') {
 
         }
         }
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='calendar'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='calendar'"));
                 if (@$dx[ 'modulname' ] != 'calendar') {
                 $kalender = '';
                 } else {    
@@ -276,33 +356,28 @@ if ($loggedin && $cookievalue == 'accepted') {
         }
 
 
-        $edit_account = '<li class="list-inline-item"><div class="p-2">
-        <a class="btn btn-warning" href="index.php?site=myprofile"><i class="fas fa-user-cog"></i>  '.$_language->module[ 'edit_account' ].'</a>
-        </div></li>';
+        $edit_account = '<a class="btn btn-warning" href="index.php?site=myprofile"><i class="fas fa-user-cog"></i>  '.$_language->module[ 'edit_account' ].'</a>';
 
-        $logout = '<li class="list-inline-item"><div class="p-2"><a class="btn btn-danger" href="index.php?site=logout"><i class="fas fa-sign-out-alt"></i> '.$_language->module[ 'logout' ].'</a>
-        </div></li>';
+        $logout = '<a class="btn btn-danger" href="index.php?site=logout"><i class="fas fa-sign-out-alt"></i> '.$_language->module[ 'logout' ].'</a>';
 
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='cashbox'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='cashbox'"));
         if (@$dx[ 'modulname' ] != 'cashbox') {
         $cash_box = '';
         } else {
             if (isclanmember($userID)) {
-                $cash_box = '<li class="list-inline-item"><div class="p-2"><a class="btn btn-info" href="index.php?site=cashbox">
-                    <i class="far fa-money-bill-alt"></i> '.$_language->module[ 'cashbox' ].'</a></div></li>';
+                $cash_box = '<a class="btn btn-info" href="index.php?site=cashbox"><i class="far fa-money-bill-alt"></i> '.$_language->module[ 'cashbox' ].'</a>';
             } else {
                 $cash_box = '';
         }        
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='gallery'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='gallery'"));
         if (@$dx[ 'modulname' ] != 'gallery') {
         $usergallery = '';
         } else {
             if (isclanmember($userID)) {
-                $usergallery = '<li class="list-inline-item"><div class="p-2"><a class="btn btn-warning" href="index.php?site=usergallery">
-                    <i class="fas fa-images"></i> '.$_language->module[ 'usergalleries' ].'</a></div></li>';
+                $usergallery = '<a class="btn btn-warning" href="index.php?site=usergallery"><i class="fas fa-images"></i> '.$_language->module[ 'usergalleries' ].'</a>';
             } else {
                 $usergallery = '';
         }        
@@ -312,18 +387,15 @@ if ($loggedin && $cookievalue == 'accepted') {
   #----------------------------------------------  
         //clanmember/admin/referer
 
-    if (isanyadmin($userID)) {
+        if (isanyadmin($userID)) {
             $admincenterpic =
-                '<li class="list-inline-item"><div class="p-2"><a class="btn btn-dark" href="admin/admincenter.php" target="_blank">
-                    <i class="fas fa-cogs"></i> '.$_language->module[ 'admin' ].'</a></div></li>';
+                '<a class="btn btn-dark" href="admin/admincenter.php" target="_blank"><i class="fas fa-cogs"></i> '.$_language->module[ 'admin' ].'</a>';
         } else {
             $admincenterpic = '';
         }
 
         if (isset($_SESSION[ 'referer' ])) {
-            $referer_uri = '<a class="btn" href="' . $_SESSION[ 'referer' ] . '">
-                <i class="fas fa-chevron-left"></i> ' .
-                $_language->module[ 'back_last_page' ] . '</a>';
+            $referer_uri = '<a class="btn" href="' . $_SESSION[ 'referer' ] . '"><i class="fas fa-chevron-left"></i> ' . $_language->module[ 'back_last_page' ] . '</a>';
             unset($_SESSION[ 'referer' ]);
         } else {
             $referer_uri = '';
@@ -343,6 +415,13 @@ if ($loggedin && $cookievalue == 'accepted') {
         $data_array['$cash_box'] = $cash_box;
         $data_array['$usergallery'] = $usergallery;
         $data_array['$logout'] = $logout;
+        $data_array['$userpic'] = $userpic;
+        $data_array['$to_profil'] = $to_profil;
+        $data_array['$member'] = $member;
+
+        $data_array['$usertype'] = $usertype;
+        $data_array['$rang'] = $rang;
+        $data_array['$specialrank'] = $special_rank;
         
         $data_array['$buddy_list'] = $_language->module[ 'buddy_list' ];
         $data_array['$messenger'] = $_language->module[ 'messenger' ];

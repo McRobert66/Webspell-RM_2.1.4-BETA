@@ -1,8 +1,10 @@
 <!-- myprofile_head -->
 <div class="head-boxes">
+    <span class="head-boxes-head">$title</span>
 <h2 class="head-h2">
-    <span class="head-boxes-title">$profile_info</span>
+    <span class="head-boxes-title">$title</span>
 </h2>
+<p class="head-boxes-foot">$subtitle</p>
 </div>
 <!-- END -->
 <!-- myprofile_content -->
@@ -50,15 +52,19 @@
 
 <div class="row">
 
-<div class="col-md-12">
-    <div class="form-group">
-        <label for="nickname" class="control-label">$nick_name:<font color="#DD0000">*</font></label>
-        <input type="text" name="nickname" id="nickname" value="$nickname" maxlength="30" autocomplete="nickname" class="form-control">
-        
-    </div>
-</div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nickname" class="control-label">$nick_name:<font color="#DD0000">*</font></label>
+            </div>
+        </div>
+        <div class="col-md-9"> 
+            <div class="form-group">
+                <input type="text" name="nickname" id="nickname" value="$nickname" maxlength="30" autocomplete="nickname" class="form-control">
+                
+            </div>
+        </div>
 
-
+<div style="padding: 10px;"><hr></div>  
 
 
     
@@ -75,38 +81,39 @@
             <a href="index.php?site=myprofile&amp;action=deleteaccount" class="btn btn-danger">$del_acc</a>
         </div>
     
-<div class="col-md-12"><br><br></div>   
+<div style="padding: 10px;"><hr></div>   
 
  
    
-     
-        <div class="col-md-3">
-            
+    
+        <div class="col-md-3">            
             <div class="form-group">
-                <label for="avatar" class="control-label">$viewavatar<br>
-                <input name="delavatar" type="checkbox" value="1"> <small>$delete</small></label>
+                <label for="avatar" class="control-label">$lang_avatar</label>
+            </div>$viewpic
+        </div>
+        <div class="col-md-9" style="margin-top: 20px;"> 
+            <div class="form-group">                
+                <input class="btn btn-info" name="avatar" type="file"><br><span class="help-block">$or</span>
+                <input name="avatar_url" type="text" placeholder="https://" class="form-control">
+                <span class="help-block">(max: 480px / 480px)</span><br>
+                <input name="delavatar"  type="checkbox" class="form-check-input" value="1"> $lang_avatar$delete
             </div>
         </div>
-        <div class="col-md-9">
-            <div class="form-group">
-                <input name="avatar" type="file"><br><span class="help-block">$or</span>
-                <input name="avatar_url" type="text" placeholder="http://" class="form-control">
-                <span class="help-block">max: 100px / 100px</span>
-            </div>
-        </div>
-    
+<div style="padding: 10px;"><hr></div>  
         <div class="col-md-3">
             <div class="form-group">
-                <label for="userpic" class="control-label">$viewpic<br>
-                <input name="deluserpic" type="checkbox" value="1"> <small>$delete</small></label>
-        </div></div>
-        <div class="col-md-9">
-                <input name="userpic" type="file"><br><span class="help-block">$or</span>
-                <input name="userpic_url" type="text" placeholder="http://" class="form-control">
-                <span class="help-block">max: 285px / 250px</span>
-            </div></div>
-
-    
+                <label for="userpic" class="control-label">$lang_userpic</label>
+            </div>$viewavatar
+        </div>
+        <div class="col-md-9" style="margin-top: 20px;">                
+                <input class="btn btn-info" name="userpic" type="file"><br><span class="help-block">$or</span>
+                <input name="userpic_url" type="text" placeholder="https://" class="form-control">
+                <span class="help-block">(max: 480px / 480px)</span><br>
+                <input name="deluserpic"  type="checkbox" class="form-check-input" value="1"> $lang_userpic $delete
+            </div>
+        </div>
+    <hr>
+   
     
 
     
@@ -161,8 +168,6 @@
 <div class="col-md-6">
     <div class="form-group">
         <label for="bday" class="control-label">$date_of_birth:<font color="#DD0000">*</font></label>
-
-        <!--<input id="bday" class="form-control" placeholder="yyyy-mm-dd" value="$birthday" name="birthday" type="date">-->
         <input type="date" class="form-control input-lg" name="birthday" value="$birthday" required="true">
         
     </div>
@@ -213,10 +218,13 @@
     $newsletter    
     <div class="form-group">
         <label for="email_hide" class="control-label">$hide_e-mail</label>
-
-        <!--<input id="mail-hide" type="checkbox" name="mail_hide" placeholder="1" $email_hide>-->
         <select id="email_hide" name="email_hide" class="form-select">$email_hide</select>
        
+
+    </div>
+    <div class="form-group">
+        <label for="discord" class="control-label">$lang_discord</label>
+       <input id="discord" type="text" name="discord" value="$discord" class="form-control">
 
     </div>
   </div>
@@ -316,30 +324,20 @@
     <div class="row">
 <div class="col-md-12">
 
-    <select name="games[]" multiple="multiple" cols="70" rows="15" class="form-select" value="$town">
-                    $games
-                </select>
-
-
-    
+    <select name="games[]" multiple="multiple" cols="70" rows="15" class="form-select" value="$town" style="height: 200px">
+        $games
+    </select>    
 
 <br />
 </div>
 
 
-
-
-
-
-
-
-
     <div class="col-md-12">
        
-         <b>$lang_hint </b><br />
+         <b>$lang_hint</b><font color="#DD0000">*</font><br />
           <blockquote>
-            <input type="checkbox" class="form-check-input" id="accept_gdpr" value="0"> $lang_GDPRinfo <br /><br />
-            <a class="btn btn-primary" href="index.php?site=privacy_policy">$lang_privacy_policy</a>
+            <input type="checkbox" class="form-check-input" id="accept_gdpr" value="0"> $lang_GDPRinfo<!-- <br /><br />
+            <a href="index.php?site=privacy_policy">$lang_privacy_policy</a>-->
           </blockquote>
     
     <br />
@@ -363,7 +361,7 @@
 <form method="post" action="index.php?site=myprofile" class="form-horizontal" role="form">
     
 
-    <div class="form-group">
+    <div class="form-group row mb-3">
         <label for="oldpwd" class="col-lg-3 control-label">$old_password:</label>
 
         <div class="col-lg-9">
@@ -371,7 +369,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row mb-3">
         <label for="pwd1" class="col-lg-3 control-label">$new_password:</label>
 
         <div class="col-lg-9">
@@ -379,7 +377,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row mb-3">
         <label for="pwd2" class="col-lg-3 control-label">$repeat_new_password:</label>
 
         <div class="col-lg-9">
@@ -387,13 +385,13 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-xs-6">
+    <div class="form-group row mb-3">
+        <div class="col-lg-6">
             <a href="index.php?site=myprofile" class="btn btn-primary">
                 <span class="icon icon-reply"></span> $back
             </a>
         </div>
-        <div class="col-xs-6 text-right">
+        <div class="col-lg-6 text-end">
             <input type="hidden" name="id" placeholder="$userID">
             <input type="submit" name="savepwd" placeholder="$change_password" class="btn btn-danger">
         </div>
@@ -408,7 +406,7 @@
 <form method="post" action="index.php?site=myprofile" class="form-horizontal" role="form">
     
 
-    <div class="form-group">
+    <div class="form-group row mb-3">
         <label for="oldpwd" class="col-lg-3 control-label">$password:</label>
 
         <div class="col-lg-9">
@@ -416,7 +414,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row mb-3">
         <label for="mail1" class="col-lg-3 control-label">$new_email:</label>
 
         <div class="col-lg-9">
@@ -424,7 +422,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row mb-3">
         <label for="mail2" class="col-lg-3 control-label">$repeat_new_email:</label>
 
         <div class="col-lg-9">
@@ -432,13 +430,13 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-xs-6">
+    <div class="form-group row mb-3">
+        <div class="col-lg-6">
             <a href="index.php?site=myprofile" class="btn btn-primary">
                 <span class="icon icon-reply"></span> $back
             </a>
         </div>
-        <div class="col-xs-6 text-right">
+        <div class="col-lg-6 text-end">
             <input type="hidden" name="userid" placeholder="$userID">
             <input type="submit" name="savemail" placeholder="$change_mail" class="btn btn-danger">
         </div>
@@ -452,21 +450,21 @@
 <form method="post" action="index.php?site=myprofile" class="form-horizontal" role="form">
     $del_realy<br><br>
 
-    <div class="form-group">
-        <label for="pwd" class="control-label">$password:</label>
-
+    <div class="form-group row mb-3">
+        <label for="pwd" class="col-lg-3 control-label">$password:</label>
+       <div class="col-lg-9">
         <input type="password" name="pwd" id="pwd" class="form-control">
-       
+       </div>
        
     </div>
 
-    <div class="form-group">
-        <div class="col-xs-1">
+    <div class="form-group row mb-3">
+        <div class="col-lg-6">
             <a href="index.php?site=myprofile" class="btn btn-primary">
                 <span class="icon icon-reply"></span> $back
             </a>
         </div>
-        <div class="col-xs-4 text-right">
+        <div class="col-lg-6 text-end">
             <input type="hidden" name="id" placeholder="$userID">
             <input type="submit" name="deleteAccount" placeholder="$del_acc" class="btn btn-danger">
         </div>

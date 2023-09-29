@@ -134,7 +134,8 @@ $language_array = array(
     'you_have_to_nickname' => 'Du musst einen Nickname angeben!',
     'you_have_to_username' => 'Du musst einen Benutzernamen angeben!',
     'you_have_to_valid_email' => 'Die E-Mail Adresse ist nicht korrekt!',
-    'youtube' => 'Youtube'
+    'youtube' => 'Youtube',
+     'discord' => 'Discord'
 
 );
 

@@ -1,4 +1,7 @@
 /* Main Layout */
+.logo .bg-primary {
+background-color: transparent !important;
+}
 
 
 

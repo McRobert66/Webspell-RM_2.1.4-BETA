@@ -59,9 +59,8 @@ $language_array = Array(
   'no_additional_links_available'=>'Es gibt keine zusätzlichen Links',
   'dropdown'=>'Dropdown-Menü',
   'no_additional_links_available'=>'Es gibt keine zusätzlichen Links',
-  'info'=> '<div class="alert alert-warning" role="alert"><b>Sprachanwendung:</b><br>
-In dem Navi Name muss ein entsprechender Sprach-Tag hinterlegt werden, was wie folgt aussieht.<br>{[de]} Navi-Name in deutscher Sprache.<br>
-{[en]} Navi-Name in English.</div>',
+  'info' => 'Die angefragte Seite konnte nicht gefunden werden. <i><b>Aktiviere ein Template im Dashbord!</b></i>',
+  'activate_template' => 'Template aktivieren',
 'delete_info_link'=>'Möchten Sie diesen Link wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.',
 'delete_info_category'=> 'Möchten Sie diesen Kategorie wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.'
 

@@ -1,10 +1,108 @@
+### WEBSPELL | RM - Release: 2.1.3 (06.08.2023)
+---------------------------------------------------------------------
++ /Umbau der Plugin und Widget Konfiguration (vereinfachte install/update Datei, Zuordnung)
++ /admin/plugin_manager.php         -> Widgets positionieren (früher im Widget-Manager und Modul-Einstellung)
+                                    -> Plugin aktivieren für das aktive Templete (früher im Modul-Einstellung) 
+                                    -> bei Pluginfehler direktes neu Install möglich
+                                    -> Widget Bereichseinstellung vordefiniert (settings_select_widget.php)
+                                    -> es kann jetzt nur noch eine Navigation aktiviert werden
+                                    -> Widget css / js werden erst bei der Zuweisung geladen 
+
++ /admin/settings_widgets.php       -> Sotierung der Widgets für die index,
+                                    -> es ist nur noch die Sortierung der Widgets möglich
+
++ /admin/settings_templates.php     -> Farbeinstellung für das Template angepasst und verknüpft mit Bootstrap, 
+                                    -> Hintergrundgrafik hochladbar
+                                    -> 10 verschiedene Überschriften stehen zur Wahl
+                                    -> einige Anpassungen durchgeführt
+                                    -> Löschfunktion
+                                    -> Pfadname muss separat angegeben werden (getroffene Seiten angepasst) 
+
++ /includes/modules/navigation.php  -> es erscheint keine Kategorie / Link in der Navigation, wenn das Plugin für das Template nicht aktiviert wurde
+
++ /admin/settings_startpage.php     -> Editor ein und ausschaltbar
+
++ /admin/settings_static.php        -> Editor ein und ausschaltbar
+
++ /admin/welcome_page.php           -> neue Begrüssungsseite (in Allgemeine Einstellungen / Startseite wählen)
+
++ user -> usertext (signature)      -> von varchar(255) in text geändert. Langer Text jetzt möglich
+
++ /includes/modules/profile.php     -> Spezialrank hinzugefügt
+                                    -> Discord hinzugefügt
+                                    -> Bug in der Statistik entfernt
+                                    -> nicht ausgefüllte Felder werden ausgeblendet
+
++ /includes/modules/myprofile.php   -> Avatar und Userpic auf 480x480 vergrößert                                   
+
+- /admin/settings_modules.php       -> gelöscht (in den Plugin-Manager implantiert)
+
++ /admin/plugin_installer.php       -> automatische Auswahl Alpha-Beta Server zum download
+                                    -> Design angepasst
+
++ /admin/template_installer.php     -> automatische Auswahl Alpha-Beta Server zum download
+                                    -> Design angepasst
+
++ /admin/update.php                 -> automatische Auswahl Alpha-Beta Server zum download
+
++ /admin/settings_headelements      -> Designanpassungen vorgenommen (/system/content.php)
+                                    -> jedes Element ein und ausschaltbar
+                                    -> Infotext hinzugefügt
+                                    -> Seiten in einem form-select vorgegeben
+
++ /lock.php                         -> neues Design
+                                    -> Die Seite befindet sich im Wartungsmodus. Wird auf der Seite für die Admins angezeigt, wenn die Seite gesperrt wurde
+
++ /system/func/tags.php             -> Systemfehler bereinigt. Tags für News, Articles, Static und FAQ möglich.
+
++ Plugin-Name wurde geändert        -> (News -> News_manager, nletter -> newsletter)
++ /system/plugin.php                -> jetzt kann man auch Widgets direkt in die index.php einbinden (zB: get_widget('about_us','plugin_widget1');)
+
++ Komplettes Admincenter auf die Bootstrap 5 Ver. angepasst
++ Kompatibel mit PHP 8.2
++ Login, Register und Lostpassword  -> Neues Design
++ alle Templates wurden durch die Änderung in der settings_templates.php angepasst
++ Das Problem mit abgeschnittenen Texten bei einer Formatierung wurde behoben.
+
+
+Pluginänderungen:
+Alle Plugins:       Sind kompatibel mit der neuen Überschriftseinstellung und wurden im Dashbord in der Navi neu sortiert
+Forum:              Spezialrank hinzugefügt, Umfrageanzeige angepasst
+Candidature:        Änderung der Eingabefelder
+Joinus:             Änderung der Eingabefelder
+Newsletter Widget:  Text hinzugefügt
+News:               Darstellungsfehler bei re-comment beseitigt, ein Weiteres Plugin
+News Headlines:     Datumsdarstellung angepasst
+Streams:            Generelle Darstellung angepasst 
+Textslider:         Angepasst mit Hintergrundgrafik
+Fact:               Hintergrundgrafik und Code angepasst
+Ticketcenter:       Linkfehler bereinigt
+Portfolio:          Pic automatische Anpassung, Zufallssortierung
+Clan-Kasse:         Info Ausgabe wurde hinzugefügt
+Navigation Agency:  Pic über Admincenter wechselbar
+Useronline:         Die Zeit angepasst
+Projectlist:        Um viele Punkte erweitert
+Shoutbox Widget:    Angepasst und man bleibt auf der Seite nach dem posten seiner Nachricht. Nicht reg. user schreibrecht ja/nein einstellbar
+Search:             Kein Suchergebnis bei deaktivierten Plugins
+Quicksuche:         Durchsucht jetzt die ganze Webseite. Kein Suchergebnis bei deaktivierten Plugins
+Userlist:           Widget Neueste Mitglieder / Reg.Datum (heute, gestern, Datum) 
+Clanwar:            Fehler bereinigt. Design der Detailansicht geändert. Neu: Bisherige Begegnungen
+Calender:           Widget-Veranstalltung hinzugefügt, Darstellungsfehler bereinigt, Design angepasst 
+Blog:               Neues modernes Aussehen, Bild hochladbar, Anzahl der Beiträge auf der Blogstartseite im Dashbord einstellbar
+FAQ:                Design überarbeitet
+Squads:             Widget Squads_Roster angepasst, zwei verschiedene Ansichten auswählbar
+Articles:           Hat jetzt eine Kommentarfunktion und ein Widget wurde hinzugefügt
+Gallery:            Mit der Kommentarfunktion erweitert
+
+
+
+
+
 ### WEBSPELL | RM - Release: 2.1.2 (24.02.2023)
 ---------------------------------------------------------------------
 
 + /admin/update.php -> RM-Update jetzt mit PHP 8.1 und Zugang FTP / FTPS / SFTP möglich.
-+ /admin/info.php
-+ /system/func/dc.php
-+ /system/func/update_base.php
+
 
 ### WEBSPELL | RM - Release: 2.1.1 (25.08.2022)
 ---------------------------------------------------------------------
@@ -18,7 +116,7 @@
 + /includes/modules/profile.php -> Fehler lastlogin bereiniget, alter /gender hinzugefügt
 + /includes/modules/myprofile.php -> Fehler lastlogin bereiniget, alter /gender hinzugefügt
 + /includes/modules/login.php -> Design angepasst
-+ indix.php Templates Design angepasst
++ index.php Templates Design angepasst
 + /system/functions.php -> Fehler lastlogin bereiniget
 + /system/settings.php Fehlermeldung wird angezeigt
 

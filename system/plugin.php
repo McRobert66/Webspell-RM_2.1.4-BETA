@@ -49,7 +49,7 @@ class plugin_manager {
 	//				index.php?site=xxx
 	function is_plugin($var) {
 		try { 
-			$query = safe_query("SELECT * FROM ".PREFIX."plugins WHERE `activate`='1' AND `index_link` LIKE '%".$var."%'");
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE `activate`='1' AND `index_link` LIKE '%".$var."%'");
 			if(mysqli_num_rows($query)) {	
 				return 1;
 			} else {
@@ -64,23 +64,35 @@ class plugin_manager {
 	function plugin_data($var, $id=0, $admin=false) {
 		if($id>0) {
 			$where = " WHERE `activate`='1' AND `pluginID`='".intval($id)."'";	
-			$query = safe_query("SELECT * FROM ".PREFIX."plugins ".$where);
+			$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
 		} else {
 			if($admin) {
-				$where = " WHERE `activate`='1' AND `admin_file`='".$var."' LIMIT 3";
+				$where = " WHERE `activate`='1' AND `admin_file` LIKE '%".$var."%'";
 			} else {
 				$where = " WHERE `activate`='1' AND `index_link` LIKE '%".$var."%'";
 			}
-			$q = safe_query("SELECT * FROM ".PREFIX."plugins ".$where);
+			$q = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
 			if(mysqli_num_rows($q)) {
 				$tmp = mysqli_fetch_array($q);
 				$ifiles = $tmp['index_link'];
 				$tfiles = explode(",",$ifiles);
 				if(in_array($var, $tfiles)) {
 					$where = " WHERE `activate`='1' AND `pluginID`='".$tmp['pluginID']."'";	
-					$query = safe_query("SELECT * FROM ".PREFIX."plugins ".$where);
+					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
 				}
 			}
+			$w = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
+			if(mysqli_num_rows($w)) {
+				$tmp = mysqli_fetch_array($w);
+				$afiles = $tmp['admin_file'];
+				$bfiles = explode(",",$afiles);
+				if(in_array($var, $bfiles)) {
+					$where = " WHERE `activate`='1' AND `pluginID`='".$tmp['pluginID']."'";	
+					$query = safe_query("SELECT * FROM " . PREFIX . "settings_plugins ".$where);
+				}
+			}
+
+
 		}
 		if(!isset($query)) { return false; }
 		try {
@@ -243,7 +255,7 @@ class plugin_manager {
 	
 	//@info		search a plugin by name and return the ID
 	function pluginID_by_name($name) {
-		$request=safe_query("SELECT * FROM `".PREFIX."plugins` WHERE `activate`='1' AND `name` LIKE '%".$name."%'");
+		$request=safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' AND `name` LIKE '%".$name."%'");
 		if(mysqli_num_rows($request)) {
 			$tmp=mysqli_fetch_array($request);
 			return $tmp['pluginID'];
@@ -286,16 +298,20 @@ class plugin_manager {
         }
 
           $css="\n";
-          $query = safe_query("SELECT * FROM `".PREFIX."plugins` WHERE `activate`='1' ");
+					$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
+          if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
+		
+        	while($res=mysqli_fetch_array($query)) {
+	    		$res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
 
-        if($pluginadmin) { 
-            $pluginpath = "../"; 
-        } else { 
-            $pluginpath=""; 
-        }
-	
-        while($res=mysqli_fetch_array($query)) {
-	    	$res2 = mysqli_num_rows(safe_query("SELECT * FROM ".PREFIX."plugins WHERE `modulname` = '$res[modulname]'"));
+						$themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
+            $db = mysqli_fetch_array($themeergebnis);
+
+            $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."'");
+            $dx = mysqli_fetch_array($ergebnis);
+
+						if(@$dx['activate'] == 1) {
+
             if($res['modulname'] == $getsite || $res2 == 1) {
             	if(is_dir($pluginpath.$res['path']."css/")) { $subf1 = "css/"; } else { $subf1=""; }
             	$f = array();
@@ -306,6 +322,7 @@ class plugin_manager {
                     	$css .= '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
                 		}
 	  				}
+						}
 				}
 			}
 	  return $css;
@@ -319,11 +336,20 @@ class plugin_manager {
           }
 
           $js="\n";
-          $query = safe_query("SELECT * FROM `".PREFIX."plugins` WHERE `activate`='1' ");
+          $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
           if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
 		
           while($res=mysqli_fetch_array($query)) {
-            $res2 = mysqli_num_rows(safe_query("SELECT * FROM ".PREFIX."plugins WHERE `modulname` = '$res[modulname]'"));
+            $res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
+
+            $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
+            $db = mysqli_fetch_array($themeergebnis);
+
+            $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."' and `activate` = '1'");
+            $dx = mysqli_fetch_array($ergebnis);
+
+						if(@$dx['activate'] == 1) {
+
             if($res['modulname'] == $getsite || $res2 == 1) {
              	if(is_dir($pluginpath.$res['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
             	$f = array();
@@ -331,8 +357,9 @@ class plugin_manager {
             	$fc = count((array($f)), COUNT_RECURSIVE);
             		if($fc>0) {
                 		for($b=0; $b<=$fc-2; $b++) {
-                    	$js .= '<script src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
+                    	$js .= '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
                 		}
+	  				}
 	  				}
 				} 
 			}
@@ -419,6 +446,16 @@ function DeleteData($name,$where,$data) {
   }
 }
 
+// Loescht in der Mysqli Datenbank eine Definierte Spalte
+function DeleteThemeData($name,$where,$data,$theme,$themedate) {
+  if (mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "$name` WHERE $where='".$data."' AND $theme='".$themedate."'")) >= 1 ) { 
+    safe_query("DELETE FROM `" . PREFIX . "$name` WHERE $where = '$data' AND $theme='$themedate'");    // Tabelle Loeschen
+  } else {
+    #echo "Keine Spalte vorhanden mit den Namen $name."; // Meldung soll nicht angezeigt werden
+    echo "";
+  }
+}
+
 // Loescht die Mysqli Datenbank xyz
 function DeleteTable($table) {
   global $_database;
@@ -433,51 +470,164 @@ function DeleteTable($table) {
   }
 }
 
-
-# if table exists
-function add_database_install() {
-    global $_database,$add_database_install,$str;
-        if(mysqli_num_rows(safe_query("SELECT name FROM `".PREFIX."plugins` WHERE name ='".$str."'"))>0) {
-                    echo "<div class='alert alert-warning'>".$str." Database entry already exists <br />";
-                    echo "".$str." Datenbank Eintrag schon vorhanden <br /></div>";
-                    echo "<hr>";
+# Einträge in Datenbank settings_module
+function add_module_install() {
+    global $_database,$add_module_install,$str,$themes_modulname,$modulname;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname ='".$modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
+                echo "<div class='alert alert-warning'><b>Moduleinträge:</b><br>".$str." Database entry already exists <br />";
+                echo "".$str." Datenbank Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br /></div>";
+                echo "<hr>";
         } else {
             try {
-            if(mysqli_query($_database, $add_database_install)) { 
-                echo "<div class='alert alert-success'>Database ".$str." installation successful <br />";
-                echo "Datenbank ".$str." installation erfolgreich <br /></div>";
+            if(mysqli_query($_database, $add_module_install)) { 
+                echo "<div class='alert alert-success'><b>Moduleinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_module</b> database <br />";
+                echo "Einträge für ".$str." wurden der <b>settings_module</b> Datenbank erfolgreich hinzugef&uuml;gt<br /></div>";
+                echo "<hr>";
             } else {
-                    echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-                    echo "Datenbank ".$str." Eintrag schon vorhanden <br /></div>";
-                    echo "<hr>";
+                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
+                echo "Datenbank ".$str." Eintrag in <b>settings_module</b> Datenbank schon vorhanden <br /></div>";
+                echo "<hr>";
             }   
         } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'>Database ".$str." installation failed <br />";
+                echo "<div class='alert alert-danger'><b>Moduleinträge:</b><br>Database ".$str." installation failed <br />";
                 echo "Send the following line to the support team:<br /><br />";
                 echo "<pre>".$x->message()."</pre>      
                       </div>";
             }
         }
 }
-# if table exists
-function add_database_install_insert() {
-    global $_database,$add_database_install_insert,$str;
-        if(mysqli_num_rows(safe_query("SELECT name FROM `".PREFIX."plugins` WHERE name ='".$str."'"))>0) {
-                    echo "<div class='alert alert-warning'>".$str." Database entry already exists <br />";
-                    echo "".$str." Datenbank Eintrag schon vorhanden <br /></div>";
-                    echo "<hr>";
+
+# Einträge in Datenbank settings_themes
+function add_theme_install() {
+    global $_database,$add_theme_install,$str,$modulname;
+        if(mysqli_num_rows(safe_query("SELECT modulname FROM `" . PREFIX . "settings_themes` WHERE modulname ='".$modulname."'"))>0) {
+                echo "<div class='alert alert-warning'><b>Themeeinträge:</b><br>".$str." Database entry already exists <br />";
+                echo "".$str." Datenbank Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
+        } else {
+            try {
+            if(mysqli_query($_database, $add_theme_install)) { 
+                echo "<div class='alert alert-success'><b>Themeeinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_themes</b> database <br />";
+                echo "Einträge für ".$str." wurden der <b>settings_themes</b> Datenbank erfolgreich hinzugef&uuml;gt<br /></div>";
+                echo "<hr>";
+            } else {
+                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
+                echo "Datenbank ".$str." Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
+            }   
+        } CATCH (EXCEPTION $x) {
+                echo "<div class='alert alert-danger'><b>Themeeinträge:</b><br>Database ".$str." installation failed <br />";
+                echo "Send the following line to the support team:<br /><br />";
+                echo "<pre>".$x->message()."</pre>      
+                      </div>";
+            }
+        }
+}
+
+# Einträge in Datenbank settings_buttons
+function add_button_install() {
+    global $_database,$add_button_install,$str,$modulname;
+        if(mysqli_num_rows(safe_query("SELECT modulname FROM `" . PREFIX . "settings_buttons` WHERE modulname ='".$modulname."'"))>0) {
+                echo "<div class='alert alert-warning'><b>Buttoneinträge:</b><br>".$str." Database entry already exists <br />";
+                echo "".$str." Datenbank Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
+        } else {
+            try {
+            if(mysqli_query($_database, $add_button_install)) { 
+                echo "<div class='alert alert-success'><b>Buttoneinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_buttons</b> database <br />";
+                echo "Einträge für ".$str." wurden der <b>settings_buttons</b> Datenbank erfolgreich hinzugef&uuml;gt<br /></div>";
+                echo "<hr>";
+            } else {
+                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
+                echo "Datenbank ".$str." Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
+            }   
+        } CATCH (EXCEPTION $x) {
+                echo "<div class='alert alert-danger'><b>Buttoneinträge:</b><br>Database ".$str." installation failed <br />";
+                echo "Send the following line to the support team:<br /><br />";
+                echo "<pre>".$x->message()."</pre>      
+                      </div>";
+            }
+        }
+} 
+
+# Einträge in Datenbank settings_widgets
+function add_widget_install() {
+    global $_database,$add_widget_install,$str,$themes_modulname;
+        if(mysqli_num_rows(safe_query("SELECT themes_modulname FROM `" . PREFIX . "settings_widgets` WHERE themes_modulname ='".$themes_modulname."'"))>0) {
+                echo "<div class='alert alert-warning'><b>Widgeteinträge:</b><br>".$str." Database entry already exists <br />";
+                echo "".$str." Datenbank Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
+        } else {
+            try {
+            if(mysqli_query($_database, $add_widget_install)) { 
+                echo "<div class='alert alert-success'><b>Widgeteinträge:</b><br>Entries for ".$str." have been successfully added to the <b>settings_widgets</b> database <br />";
+                echo "Einträge für ".$str." wurden der <b>settings_widgets</b> Datenbank erfolgreich hinzugef&uuml;gt<br /></div>";
+                echo "<hr>";
+            } else {
+                echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
+                echo "Datenbank ".$str." Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
+            }   
+        } CATCH (EXCEPTION $x) {
+                echo "<div class='alert alert-danger'><b>Widgeteinträge:</b><br>Database ".$str." installation failed <br />";
+                echo "Send the following line to the support team:<br /><br />";
+                echo "<pre>".$x->message()."</pre>      
+                      </div>";
+            }
+        }
+}    
+
+
+
+
+# Einträge in Datenbank
+function add_database_insert() {
+    global $_database,$add_database_insert,$str,$modulname,$version;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
+                echo "<div class='alert alert-warning'><b>Datenbankeinträge:</b><br><b>Database ".$str.":</b><br>".$str." Database entry already exists <br />";
+                echo "Alle Einträge für die ".$str." Datenbank schon vorhanden <br /></div>";
+                echo "<hr>";
+        } else {
+            try {
+            if(mysqli_query($_database, $add_database_insert)) { 
+                echo "<div class='alert alert-success'><b>Datenbankeinträge:</b><br>All entries for the plugin ".$str." have been successfully added to the database <br />";
+                echo "Alle Einträge für das Plugin ".$str." wurden der Datenbank erfolgreich hinzugef&uuml;gt <br /></div>";
+                echo "<hr>";
+            } else {
+                echo "<div class='alert alert-warning'><b>Datenbankeinträge:</b><br>All entries for the plugin ".$str." already available <br />";
+                echo "Alle Einträge für das Plugin ".$str." schon vorhanden <br /></div>";
+                echo "<hr>";
+            }   
+        } CATCH (EXCEPTION $x) {
+                echo "<div class='alert alert-danger'><b>Datenbankeinträge:</b><br>Database ".$str." installation failed <br />";
+                echo "Send the following line to the support team:<br /><br />";
+                echo "<pre>".$x->message()."</pre>      
+                      </div>";
+            }
+        }
+}
+
+# Einträge in Datenbank
+function add_database_install() {
+    global $_database,$add_database_install,$str,$modulname,$version;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
+                echo "<div class='alert alert-warning'><b>Database ".$str.":</b><br>".$str." Database entry already exists <br />";
+                echo "".$str." Datenbank Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
         } else {
             try {
             if(mysqli_query($_database, $add_database_install)) { 
-                echo "<div class='alert alert-success'>Database ".$str." installation successful <br />";
-                echo "Datenbank ".$str." installation erfolgreich <br /></div>";
+                echo "<div class='alert alert-success'><b>Database ".$str.":</b><br>All database entries for the plugin ".$str." have been successfully installed <br />";
+                echo "Alle Datenbankeinträge für das Plugin ".$str." wurden  erfolgreich installiert <br /></div>";
+                echo "<hr>";
             } else {
-                    echo "<div class='alert alert-warning'>Database ".$str." entry already exists <br />";
-                    echo "Datenbank ".$str." Eintrag schon vorhanden <br /></div>";
-                    echo "<hr>";
+                echo "<div class='alert alert-warning'><b>Database ".$str.":</b><br>Database ".$str." entry already exists <br />";
+                echo "Datenbank ".$str." Eintrag schon vorhanden <br /></div>";
+                echo "<hr>";
             }   
         } CATCH (EXCEPTION $x) {
-                echo "<div class='alert alert-danger'>Database ".$str." installation failed <br />";
+                echo "<div class='alert alert-danger'><b>Database ".$str.":</b><br>Database ".$str." installation failed <br />";
                 echo "Send the following line to the support team:<br /><br />";
                 echo "<pre>".$x->message()."</pre>      
                       </div>";
@@ -486,23 +636,23 @@ function add_database_install_insert() {
 }
 # Add to Plugin-Manager
 function add_plugin_manager() {
-    global $_database,$add_plugin_manager,$str;
-        if(mysqli_num_rows(safe_query("SELECT name FROM `".PREFIX."plugins` WHERE name ='".$str."'"))>0) {
-                    echo "<div class='alert alert-warning'>".$str." Plugin Manager entry already exists <br />";
+    global $_database,$add_plugin_manager,$str,$modulname,$version;
+        if(mysqli_num_rows(safe_query("SELECT modulname,version FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
+                    echo "<div class='alert alert-warning'><b>Plugin Manager:</b><br>".$str." Plugin Manager entry already exists <br />";
                     echo "".$str." Plugin Manager Eintrag schon vorhanden <br /></div>";
                     echo "<hr>";
         } else {
             try {
                 if(safe_query($add_plugin_manager)) { 
-                    echo "<div class='alert alert-success'>".$str." added to the plugin manager <br />";
+                    echo "<div class='alert alert-success'><b>Plugin Manager:</b><br>".$str." added to the plugin manager <br />";
                     echo "".$str." wurde dem Plugin Manager hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=plugin-manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
+                    echo "<a href = '/admin/admincenter.php?site=plugin_manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
                 } else {
-                    echo "<div class='alert alert-danger'>Add to plugin manager failed <br />";
+                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>Add to plugin manager failed <br />";
                     echo "Zum Plugin Manager hinzuf&uuml;gen fehlgeschlagen <br /></div>";
                 }   
             } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'>".$str." installation failed <br />";
+                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>".$str." installation failed <br />";
                     echo "Send the following line to the support team:<br /><br />";
                     echo "<pre>".$x->message()."</pre>      
                           </div>";
@@ -511,77 +661,125 @@ function add_plugin_manager() {
 }
 # Add to Plugin-Manager (wenn ein Plugin zwei Einträge benötigt)
 function add_plugin_manager_two() {
-    global $_database,$add_plugin_manager_two,$str_two;
-        if(mysqli_num_rows(safe_query("SELECT name FROM `".PREFIX."plugins` WHERE name ='".$str_two."'"))>0) {
-                    echo "<div class='alert alert-warning'>".$str_two." Plugin Manager entry already exists <br />";
+    global $_database,$add_plugin_manager_two,$str_two,$modulname_two,$version;
+        if(mysqli_num_rows(safe_query("SELECT modulname,version FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname_two."' AND version = '".$version."'"))>0) {
+                    echo "<div class='alert alert-warning'><b>Plugin Manager:</b><br>".$str_two." Plugin Manager entry already exists <br />";
                     echo "".$str_two." Plugin Manager Eintrag schon vorhanden <br /></div>";
                     echo "<hr>";
         } else {
             try {
                 if(safe_query($add_plugin_manager_two)) { 
-                    echo "<div class='alert alert-success'>".$str_two." added to the plugin manager <br />";
+                    echo "<div class='alert alert-success'><b>Plugin Manager:</b><br>".$str_two." added to the plugin manager <br />";
                     echo "".$str_two." wurde dem Plugin Manager hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=plugin-manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
+                    echo "<a href = '/admin/admincenter.php?site=plugin_manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
                 } else {
-                    echo "<div class='alert alert-danger'>Add to plugin manager failed <br />";
+                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>Add to plugin manager failed <br />";
                     echo "Zum Plugin Manager hinzuf&uuml;gen fehlgeschlagen <br /></div>";
                 }   
             } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'>".$str_two." installation failed <br />";
+                    echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>".$str_two." installation failed <br />";
                     echo "Send the following line to the support team:<br /><br />";
                     echo "<pre>".$x->message()."</pre>      
                           </div>";
             }
         }
 }
-# Add to navigation
+# Einträge in Datenbank navigation_website_sub
 function add_navigation() {
-    global $_database,$add_navigation,$navi_link,$str;
-        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE `name`='$str' AND `url`='index.php?site=$navi_link'"))>0) {
-                    echo "<div class='alert alert-warning'>".$str." Navigation entry already exists <br />";
+    global $_database,$add_navigation,$navi_link,$str,$modulname,$themes_modulname;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
+                    echo "<div class='alert alert-warning'><b>Website Navigation:</b><br>".$str." Navigation entry already exists <br />";
                     echo "".$str." Navigationseintrag schon vorhanden <br /></div>";
                     
         } else {
             try {
                 if(safe_query($add_navigation)) { 
-                    echo "<div class='alert alert-success'>".$str." added to the Website Navigation <br />";
+                    echo "<div class='alert alert-success'><b>Website Navigation:</b><br>".$str." added to the Website Navigation <br />";
                     echo "".$str." wurde der Website Navigation hinzugef&uuml;gt <br />";
                     echo "<a href = '/admin/admincenter.php?site=webside_navigation' target='_blank'><b>LINK => Website Navigation</b></a></div>";
                 } else {
-                    echo "<div class='alert alert-danger'>Add to Website Navigation failed <br />";
+                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>Add to Website Navigation failed <br />";
                     echo "Zur Website Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
                 }   
             } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'>".$str." installation failed <br />";
+                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>".$str." installation failed <br />";
                     echo "Send the following line to the support team:<br /><br />";
                     echo "<pre>".$x->message()."</pre>      
                           </div>";
             }
         }
 }
-function add_dashboard_navigation() {
-       global $_database,$add_dashboard_navigation,$dashnavi_link,$str;
-        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_dashboard_links` WHERE `name`='$str' AND `url`='admincenter.php?site=$dashnavi_link'"))>0) {
-                    echo "<div class='alert alert-warning'>".$str." Dashboard Navigation entry already exists <br />";
-                    echo "".$str." Dashboard Navigationseintrag schon vorhanden <br /></div>";
+# Einträge in Datenbank navigation_website_sub
+function add_two_navigation() {
+    global $_database,$add_two_navigation,$two_navi_link,$str,$two_modulname,$themes_modulname,$two_navi_name,$modulname;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$two_modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
+                    echo "<div class='alert alert-warning'><b>Website Navigation:</b><br>".$str." Navigation entry already exists <br />";
+                    echo "".$str." Navigationseintrag schon vorhanden <br /></div>";
                     
         } else {
             try {
-                if(safe_query($add_dashboard_navigation)) { 
-                    echo "<div class='alert alert-success'>".$str." added to the Dashboard Navigation <br />";
-                    echo "".$str." wurde der Dashboard Navigation hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=dashnavi' target='_blank'><b>LINK => Dashboard Navigation</b></a></div>";
+                if(safe_query($add_two_navigation)) { 
+                    echo "<div class='alert alert-success'><b>Website Navigation2:</b><br>".$str." added to the Website Navigation <br />";
+                    echo "".$str." wurde der Website Navigation hinzugef&uuml;gt <br />";
+                    echo "<a href = '/admin/admincenter.php?site=webside_navigation' target='_blank'><b>LINK => Website Navigation</b></a></div>";
                 } else {
-                    echo "<div class='alert alert-danger'>Add to Dashboard Navigation failed <br />";
-                    echo "Zur Dashboard Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
+                    echo "<div class='alert alert-danger'><b>Website Navigation2:</b><br>Add to Website Navigation failed <br />";
+                    echo "Zur Website Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
                 }   
             } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'>".$str." installation failed <br />";
+                    echo "<div class='alert alert-danger'><b>Website Navigation2:</b><br>".$str." installation failed <br />";
                     echo "Send the following line to the support team:<br /><br />";
                     echo "<pre>".$x->message()."</pre>      
                           </div>";
             }
         }
+}
+# Einträge in Datenbank navigation_dashboard_links
+function add_dashboard_navigation() {
+       global $_database,$add_dashboard_navigation,$dashnavi_link,$str,$modulname;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_dashboard_links` WHERE modulname ='".$modulname."'"))>0) {
+                    echo "<div class='alert alert-warning'><b>Dashboard Navigation:</b><br>".$str." Dashboard Navigation entry already exists <br />";
+                    echo "".$str." Dashboard Navigationseintrag schon vorhanden <br /></div>";
+                    
+        } else {
+            try {
+                if(safe_query($add_dashboard_navigation)) { 
+                    echo "<div class='alert alert-success'><b>Dashboard Navigation:</b><br>".$str." added to the Dashboard Navigation <br />";
+                    echo "".$str." wurde der Dashboard Navigation hinzugef&uuml;gt <br />";
+                    echo "<a href = '/admin/admincenter.php?site=dashboard_navigation' target='_blank'><b>LINK => Dashboard Navigation</b></a></div>";
+                } else {
+                    echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>Add to Dashboard Navigation failed <br />";
+                    echo "Zur Dashboard Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
+                }   
+            } CATCH (EXCEPTION $x) {
+                    echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>".$str." installation failed <br />";
+                    echo "Send the following line to the support team:<br /><br />";
+                    echo "<pre>".$x->message()."</pre>      
+                          </div>";
+            }
+        }
+}
+
+
+/*Plugins manuell einbinden 
+get_widget('about_us','plugin_widget1'); #für das erste Plugin
+get_widget('about_us','plugin_widget2'); #für das zweite Plugin
+get_widget('about_us','plugin_widget3'); #für das dritte Plugin
+*/
+function get_widget($modulname, $widgetnummer) {
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$modulname."'"));
+      if (@$dx[ 'modulname' ] != $modulname) {
+        $test = '';
+      } else {
+        $test = $query = safe_query("SELECT pluginID FROM `".PREFIX."settings_plugins` WHERE modulname='".$modulname."'");
+        $data_array = mysqli_fetch_array($query);
+          if($data_array) { 
+            $plugin = new plugin_manager();
+            $plugin->set_debug(DEBUG);
+            echo $plugin->$widgetnummer($data_array['pluginID']);
+          }
+                    
+      };
 }
 
 ?>

@@ -317,7 +317,7 @@ if ($action == "add") {
 
 	$filepath = "../images/squadicons/";
     $sql = safe_query("SELECT * FROM " . PREFIX . "settings_games ORDER BY name");
-    $games = '<select class="form-control" name="games[]">';
+    $games = '<select class="form-select" name="games[]">';
     while ($db = mysqli_fetch_array($sql)) {
         $games .= '<option value="' . htmlspecialchars($db['name']) . '">' . htmlspecialchars($db['name']) .
         '</option>';
@@ -343,17 +343,17 @@ onsubmit="return chkFormular();">
     <div class="col-md-6">
 
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['icon_upload'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static"><input class="btn btn-info" name="icon" type="file" size="40" /></p>
+      <input class="btn btn-info" name="icon" type="file" size="40" />
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['icon_upload_small'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static"><input class="btn btn-info" name="icon_small" type="file" size="40" /><br><small>('.$_language->module['icon_upload_info'].')</small></p>
+      <input class="btn btn-info" name="icon_small" type="file" size="40" /><br><small>('.$_language->module['icon_upload_info'].')</small>
     </div>
     </div>
 
@@ -361,26 +361,26 @@ onsubmit="return chkFormular();">
   </div>
   <div class="col-md-6">
 
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['squad_name'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static"><input class="form-control" type="text" name="name" /></p>
+      <input class="form-control" type="text" name="name" />
     </div>
   </div>
 
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['squad_type'].':</label>
-    <div class="col-md-8">
-      <p class="form-control-static">
-        <input onclick="document.getElementById(\'games\').style.display = \'block\'" type="radio" name="gamesquad" value="1" checked="checked" /> '.$_language->module['gaming_squad'].' &nbsp; 
-        <input onclick="document.getElementById(\'games\').style.display = \'none\'" type="radio" name="gamesquad" value="0" /> '.$_language->module['non_gaming_squad'].'</p>
+    <div class="col-md-8 form-check form-switch" style="padding: 0px 43px;">
+      
+        <input class="form-check-input" type="radio" name="gamesquad" value="1" checked="checked" />&nbsp;&nbsp;'.$_language->module['gaming_squad'].' <br><br> 
+        <input class="form-check-input" type="radio" name="gamesquad" value="0" />&nbsp;&nbsp;'.$_language->module['non_gaming_squad'].'
     </div>
   </div>
 
-<div class="form-group row bt">
+<div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['game'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static">'.$games.'</p>
+      '.$games.'
     </div>
   </div>
 
@@ -421,7 +421,7 @@ onsubmit="return chkFormular();">
 
     $games_array = explode(";", $ds['games']);
     $sql = safe_query("SELECT * FROM " . PREFIX . "settings_games ORDER BY name");
-    $games = '<select class="form-control" name="games[]">';
+    $games = '<select class="form-select" name="games[]">';
     while ($db = mysqli_fetch_array($sql)) {
         $selected = '';
         if ($db['name'] == $ds['games']) {
@@ -433,16 +433,12 @@ onsubmit="return chkFormular();">
     $games .= '</select>';
 
     if ($ds['gamesquad']) {
-        $type = '<input onclick="document.getElementById(\'games\').style.display = \'block\'"
-type="radio" name="gamesquad" value="1" checked="checked" /> ' . $_language->module['gaming_squad'] . ' &nbsp;
-<input onclick="document.getElementById(\'games\').style.display = \'none\'" type="radio"
-            name="gamesquad" value="0" /> ' . $_language->module['non_gaming_squad'];
+        $type = '<input class="form-check-input" type="radio" name="gamesquad" value="1" checked="checked" />&nbsp;&nbsp;' . $_language->module['gaming_squad'] . '  <br><br>
+                 <input class="form-check-input" type="radio" name="gamesquad" value="0" />&nbsp;&nbsp;' . $_language->module['non_gaming_squad'];
         $display = 'block';
     } else {
-        $type = '<input onclick="document.getElementById(\'games\').style.display = \'block\'" type="radio"
-            name="gamesquad" value="1" /> ' . $_language->module['gaming_squad'] . ' &nbsp;
-            <input onclick="document.getElementById(\'games\').style.display = \'none\'" type="radio"
-            name="gamesquad" value="0" checked="checked" /> ' . $_language->module['non_gaming_squad'];
+        $type = '<input class="form-check-input" type="radio" name="gamesquad" value="1" />&nbsp;&nbsp;' . $_language->module['gaming_squad'] . ' <br><br>
+                 <input class="form-check-input" type="radio" name="gamesquad" value="0" checked="checked" />&nbsp;&nbsp;' . $_language->module['non_gaming_squad'];
         $display = 'none';
     }
 
@@ -476,28 +472,28 @@ type="radio" name="gamesquad" value="1" checked="checked" /> ' . $_language->mod
     
 	<div class="row">
 <div class="col-md-6">
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['current_icon'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static">'.$pic.'</p>
+      '.$pic.'
     </div>
   </div>
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['current_icon'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static">'.$pic_small.'</p>
+      '.$pic_small.'
     </div>
   </div>
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['icon_upload'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static"><input class="btn btn-info" name="icon" type="file" size="40" /></p>
+      <input class="btn btn-info" name="icon" type="file" size="40" />
     </div>
   </div>
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['icon_upload_small'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static"><input class="btn btn-info" name="icon_small" type="file" size="40" /><br><small>('.$_language->module['icon_upload_info'].')</small></p>
+      <input class="btn btn-info" name="icon_small" type="file" size="40" /><br><small>('.$_language->module['icon_upload_info'].')</small>
     </div>
   </div>
 
@@ -506,24 +502,24 @@ type="radio" name="gamesquad" value="1" checked="checked" /> ' . $_language->mod
 <div class="col-md-6">
 
 
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['squad_name'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static"><input class="form-control" type="text" name="name" value="'.getinput($ds['name']).'" /></p>
+      <input class="form-control" type="text" name="name" value="'.getinput($ds['name']).'" />
     </div>
   </div>
 
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['squad_type'].':</label>
-    <div class="col-md-8">
-      <p class="form-control-static">'.$type.'</p>
+    <div class="col-md-8 form-check form-switch" style="padding: 0px 43px;">
+      '.$type.'
     </div>
   </div>
 
-  <div class="form-group row bt">
+  <div class="mb-3 row bt">
     <label class="col-md-4 control-label">'.$_language->module['game'].':</label>
     <div class="col-md-8">
-      <p class="form-control-static">'.$games.'</p>
+      '.$games.'
     </div>
   </div>
 
@@ -559,7 +555,7 @@ else {
 
 <div class="card-body">
 
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
     <div class="col-md-8">
       <a href="admincenter.php?site=squads&amp;action=add" class="btn btn-primary" type="button">' . $_language->module[ 'new_squad' ] . '</a>
@@ -615,8 +611,31 @@ else {
         <td class="hidden-xs">'.$info.'</td>
         <td><a href="admincenter.php?site=squads&amp;action=edit&amp;squadID='.$db['squadID'].'" class="hidden-xs hidden-sm btn btn-warning" type="button">' . $_language->module[ 'edit' ] . '</a>
 
-        <input class="btn btn-danger" type="button" onclick="MM_confirm(\'' . $_language->module['really_delete'] . '\', \'admincenter.php?site=squads&amp;delete=true&amp;squadID='.$db['squadID'].'&amp;captcha_hash='.$hash.'\')" value="' . $_language->module['delete'] . '" />   
 
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=squads&amp;delete=true&amp;squadID='.$db['squadID'].'&amp;captcha_hash='.$hash.'">
+    ' . $_language->module['delete'] . '
+    </button>
+    <!-- Button trigger modal END-->
+
+     <!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'squads' ] . '</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
 
 </td>
         <td><select name="sort[]">';

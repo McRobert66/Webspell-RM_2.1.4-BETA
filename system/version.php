@@ -25,5 +25,7 @@
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
  */
 
-# Base version: Webspell-RM 2.0.0 (Beta)
-$version = "2.1.2";
+# Version: Webspell-RM / Plugins / Templates
+$version = "2.1.3";
+$plugin_version = "2.1.3";
+$template_version = "2.1.3";

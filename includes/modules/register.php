@@ -210,7 +210,7 @@ if (isset($_POST['save'])) {
                     )"
             );
             safe_query("
-              INSERT INTO " . PREFIX . "nickname ( userID,nickname ) values ('" . mysqli_insert_id($_database) ."','" . $newnickname ."')
+              INSERT INTO " . PREFIX . "user_nickname ( userID,nickname ) values ('" . mysqli_insert_id($_database) ."','" . $newnickname ."')
             ");
 
             $insertid = mysqli_insert_id($_database);

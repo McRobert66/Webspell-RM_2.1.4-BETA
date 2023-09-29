@@ -51,12 +51,13 @@ Dein neues Passwort: %new_password%</p>
     &#8226; <a href="index.php?site=login">anmelden</a></p></blockquote>',
     'your_email' => 'Deine E-Mail',
     'forgotten_your_password' => 'Du hast dein Passwort vergessen?',
-    'info3' => 'Kein Problem. Du kannst Dein Passwort ganz einfach zurücksetzen und dir ein neues vergeben. <br>Gib dazu Deine bestätigte E-Mail-Adresse in das untenstehenden Formular ein und du bekommst daraufhin eine Bestätigungs-Mail zugeschickt. <br>In dieser E-Mail bekommst du ein neu generiertes Passwort, mit dem du dich anmelden kannst. In deinem Profil kannst du dann ein eigenes neues Passwort bestimmen.',
+    'info3' => 'Kein Problem. Du kannst Dein Passwort ganz einfach zurücksetzen und dir ein neues vergeben. <br>Gib dazu Deine bestätigte E-Mail-Adresse in das obenstehenden Formular ein und du bekommst daraufhin eine Bestätigungs-Mail zugeschickt. <br>In dieser E-Mail bekommst du ein neu generiertes Passwort, mit dem du dich anmelden kannst. In deinem Profil kannst du dann ein eigenes neues Passwort bestimmen.',
     'email-address'=>'Email Adresse',
     'return_to'=>'zurückkehren zu',
     'login'=>'Login',
     'info1'=>'Mach dir keine Sorge,',
-    'info2'=>'Wir sind hier, um Dir zu helfen, dein Passwort wiederherzustellen.'
+    'info2'=>'Wir sind hier, um Dir zu helfen, dein Passwort wiederherzustellen.',
+    'reg'=>'Registrierung',
 
 );
 

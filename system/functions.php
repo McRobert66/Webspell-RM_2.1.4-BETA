@@ -394,10 +394,10 @@ function cleartext($text, $bbcode = true, $calledfrom = 'root')
 {
     $text = htmlspecialchars($text);
     $text = strip_tags($text);
-    $text = insertlinks($text, $calledfrom);
-    $text = flags($text, $calledfrom);
-    $text = replacement($text, $bbcode);
-    $text = htmlnl($text);
+    #$text = insertlinks($text, $calledfrom);
+    #$text = flags($text, $calledfrom);
+    #$text = replacement($text, $bbcode);
+    #$text = htmlnl($text);
     $text = nl2br($text);
 
     return $text;
@@ -405,7 +405,7 @@ function cleartext($text, $bbcode = true, $calledfrom = 'root')
 
 function getinput($text)
 {
-    $text = htmlspecialchars($text);
+    @$text = htmlspecialchars($text);
 
     return $text;
 }
@@ -518,7 +518,9 @@ if ($site) {
 // -- WHO IS - WAS ONLINE -- //
 function whouseronline() {
   global $site,$userID;
- if(isset($site)) { $site = $site; } else { $site = 'news'; }
+ #if(isset($site)) { $site = $site; } else { $site = 'startpage'; }
+
+ if($site) { $site = $site; } else { $site = 'startpage'; }
 
   $timeout = 5; // 1 second
   $deltime = time() - ($timeout * 60); // IS 1m

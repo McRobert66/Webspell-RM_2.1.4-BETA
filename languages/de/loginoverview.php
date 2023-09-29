@@ -56,9 +56,9 @@ $language_array = array(
     'no_players_announced' => 'keine Spieler angemeldet',
     'one_new_message'=>'<span class="text-success">Du hast eine neue Nachricht.</span>',
     'x_new_message'=>'<span class="text-success">Du hast %new_messages% neue Nachrichten.</span>',
-    'button_no_new_messages' => '<li class="list-inline-item"><div class="p-2"><a class="btn btn-secondary" href="index.php?site=messenger"><i class="fas fa-comments"></i> Keine neuen Nachrichten.</a></div></li>',
-    'button_x_new_message'=>'<li class="list-inline-item"><div class="p-2"><a class="btn btn-success" href="index.php?site=messenger"><i class="fas fa-comments"></i> Du hast %new_messages% neue Nachrichten.</a></div></li>',
-    'button_one_new_message'=>'<li class="list-inline-item"><div class="p-2"><a class="btn btn-success" href="index.php?site=messenger"><i class="fas fa-comments"></i> Du hast eine neue Nachricht.</a></div></li>',
+    'button_no_new_messages' => '<a class="btn btn-secondary" href="index.php?site=messenger"><i class="fas fa-comments"></i> Keine neuen Nachrichten.</a>',
+    'button_x_new_message'=>'<a class="btn btn-success" href="index.php?site=messenger"><i class="fas fa-comments"></i> Du hast %new_messages% neue Nachrichten.</a>',
+    'button_one_new_message'=>'<a class="btn btn-success" href="index.php?site=messenger"><i class="fas fa-comments"></i> Du hast eine neue Nachricht.</a>',
     'overview' => 'Übersicht',
     'registered' => 'Registriert',
     'replys' => 'Antworten',
@@ -78,6 +78,10 @@ $language_array = array(
      'admin' => 'Administration',
      'edit_account' => 'Konto bearbeiten',
      'cashbox' => 'Clan Kasse',
-     'usergalleries' => 'Benutzergalerien'
+     'usergalleries' => 'Benutzergalerien',
+     'to_profil' => 'Zum Profil',
+     'clanmember' => 'Teammitglied',
+     'administrator' => '(Administrator)',
+     'moderator' => '(Moderator)',
 );
 

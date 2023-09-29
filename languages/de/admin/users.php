@@ -73,7 +73,7 @@ $language_array = Array(
   'general'=>'Allgemeines',
   'graphiccard'=>'Grafikkarte',
   'homepage'=>'Homepage',
-  'icq'=>'ICQ',
+  'discord'=>'Discord',
   'inactive'=>'inaktiv',
   'invalid_format'=>'FEHLER: Unerlaubtes Bild Format (erlaubt: *.gif, *.jpg oder *.png)',
   'keyboard'=>'Tastatur',
@@ -139,6 +139,10 @@ $language_array = Array(
   'social-media' => 'Social Media',
   'image_too_big' => 'Bild zu groß',
   'options'=>'Optionen',
-  'delete_info'=>'Möchten Sie diesen Benutzer wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.'
+  'delete_info'=>'Möchten Sie diesen Benutzer wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.',
+  'admin' => 'Shop-Admin',
+  'seller' => 'Seller-Admin',
+  'costumer' => 'Shop-Käufer (standard Einstellung)',
+  'select_gender' => 'wähle dein Geschlecht aus',
 );
 

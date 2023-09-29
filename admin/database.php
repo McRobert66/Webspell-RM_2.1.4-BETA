@@ -975,56 +975,43 @@ if (php_sapi_name() != "cli") {
 
 <div class="col-md-6">
 
-    <div class="row bt"><div class="col-md-4">'.$_language->module['select_option'].':</div>
-    <div class="col-md-7"><span class="pull-right text-muted small"><em>
-    <a class="btn btn-primary" href="admincenter.php?site=database&amp;action=write&amp;captcha_hash='.$hash.'">'.$_language->module['export'].'</a><br><br>
-    '.$_language->module['import_info1'].'</em></span></div></div>
-    
+    <div class="mb-3 row bt">
+        <label class="col-sm-4 control-label">'.$_language->module['select_option'].'</label>
+        <div class="col-sm-7"><span class="text-muted small"><em>
+            <a class="btn btn-primary" href="admincenter.php?site=database&amp;action=write&amp;captcha_hash='.$hash.'">'.$_language->module['export'].'</a><br><br>
+            '.$_language->module['import_info1'].'</em></span>
+        </div>
+    </div>
+
+        <div class="mb-4 row bt">
+        <label class="col-sm-4 control-label">'.$_language->module['optimize'].'</label>
+        <div class="col-sm-7"><span class="text-muted small"><em>
+            <a class="btn btn-primary" href="admincenter.php?site=database&amp;action=optimize">'.$_language->module['optimize'].'</a></em></span>
+        </div>
+    </div>
+
 </div>
 
 
 <div class="col-md-6">
+    <form class="bt" method="post" action="admincenter.php?site=database" enctype="multipart/form-data">
 
-    <div class="row bt">
-    <div class="col-md-6">
-    <span class="text-muted small"><em>
-
-    <form class="form-horizontal" method="post" action="admincenter.php?site=database" enctype="multipart/form-data">
-        <div class="form-group">
-        '.$_language->module['backup_file'].': <input name="sql" type="file" size="40" / ><br>
+    <div class="mb-3 row bt">
+        <label class="col-sm-4 control-label">'.$_language->module['backup_file'].'</label>
+        <div class="col-sm-7"><span class="text-muted small"><em>
+            <input name="sql" type="file" size="40" / ><br><br>
     
         <input type="hidden" name="captcha_hash" value="'.$hash.'" />
-        <button class="btn btn-primary" type="submit" name="upload"  />'.$_language->module['upload'].'</button>
-    
+        <button class="btn btn-primary" type="submit" name="upload"  />'.$_language->module['upload'].'</button></em></span>
         </div>
-    </form>
-    </em></span>
     </div>
-    <div class="col-md-6">
-        <a class="btn btn-primary" href="admincenter.php?site=database&amp;action=optimize">'.$_language->module['optimize'].'</a>
-    </div>
+</form>
 
-
-    <form class="form-horizontal" method="post" action="admincenter.php?site=database" enctype="multipart/form-data">
-      <div class="form-group">
-      '.$_language->module['backup_file'].':
-    <br>
-       <p class="form-control-static"> <input name="sql" type="file" size="40" / ></p>
-    
-        <input type="hidden" name="captcha_hash" value="'.$hash.'" />
-        <button class="btn btn-primary" type="submit" name="upload"  />'.$_language->module['upload'].'</button>
-    </div>
-  </div>
-     
-
-  </form>
+</div>
 
 
 
-
-
-  </div>
-  </div>
+</div>
     
 </div>
 
@@ -1084,9 +1071,31 @@ if (php_sapi_name() != "cli") {
 
         <a type="button" class="btn btn-warning" href="admincenter.php?site=database&amp;action=back&amp;id='. $ds[ 'id' ]. '" >'.$_language->module['upload'].'</a>
 
-<input class="btn btn-danger" type="button" onclick="MM_confirm(\''.$_language->module['really_delete'].'\', \'admincenter.php?site=database&amp;delete=true&amp;id='. $ds[ 'id' ]. '&amp;captcha_hash='.$hash.'\')" value="'.$_language->module['delete'].'" />
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=database&amp;delete=true&amp;id='. $ds[ 'id' ]. '&amp;captcha_hash='.$hash.'">
+    ' . $_language->module['delete'] . '
+    </button>
+    <!-- Button trigger modal END-->
 
-        
+     <!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'sql_query' ] . '</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
+
   </td>
   </tr>';
         $first_line = "";

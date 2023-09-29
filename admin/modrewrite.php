@@ -554,7 +554,32 @@ if ($action == "add") {
             <td class="' . $td . '">' . count(unserialize($flags['fields'])) . '</td>
             <td class="' . $td . '" align="center"><a href="admincenter.php?site=modrewrite&amp;action=edit&amp;ruleID=' . $flags['ruleID'] . '" class="hidden-xs hidden-sm btn btn-warning" type="button">' . $_language->module[ 'edit' ] . '</a>
 
-             <input class="btn btn-danger" type="button" onclick="MM_confirm(\'' . $_language->module['really_delete'] . '\', \'admincenter.php?site=modrewrite&amp;delete=true&amp;ruleID=' . $flags['ruleID'] . '&amp;captcha_hash=' . $hash . '\')" value="' . $_language->module['delete'] . '" /> 
+
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=modrewrite&amp;delete=true&amp;ruleID=' . $flags['ruleID'] . '&amp;captcha_hash=' . $hash . '">
+    ' . $_language->module['delete'] . '
+    </button>
+    <!-- Button trigger modal END-->
+
+     <!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'modrewrite_rules' ] . '</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
+
  </td>
             </tr>';
 

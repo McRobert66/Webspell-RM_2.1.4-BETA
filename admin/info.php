@@ -47,6 +47,8 @@ $CAPCLASS = new \webspell\Captcha;
 $CAPCLASS->createTransaction();
 $hash = $CAPCLASS->getHash();
 
+$getpluginversion = $plugin_version;
+$gettemplateversion = $template_version;
 
 $report = '';
 if(getter($updateserverurl.'/base/vupdate.php') != '') {
@@ -55,7 +57,7 @@ if(getter($updateserverurl.'/base/vupdate.php') != '') {
   $on = '<i class="fa fa-check text-success"></i>';
 
 ####### Plugins #########
-$url = $updateserverurl.'/plugin/plugin-base_v.'.$version.'/list.json';
+$url = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
 @$check = fopen($url,"r");
 if($check) {
 $plugin = '<i class="fa fa-check text-success"></i>';
@@ -65,7 +67,7 @@ $plugin = '<i class="fa fa-times text-danger"></i>';
 }  
 #######################
 ####### Themes #########
-$url = $updateserverurl.'/theme/style-base_v.'.$version.'/list.json';
+$url = $updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json';
 @$check = fopen($url,"r");
 if($check) {
 $theme = '<i class="fa fa-check text-success"></i>';
@@ -83,7 +85,7 @@ $theme = '<i class="fa fa-times text-danger"></i>';
   $on = '<i class="fa fa-check text-success"></i>';
 
 ####### Plugins #########
-$url = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$version.'/list.json';
+$url = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
 @$check = fopen($url,"r");
 
 if($check) {
@@ -94,7 +96,7 @@ $plugin = '<i class="fa fa-times text-danger"></i>';
 } 
 ############################
 ####### Themes #########
-$url = $dangerupdateserverurl.'/theme/style-base_v.'.$version.'/list.json';
+$url = $dangerupdateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json';
 @$check = fopen($url,"r");
 if($check) {
 $theme = '<i class="fa fa-check text-success"></i>';
@@ -185,11 +187,11 @@ echo'<div class="card">
             <div class="col-md-6">
 
             <div class="card">
-        <div class="card-he1ader">
+        <div class="card-header">
             <img src="/components/admin/images/info-logo.jpg" style="max-width: 100%;height: auto;">
         </div>
             
-            <div class="card-body" style="height: 270px">
+            <div class="card-body" style="min-height: 270px">
 <h4>'.$_language->module['welcome'].'</h4>
             
 
@@ -215,7 +217,7 @@ echo'
 
 <div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            <i class="fas fa-exclamation-triangle text-warning"></i> Live Ticker
+            Live Ticker
         </div>
 <div class="card-body" style="height: 400px">';?>
 <style>
@@ -244,7 +246,7 @@ echo getter('https://www.webspell-rm.de/includes/modules/live_ticker.php');
 
 <div class="card" style="margin-left: 50px; margin-right: 50px">
   <div class="card-header">
-    <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['update_support'].'
+    '.$_language->module['update_support'].'
   </div>
   <div class="card-body">
     <div class="style_prevu_kit" style="width: 300px;">
@@ -348,19 +350,31 @@ $output = curl_exec($ch);
 curl_close($ch);
 return json_decode($output, true);
 }
+
+
 $getversion = $version;
 
-if (!$getnew = @file_get_contents($updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json')) {
-  echo '';
+####### Plugins #########
+$url = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
+@$check = fopen($url,"r");
+if($check) {
+$plugin = @file_get_contents($updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json');
+$server_status = '(Alpha Server)';
+}
+else {
+$plugin = @file_get_contents($dangerupdateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json');
+$server_status = '(Beta Server)';
+}  
+#######################
+
+if (!$getnew = $plugin) {
+  echo '<div class="alert alert-info" role="alert">
+        <b>' . $_language->module[ 'error' ] . '</b></div>';
 } else {
-if(!empty($_GET['up'])) {
   
-       echo'test';    
- 
-} else { 
 try {
-  $url = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json';
-  $imgurl = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
+  $url = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
+  $imgurl = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'';
   $result = curl_json2array($url);
   $anz = (count($result)-1);
   $output = "";
@@ -371,7 +385,7 @@ try {
       $translate = new multiLanguage(detectCurrentLanguage());
       $translate->detectLanguages($result['item'.$plug]['description_de']);
       $result['item'.$plug]['description_de'] = $translate->getTextByLanguage($result['item'.$plug]['description_de']);
-      $ergebnis = safe_query("SELECT * FROM `".PREFIX."plugins` WHERE `modulname`='".$result['item'.$plug]['modulname']."'");
+      $ergebnis = safe_query("SELECT * FROM `".PREFIX."settings_plugins` WHERE `modulname`='".$result['item'.$plug]['modulname']."'");
 
             if(mysqli_num_rows($ergebnis) == '1') {
                 $row = mysqli_fetch_assoc($ergebnis);
@@ -381,12 +395,13 @@ try {
             }
             
       include("../system/version.php");
+
       if(is_dir("../includes/plugins/".$result['item'.$plug]['path'])) {
         #$output .= '<tr><td>';
 
           if($result['item'.$plug.'']['version_final'] === $installedversion) { 
               #$output .='';
-            $input = "test";
+            #$input = "test";
           } else {
 
               $output .='
@@ -398,11 +413,11 @@ try {
               <div class="cart-block">
                 <div class="log1o1 image_caption"><img class="img-fluid" style="max-width: 100%;height: auto;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" />
 
-                <span style="margin-top: -30px">Plugin '.$result['item'.$plug]['name'].'</span></div>
+                <span class="text-center" style="margin-top: -70px"><h4>Plugin '.$result['item'.$plug]['name'].'</h4></span></div>
                 <span>'.$_language->module['update_plugin'].'</span>
               </div>
   
-              <div class="cart-header" style="text-align: center;"><p style="margin-top: 8px">Version '.$result['item'.$plug]['version_final'].'</p>
+              <div class="cart-header" style="text-align: center;"><p style="margin-top: 8px"><b>Plugin:</b> '.$result['item'.$plug]['name'].' / <b>new Ver.:</b> '.$result['item'.$plug]['version_final'].'</p>
   
               </div>
               </div>
@@ -411,7 +426,7 @@ try {
             }
         
       } else { 
-
+        
     }   
 
 } 
@@ -423,7 +438,7 @@ try {
 
 echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['plugin_update'].'
+            '.$_language->module['plugin_update'].'
         </div>
 <div class="card-body">
 
@@ -432,11 +447,11 @@ echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
 </div>
     ';
 }
-}
+
 
 $getversion = $version;
 
-if (!$getnew = @file_get_contents($updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json')) {
+if (!$getnew = @file_get_contents($updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json')) {
   echo '';
 } else {
 if(!empty($_GET['up'])) {
@@ -445,8 +460,8 @@ if(!empty($_GET['up'])) {
  
 } else { 
 try {
-  $url = $updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json';
-  $imgurl = $updateserverurl.'/theme/style-base_v.'.$getversion.'';
+  $url = $updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json';
+  $imgurl = $updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'';
   $result = curl_json2array($url);
   $anz = (count($result)-1);
   $output = "";
@@ -483,7 +498,7 @@ try {
               <div class="cart">
               <div class="cart-block">
                 <div class="log1o1 image_caption"><img class="img-fluid" style="max-width: 100%;height: auto;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" />
-                <span style="margin-top: -30px">Template '.$result['item'.$plug]['name'].'</span></div>
+                <span class="text-center" style="margin-top: -70px"><h4>Template '.$result['item'.$plug]['name'].'</h4></span></div>
                 <span>'.$_language->module['update_template'].'</span>
               </div>
   
@@ -514,7 +529,7 @@ try {
 
 echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['templates_update'].'
+            '.$_language->module['templates_update'].'
         </div>
 <div class="card-body">
 
@@ -531,16 +546,36 @@ echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
 
   echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            <h3>CHANGELOG.md</h3>
+            CHANGELOG.md
         </div>
 <div class="card-body">
-  <a href="#changelog" class="btn btn-primary" data-toggle="collapse">'.$_language->module['changelog'].'</a>
-  <div id="changelog" class="collapse">
-  <pre>';
+
+
+
+<p>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    '.$_language->module['changelog'].'
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <pre>';
 include("../CHANGELOG.md");
 
 echo'</pre>
+  </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+  
 </div>
 
 </div>

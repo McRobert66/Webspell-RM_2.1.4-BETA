@@ -1,8 +1,10 @@
 <!-- loginoverview_head -->
 <div class="head-boxes">
+    <span class="head-boxes-head">$title</span>
 <h2 class="head-h2">
     <span class="head-boxes-title">$title</span>
 </h2>
+<p class="head-boxes-foot">$subtitle</p>
 </div>
 <!-- END -->
 <!-- loginoverview_content -->
@@ -14,10 +16,15 @@
 
   <div class="row gy-1">
     <div class="col-6">
-      <div class="p-2">$user:</div>
+      <div class="p-2">$user:</div><div class="p-2" style="display: flex;">$userpic
+                    </div>
     </div>
     <div class="col-6">
       <div class="p-2">$username</div>
+      <div class="p-2">$member</div>
+      <div class="p-2">$rang<br><small>$usertype</small> $specialrank</div>
+      <div class="p-2">$to_profil</div>
+
     </div>
     <hr>
     <div class="col-6">

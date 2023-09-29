@@ -35,7 +35,7 @@ $_language->readModule('index');
 
     if($loggedin) {
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='forum'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
         $new_forum_posts = '';
         } else {
@@ -111,7 +111,7 @@ $_language->readModule('index');
 
     }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "plugins WHERE modulname='messenger'"));
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='messenger'"));
     if (@$dx[ 'modulname' ] != 'messenger') {
         $new_forum_posts = '';
     } else {

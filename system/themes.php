@@ -51,7 +51,7 @@ class theme {
 			if(mysqli_num_rows($get) == '1') {
 	        $ds = mysqli_fetch_array($get);
 	    
-	        $theme_path = "includes/themes/".$ds['name']."/";
+	        $theme_path = "includes/themes/".$ds['pfad']."/";
 	    } else {
 	        $theme_path = "includes/themes/404/";
 	    }

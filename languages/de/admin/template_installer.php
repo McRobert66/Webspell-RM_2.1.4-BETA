@@ -24,7 +24,7 @@
  *                                                                                                                                    *
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
  */
-include("../system/version.php");
+
 $language_array = Array(
 
 /* do not edit above this line */
@@ -34,8 +34,7 @@ $language_array = Array(
   'all_templates_2'=>'Templates zur Verfügung.',
   'all_templates'=>'Alle Templates',
   'info_error'=>'<div class="text-danger"><h4>Achtung!!!</h4></div>',
-  'error' => '<div class="text-danger"><i class="fas fa-exclamation-triangle"></i> Der Template-Server ist offline!
-  <br><br>Es stehen keine Templates für diese Webspell-RM Version "'.$version.'" zur Verfügung.<br><br>Um weiterhin unsere Templates benutzen zu können, muss die Webseite upgetatet werden. <br><br></div>',
+  'error' => '<div class="text-danger"><i class="fas fa-exclamation-triangle"></i> Update-Server ist offline oder die Updatedatei ist nicht vorhanden!</div>',
   'preview'=>'Vorschau',
   'description'=>'Beschreibung',
   'version'=>'Ausführung',
@@ -44,13 +43,21 @@ $language_array = Array(
   'template_deinstallieren'=>'Template deinstallieren',
   'installation'=>'Installation',
   'update'=>'Update',
+  'reupdate'=>'Re-Update',
   'incompatible'=>'nicht kompatibel',
   'na'=>'nicht verfügbar',
   'read_more'=>'Mehr lesen',
   'wrote'=>'schrieb',
   'delete_info'=>'Möchten Sie dieses Template wirklich entfernen?',
   'plus_plugin'=>'Folgende Plugins werden automatisch mit installiert',
-  'reinstall'=>'Re-Install'
+  'reinstall'=>'Re-Install',
+  'required' => 'Erforderliche Webspell-RM Version:',
+  'tooltip_1' => 'Das Template ist für deine Webspell-RM Version nicht kompatibel. Es kann nicht installiert werden',
+  'tooltip_2' => 'Das Template wird deinstalliert',
+  'tooltip_3' => 'Das Template wird neu installiert. Alle Template Datenbankeinträge werden gelöscht und neu installiert. Pluginseinstellungen werden nicht verändert. Hinweis: Backup bitte vorher anfertigen.',
+  'tooltip_4' => 'Es steht ein Update zur Verfügung. Das Template wird neu installiert. Datenbank-Einträge könnten überschrieben oder gelöscht werden. Backup bitte vorher anfertigen.',
+  'tooltip_5' => 'Das Template wird installiert.',
+  'tooltip_6' => 'Das Template wird geupdatet. Alle Template und Plugin-Datenbankeinträge bleiben erhalten. Es werden nur die Templatedateien überschrieben.',
 );
 
 

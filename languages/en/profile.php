@@ -93,7 +93,7 @@ $language_array = array(
     'status' => 'Status',
     'submit' => 'submit',
     'unknown' => 'Unknown',
-    'user_doesnt_exist' => 'User not found',
+    'user_doesnt_exist' => '<blockquote>User not found</blockquote>',
     'userpic' => 'Userpic',
     'usertitle' => 'User-Rank',
     'views' => 'Views',
@@ -166,6 +166,7 @@ $language_array = array(
 'admin' => 'Administration',
     'edit_account' => 'edit Account',
      'cashbox' => 'Cashbox',
-     'usergalleries' => 'Usergalleries'
+     'usergalleries' => 'Usergalleries',
+     'discord' => 'Discord'
 );
 

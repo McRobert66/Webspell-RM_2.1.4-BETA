@@ -104,7 +104,13 @@ try {
             } else { $head_array['$login_overview'] =""; }
             $lo++;
             /* Dropdown */
-            $rex = safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE `mnavID`='".$row['mnavID']."' ORDER BY `sort`");
+
+            
+
+$themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
+                $db = mysqli_fetch_array($themeergebnis);
+
+            $rex = safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE `mnavID`='".$row['mnavID']."' and indropdown = '1' and themes_modulname='".$db['modulname']."' ORDER BY `sort`");
             if(mysqli_num_rows($rex)) {
                 $head = $tpl->loadTemplate("navigation","dd_head", $head_array);
                 echo $head;
@@ -112,7 +118,19 @@ try {
                 $sopen = $tpl->loadTemplate("navigation","sub_open", $head_array);
                 echo $sopen;
                 while($rox=mysqli_fetch_array($rex)) {
-                    if($rox['indropdown'] == 1) {
+
+
+
+
+                $themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'");
+                $db = mysqli_fetch_array($themeergebnis);
+
+                $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$rox['modulname']."' and themes_modulname='".$db['modulname']."' and `activate` = '1'");
+                $dx = mysqli_fetch_array($ergebnis);
+
+                    #if(!empty(@$rox['indropdown'] == 1) & !empty(@$dx['activate'] == 1) !== false) {
+                    if(!empty(@$rox['indropdown'] == 1) !== false) {
+
                         $sub_array = array();
                         if (strpos($rox['url'], 'http://') !== false) {
                              $sub_array['$url'] = $rox['url'].'" target="_blank';
@@ -127,7 +145,11 @@ try {
 
                         $sub = $tpl->loadTemplate("navigation","sub_nav", $sub_array);
                         echo $sub;
-                    }
+
+                        } else { 
+                        #echo'<li><a class="dropdown-item" href="#"><span class="badge text-bg-danger">'.$name.' Plugin aktivieren!</span></a></li>';  
+                        }
+
                 }
                 $sclose = $tpl->loadTemplate("navigation","sub_close", array());
                 echo $sclose;

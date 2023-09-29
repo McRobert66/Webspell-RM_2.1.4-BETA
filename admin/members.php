@@ -238,31 +238,31 @@ if (isset($_GET[ 'action' ]) && $_GET[ 'action' ] == "edit") {
     if ($anz) {
         while ($ds = mysqli_fetch_array($ergebnis)) {
             if ($ds[ 'activity' ]) {
-                $activity = ' <select class="form-control" name="activity[' . $ds[ 'sqmID' ] . ']"><option value="1" selected="selected">' .
+                $activity = ' <select class="form-select" name="activity[' . $ds[ 'sqmID' ] . ']"><option value="1" selected="selected">' .
                     $_language->module[ 'active' ] . '</option><option value="0">' . $_language->module[ 'inactive' ] .
                     '</option></select>';
             } else {
-                $activity = ' <select class="form-control col-md-6" name="activity[' . $ds[ 'sqmID' ] . ']"><option value="1">' .
+                $activity = ' <select class="form-select col-md-6" name="activity[' . $ds[ 'sqmID' ] . ']"><option value="1">' .
                     $_language->module[ 'active' ] . '</option><option value="0" selected="selected">' .
                     $_language->module[ 'inactive' ] . '</option></select>';
             }
             
 
             if ($ds[ 'joinmember' ]) {
-                $join = '<select class="form-control" name="join[' . $ds[ 'sqmID' ] . ']"><option value="1" selected="selected">' .
+                $join = '<select class="form-select" name="join[' . $ds[ 'sqmID' ] . ']"><option value="1" selected="selected">' .
                     $_language->module[ 'yes' ] . '</option><option value="0">' . $_language->module[ 'no' ] .
                     '</option></select>';
             } else {
-                $join = '<select class="form-control" name="join[' . $ds[ 'sqmID' ] . ']"><option value="1">' . $_language->module[ 'yes' ] .
+                $join = '<select class="form-select" name="join[' . $ds[ 'sqmID' ] . ']"><option value="1">' . $_language->module[ 'yes' ] .
                     '</option><option value="0" selected="selected">' . $_language->module[ 'no' ] .
                     '</option></select>';
             }
             if ($ds[ 'warmember' ]) {
-                $fight = '<select class="form-control" name="war[' . $ds[ 'sqmID' ] . ']"><option value="1" selected="selected">' .
+                $fight = '<select class="form-select" name="war[' . $ds[ 'sqmID' ] . ']"><option value="1" selected="selected">' .
                     $_language->module[ 'yes' ] . '</option><option value="0">' . $_language->module[ 'no' ] .
                     '</option></select>';
             } else {
-                $fight = '<select class="form-control" name="war[' . $ds[ 'sqmID' ] . ']"><option value="1">' . $_language->module[ 'yes' ] .
+                $fight = '<select class="form-select" name="war[' . $ds[ 'sqmID' ] . ']"><option value="1">' . $_language->module[ 'yes' ] .
                     '</option><option value="0" selected="selected">' . $_language->module[ 'no' ] .
                     '</option></select>';
             }
@@ -272,7 +272,7 @@ $squads .= '
 
 
 
-    <div class="form-group row bt alert alert-info" role="alert">
+    <div class="mb-3 row bt alert alert-info" role="alert">
     <label class="col-md-2 control-label">' . $_language->module[ 'squad' ] . ':</label>
     <div class="col-md-10">
       <p class="form-control-static"><b>' . getsquadname($ds[ 'squadID' ]) . '</b></p>
@@ -280,16 +280,16 @@ $squads .= '
     </div>
  
 <div class="row">
-<div class="col-md-12">
+<div class="col-md-12 row">
 <div class="col-md-6">
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label">' . $_language->module[ 'position' ] . ':</label>
     <div class="col-md-8">
       <p class="form-control-static"><input class="form-control" type="text" name="position[' . $ds[ 'sqmID' ] . ']" value="' . getinput($ds[ 'position' ]) . '" size="20" /></p>
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label">' . $_language->module[ 'activity' ] . ':</label>
     <div class="col-md-8">
       <p class="form-control-static">' . $activity . '</p>
@@ -300,14 +300,14 @@ $squads .= '
     <div class="col-md-6">
 
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-5 control-label">' . $_language->module[ 'joinus_admin' ] . ':&nbsp;<small>(' . $_language->module[ 'access_rights' ] . '</small>)</label>
     <div class="col-md-7">
       <p class="form-control-static">' . $join . '</p>
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-5 control-label">' . $_language->module[ 'fightus_admin' ] . ':&nbsp;<small>(' . $_language->module[ 'access_rights' ] . '</small>)</label>
     <div class="col-md-7">
       <p class="form-control-static">' . $fight . '</p>
@@ -325,132 +325,106 @@ $squads .= '
 
     if (isnewsadmin($id)) {
         $news =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="newsadmin" value="1" onmouseover="showWMTT(\'id1\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="newsadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_1' ] . '" checked="checked" />';
     } else {
         $news =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="newsadmin" value="1" onmouseover="showWMTT(\'id1\')"
-onmouseout="hideWMTT()">';
+            '<input class="form-check-input" type="checkbox" data-on-color="success" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_1' ] . '">';
     }
 
     if (isnewswriter($id)) {
         $newswriter =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="newswriter" value="1" onmouseover="showWMTT(\'id2\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="newswriter" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_2' ] . '" checked="checked" />';
     } else {
         $newswriter =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="newswriter" value="1" onmouseover="showWMTT(\'id2\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="newswriter" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_2' ] . '" />';
     }
 
     if (ispollsadmin($id)) {
         $polls =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="pollsadmin" value="1" onmouseover="showWMTT(\'id3\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="pollsadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_3' ] . '" checked="checked" />';
     } else {
         $polls =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="pollsadmin" value="1" onmouseover="showWMTT(\'id3\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="pollsadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_3' ] . '" />';
     }
 
     if (isfeedbackadmin($id)) {
         $feedback =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="feedbackadmin" value="1" onmouseover="showWMTT(\'id4\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="feedbackadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_4' ] . '" checked="checked" />';
     } else {
         $feedback =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="feedbackadmin" value="1" onmouseover="showWMTT(\'id4\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="feedbackadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_4' ] . '" />';
     }
 
     if (isuseradmin($id)) {
         $useradmin =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="useradmin" value="1" onmouseover="showWMTT(\'id5\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="useradmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_5' ] . '" checked="checked" />';
     } else {
         $useradmin =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="useradmin" value="1" onmouseover="showWMTT(\'id5\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="useradmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_5' ] . '" />';
     }
 
     if (isclanwarsadmin($id)) {
         $cwadmin =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="cwadmin" value="1" onmouseover="showWMTT(\'id6\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="cwadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_6' ] . '" checked="checked" />';
     } else {
         $cwadmin =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="cwadmin" value="1" onmouseover="showWMTT(\'id6\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="cwadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_6' ] . '" />';
     }
 
     if (isforumadmin($id)) {
         $board =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="boardadmin" value="1" onmouseover="showWMTT(\'id7\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="boardadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_7' ] . '" checked="checked" />';
     } else {
         $board =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="boardadmin" value="1" onmouseover="showWMTT(\'id7\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="boardadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_7' ] . '" />';
     }
 
     if (isanymoderator($id)) {
         $mod =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="moderator" value="1" onmouseover="showWMTT(\'id8\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="moderator" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_8' ] . '" checked="checked" />';
     } else {
         $mod =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="moderator" value="1" onmouseover="showWMTT(\'id8\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="moderator" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_8' ] . '" />';
     }
 
     if (ispageadmin($id)) {
         $page =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="pageadmin" value="1" onmouseover="showWMTT(\'id9\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="pageadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_9' ] . '" checked="checked" />';
     } else {
         $page =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="pageadmin" value="1" onmouseover="showWMTT(\'id9\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="pageadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_9' ] . '" />';
     }
 
     if (isfilesadmin($id)) {
         $file =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="fileadmin" value="1" onmouseover="showWMTT(\'id10\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="fileadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_10' ] . '" checked="checked" />';
     } else {
         $file =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="fileadmin" value="1" onmouseover="showWMTT(\'id10\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="fileadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_10' ] . '" />';
     }
 
     if (iscashadmin($id)) {
         $cash =
-            '<input type="checkbox" name="cashadmin" value="1" onmouseover="showWMTT(\'id11\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="cashadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_11' ] . '" checked="checked" />';
     } else {
         $cash =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="cashadmin" value="1" onmouseover="showWMTT(\'id11\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="cashadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_11' ] . '" />';
     }
 
     if (isgalleryadmin($id)) {
         $gallery =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="galleryadmin" value="1" onmouseover="showWMTT(\'id12\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="galleryadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_12' ] . '" checked="checked" />';
     } else {
         $gallery =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="galleryadmin" value="1" onmouseover="showWMTT(\'id12\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="galleryadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_12' ] . '" />';
     }
 
     if (issuperadmin($id)) {
         $super =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="superadmin" value="1" onmouseover="showWMTT(\'id13\')"
-onmouseout="hideWMTT()" checked="checked" />';
+            '<input class="form-check-input" type="checkbox" name="superadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_13' ] . '" checked="checked" />';
     } else {
         $super =
-            '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="superadmin" value="1" onmouseover="showWMTT(\'id13\')"
-onmouseout="hideWMTT()" />';
+            '<input class="form-check-input" type="checkbox" name="superadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_13' ] . '" />';
     }
 
     $usergrp = array();
@@ -459,9 +433,9 @@ onmouseout="hideWMTT()" />';
         $name = $ds[ 'name' ];
         $fgrID = $ds[ 'fgrID' ];
         if (isinusergrp($fgrID, $id)) {
-            $usergrp[ $fgrID ] = '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="' . $fgrID . '" value="1" checked="checked" />';
+            $usergrp[ $fgrID ] = '<input class="form-check-input" type="checkbox" name="' . $fgrID . '" value="1" checked="checked" />';
         } else {
-            $usergrp[ $fgrID ] = '<input id="switch-onColor" type="checkbox" data-on-color="success" data-off-color="danger" name="' . $fgrID . '" value="1" />';
+            $usergrp[ $fgrID ] = '<input class="form-check-input" type="checkbox" name="' . $fgrID . '" value="1" />';
         }
     }
 
@@ -469,7 +443,7 @@ onmouseout="hideWMTT()" />';
 
         $userdes = '<div class="col-md-12">
             <div class="col-md-12 row"></div>
-                <div class="form-group row bt">
+                <div class="mb-3 row bt">
                     <label class="col-md-4 control-label"><b>' . $_language->module[ 'description' ] . ':</b></label>
                 <div class="col-md-8">
                     <p class="form-control-static"></p>
@@ -519,26 +493,7 @@ onmouseout="hideWMTT()" />';
 
     echo '
     <form method="post" id="post" name="post" action="admincenter.php?site=members" onsubmit="return chkFormular();">
-        <div class="tooltip" id="id1">' . $_language->module[ 'tooltip_1' ] . '</div>
-        <div class="tooltip" id="id2">' . $_language->module[ 'tooltip_2' ] . '</div>
-        <div class="tooltip" id="id3">' . $_language->module[ 'tooltip_3' ] . '</div>
-        <div class="tooltip" id="id4">' . $_language->module[ 'tooltip_4' ] . '</div>
-        <div class="tooltip" id="id5">' . $_language->module[ 'tooltip_5' ] . '</div>
-        <div class="tooltip" id="id6">' . $_language->module[ 'tooltip_6' ] . '</div>
-        <div class="tooltip" id="id7">' . $_language->module[ 'tooltip_7' ] . '</div>
-        <div class="tooltip" id="id8">' . $_language->module[ 'tooltip_8' ] . '</div>
-        <div class="tooltip" id="id9">' . $_language->module[ 'tooltip_9' ] . '</div>
-        <div class="tooltip" id="id10">' . $_language->module[ 'tooltip_10' ] . '</div>
-        <div class="tooltip" id="id11">' . $_language->module[ 'tooltip_11' ] . '</div>
-        <div class="tooltip" id="id12">' . $_language->module[ 'tooltip_12' ] . '</div>
-        <div class="tooltip" id="id13">' . $_language->module[ 'tooltip_13' ] . '</div>
-        
-        
-
-
-
-
-    <div class="form-group row bt alert alert-warning" role="alert">
+    <div class="mb-3 row bt alert alert-warning" role="alert">
     <label class="col-md-2 control-label"><h3>' . $_language->module[ 'nickname' ] . ':</h3></label>
     <div class="col-md-8"><a class="form-control-static" href="../index.php?site=profile&amp;id=' . $id . '" target="_blank"><h3>' .
             strip_tags(stripslashes(getnickname($id))) . '</h3></a>
@@ -556,7 +511,7 @@ onmouseout="hideWMTT()" />';
  
 
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label"><b>' . $_language->module[ 'access_rights' ] . ':</b></label>
     <div class="col-md-8">
       <p class="form-control-static"></p>
@@ -567,40 +522,35 @@ onmouseout="hideWMTT()" />';
 <div class="row">
 
 <div class="col-md-4">
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'news_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $news . '</p>
+    <div class="col-md-6 form-check form-switch">' . $news . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'news_writer' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $newswriter . '</p>
+    <div class="col-md-6 form-check form-switch">' . $newswriter . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'polls_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $polls . '</p>
+    <div class="col-md-6 form-check form-switch">' . $polls . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'feedback_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $feedback . '</p>
+    <div class="col-md-6 form-check form-switch">' . $feedback . '
     </div>
     </div>
 
 ';
  if (issuperadmin($userID)) {
-echo '<div class="form-group row bt alert alert-warning" role="alert">
+echo '<div class="mb-3 row bt alert alert-warning" role="alert">
     <label class="col-md-6 control-label">' . $_language->module[ 'super_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $super . '</p>
+    <div class="col-md-6 form-check form-switch">' . $super . '
     </div>
     </div>';
     }
@@ -610,31 +560,27 @@ echo '
 </div>
 
 <div class="col-md-4">
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'messageboard_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $board . '</p>
+    <div class="col-md-6 form-check form-switch">' . $board . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'messageboard_moderator' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $mod . '</p>
+    <div class="col-md-6 form-check form-switch">' . $mod . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'gallery_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $gallery . '</p>
+    <div class="col-md-6 form-check form-switch">' . $gallery . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'page_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $page . '</p>
+    <div class="col-md-6 form-check form-switch">' . $page . '
     </div>
     </div>
 
@@ -642,31 +588,27 @@ echo '
 
 <div class="col-md-4">
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'clanwar_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $cwadmin . '</p>
+    <div class="col-md-6 form-check form-switch">' . $cwadmin . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'cash_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $cash . '</p>
+    <div class="col-md-6 form-check form-switch">' . $cash . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'user_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $useradmin . '</p>
+    <div class="col-md-6 form-check form-switch">' . $useradmin . '
     </div>
     </div>
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'file_admin' ] . ':</b></label>
-    <div class="col-md-6">
-      <p class="form-control-static">' . $file . '</p>
+    <div class="col-md-6 form-check form-switch">' . $file . '
     </div>
     </div>
 
@@ -676,7 +618,7 @@ echo '
 
 <div class="col-md-12">
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-4 control-label"><b>' . $_language->module[ 'group_access' ] . ':</b></label>
     <div class="col-md-8">
       <p class="form-control-static"></p>
@@ -685,10 +627,10 @@ echo '
  
 
 
-    <div class="form-group row bt">
+    <div class="mb-3 row bt">
     <label class="col-md-2 control-label">' . $_language->module[ 'special_rank' ] . ':</b></label>
     <div class="col-md-4">
-      <p class="form-control-static"><select class="form-control" name="special_rank">' . $ranks . '</select></p>
+      <select class="form-select" name="special_rank">' . $ranks . '</select>
     </div>
     </div>
 
@@ -700,9 +642,9 @@ echo '
     while ($dc = mysqli_fetch_array($sql)) {
         $name = $dc[ 'name' ];
         $fgrID = $dc[ 'fgrID' ];
-        echo '<div class="form-group row bt"><label class="col-md-2 control-label">' . $name . ':</b></label>
-    <div class="col-md-4">
-      <p class="form-control-static">' . $usergrp[ $fgrID ] . '</p></div>
+        echo '<div class="mb-3 row bt"><label class="col-md-2 control-label">' . $name . ':</b></label>
+    <div class="col-md-4 form-check form-switch">' . $usergrp[ $fgrID ] . '
+    </div>
     </div>
     ';
         
@@ -799,7 +741,30 @@ echo'<div class="card">
 
         <a href="admincenter.php?site=members&amp;action=edit&amp;id=' . $dm[ 'userID' ] . '" class="hidden-xs hidden-sm btn btn-warning" type="button">' . $_language->module[ 'edit' ] . '</a>
 
-        <input class="btn btn-danger" type="button" onclick="MM_confirm(\'' . $_language->module['really_delete'] . '\', \'admincenter.php?site=members&amp;delete=true&amp;id=' . $dm[ 'userID' ] . '&amp;squadID=' . $dm[ 'squadID' ] . '&amp;captcha_hash=' . $hash . '\')" value="' . $_language->module['delete'] . '" />     
+<!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=members&amp;delete=true&amp;id=' . $dm[ 'userID' ] . '&amp;squadID=' . $dm[ 'squadID' ] . '&amp;captcha_hash=' . $hash . '">
+    ' . $_language->module['delete'] . '
+    </button>
+    <!-- Button trigger modal END-->
+
+     <!-- Modal -->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'members' ] . '</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
 
        
     </td>

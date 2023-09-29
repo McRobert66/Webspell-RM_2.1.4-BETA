@@ -62,6 +62,7 @@ if ($allowed) {
             
             $data_array = array();
             $data_array['$title'] = $title;
+        $data_array['$subtitle']= $title;
             
     $template = $tpl->loadTemplate("static","head", $data_array);
     echo $template;

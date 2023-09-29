@@ -60,14 +60,15 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     <link href="tmp/rss.xml" rel="alternate" type="application/rss+xml" title="<?php echo $myclanname; ?> - RSS Feed">
     
     <?php
-         /* Plugin-Manager  css */
-        echo ($_pluginmanager->plugin_loadheadfile_css());
-        /* Plugin-Manager  css END*/
-
+         
         /* Components & themes css */
         echo $components_css;
         echo $theme_css;
         /* Components & themes css END*/
+
+        /* Plugin-Manager  css */
+        echo ($_pluginmanager->plugin_loadheadfile_css());
+        /* Plugin-Manager  css END*/
 
          /*  Components & themes js */ 
         echo $components_js;
@@ -78,19 +79,19 @@ header('X-UA-Compatible: IE=edge,chrome=1');
         echo ($_pluginmanager->plugin_loadheadfile_js());
         /* Plugin-Manager  js END */
 
-
         /* Module DB Abfrage */
         echo get_hide();
         /* Module DB Abfrage END */
     ?>
-    
 </head>
 <body>
-<div class="d-flex flex-column sticky-footer-wrapper"> <!-- flex -->
+    <div class="d-flex flex-column sticky-footer-wrapper"> <!-- flex -->
         <!-- Navigation Modul --> 
         <div id="navigation_modul">        
         <?php echo get_navigation_modul();?>
         </div>
+        <?php echo get_lock_modul();?>
+        
         <!-- Navigation Modul END-->
         <div id="head_modul">  
         <!-- Head Modul -->
@@ -106,10 +107,8 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
         <main class="flex-fill">  <!-- flex -->
         
-            <!--<div class="container">--> <!-- container-content <div class="container-fluid">
-            <div class="container<?php #if (!in_array($site, $hide8)) { echo get_content(); } ?>"> -->
-                <?php echo get_content(); ?>
-                <div class="row"> <!-- row -->
+            <div class="container content_style"> <!-- container -->
+                <div class="row"> <!-- row -->            
 
                 <!-- left column linke Spalte -->
                <?php if (!in_array($site, $hide3)) { ?>
@@ -184,13 +183,15 @@ header('X-UA-Compatible: IE=edge,chrome=1');
     
    
     <?php include('./system/ckeditor.php'); ?>
+
+    <!-- Link muss noch geändert werden-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
 <div class="alert alert-dismissible text-center cookiealert" role="alert">
       <div class="cookiealert-container">
         &#x1F36A; <b>Cookies</b>. 
         <span id="description"><?php echo $index_language[ 'cookie-text' ];?>
-          <span id="privacy_policy"><a href="datenschutz.html"><?php echo $index_language[ 'privacy' ];?></a></span>
+          <span id="privacy_policy"><a href="index.php?site=privacy_policy"><?php echo $index_language[ 'privacy' ];?></a></span>
         </span>
         <span id="accept"><a class="btn btn-primary btn-sm acceptcookies" aria-label="Close" href="" title="Akzeptieren"><?php echo $index_language[ 'accept' ];?></a></span>
       </div>
@@ -217,7 +218,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
         // When clicking on the agree button, create a 1 year
         // cookie to remember user's choice and close the banner
         acceptCookies.addEventListener("click", function () {
-          setCookie("cookie", "accepted", 365);
+          setCookie("cookie", "accepted", 14);
           cookieAlert.classList.remove("show");
           setTimeout(function(){ window.location.reload(); });
         });
@@ -247,7 +248,5 @@ header('X-UA-Compatible: IE=edge,chrome=1');
         }
     })();
   </script>
-    
-
 </body>
 </html>

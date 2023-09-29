@@ -231,11 +231,7 @@ $putquery = mysqli_fetch_assoc($mquery);
 return $putquery;
 print_r($putquery);
 
-
-
 }
-
-
 
 // -- MYSQL QUERY FUNCTION -- //
 $_mysql_querys = array();
@@ -286,52 +282,36 @@ function systeminc($file) {
     }
 }
 
-// -- IGNORED USERS -- //
-
-function isignored($userID, $buddy)
-{
-   /* $anz = mysqli_num_rows(
-        safe_query(
-            "SELECT userID FROM " . PREFIX . "buddys WHERE buddy='$buddy' AND userID='$userID' "
-        )
-    );
-    if ($anz) {
-        $ergebnis = safe_query("SELECT * FROM " . PREFIX . "buddys WHERE buddy='$buddy' AND userID='$userID' ");
-        $ds = mysqli_fetch_array($ergebnis);
-        if ($ds[ 'banned' ] == 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    } else {
-        return 0;
-    }*/
-}
-
 // -- GLOBAL SETTINGS -- //
+$headlines = '';
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1'"));
+@$font_family = $dx[ 'body1' ];
+@$headlines = $dx['headlines'];
 
 $components = array(
     'css' => array(
-        'components/bootstrap/css/bootstrap.min.css',
-        'components/fontawesome/css/all.css',
-        'components/scrolltotop/css/scrolltotop.css',
-        'components/datatables/css/jquery.dataTables.min.css',
-        'components/ckeditor/plugins/codesnippet/lib/highlight/styles/school_book_output.css',
-        'components/css/cookie.css',
-        'components/css/styles.css.php'
+        './components/bootstrap/css/bootstrap.min.css',
+        './components/fontawesome/css/all.css',
+        './components/scrolltotop/css/scrolltotop.css',
+        './components/datatables/css/jquery.dataTables.min.css',
+        './components/ckeditor/plugins/codesnippet/lib/highlight/styles/school_book_output.css',
+        './components/css/cookie.css',
+        './components/css/styles.css.php',
+        './components/css/themify-icons.css',
+        './components/fonts/fonts_'.$font_family.'.css',
+        './components/css/'.$headlines.''
         
     ),
     'js' => array(
-        'components/jquery/jquery.min.js',
-        'components/popper.js/popper.min.js',
-        'components/tooltip.js/tooltip.min.js',
-        'components/bootstrap/js/bootstrap.min.js',
-        'components/bootstrap/js/bootstrap.bundle.min.js',
-        'components/webshim/polyfiller.js',
-        'components/scrolltotop/js/scrolltotop.js',
-        'components/js/bbcode.js',
-        'components/datatables/js/jquery.dataTables.js',
-        'components/js/index.js'
+        './components/jquery/jquery.js',
+        './components/popper.js/popper.min.js',
+        './components/tooltip.js/tooltip.min.js',
+        './components/bootstrap/js/bootstrap.bundle.min.js',
+        './components/webshim/polyfiller.js',
+        './components/scrolltotop/js/scrolltotop.js',
+        './components/js/bbcode.js',
+        './components/datatables/js/jquery.dataTables.js',
+        './components/js/index.js'
     )
 );
 
@@ -347,12 +327,6 @@ $maxlatesttopicchars = $ds[ 'latesttopicchars' ];
 if (empty($maxlatesttopicchars)) {
     $maxlatesttopicchars = 18;
 }
-
-
-
-
-
-
 $maxtopics = $ds[ 'topics' ];
 if (empty($maxtopics)) {
     $maxtopics = 20;
@@ -412,12 +386,10 @@ $default_format_time = $ds[ 'time_format' ];
 if (empty($default_format_time)) {
     $default_format_time = 'H:i';
 }
-
 $search_min_len = $ds[ 'search_min_len' ];
 if (empty($search_min_len)) {
     $search_min_len = '4';
 }
-
 $modRewrite = (bool)$ds[ 'modRewrite' ];
 if (empty($modRewrite)) {
     $modRewrite = false;
@@ -433,6 +405,5 @@ $row = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE active = '1
 $tmp = mysqli_fetch_assoc(safe_query("SELECT count(themeID) as cnt FROM " . PREFIX . "settings_themes"));
 $anzpartners = $tmp[ 'cnt' ];
 while ($ds = mysqli_fetch_array($row)) {
-       $theme_name = $ds['name'];
-       #$logo = $ds[ 'logo' ];
+       $theme_name = $ds['pfad'];
 }

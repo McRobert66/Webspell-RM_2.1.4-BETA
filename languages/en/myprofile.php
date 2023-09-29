@@ -155,6 +155,7 @@ $language_array = array(
     'hint'  =>  'Hint: ',
     'privacy_policy' => 'Privacy policy',
     'GDPRinfo' => 'By updating your profile and entering your <u>voluntary</u> personal information, you accept that it will be permanently stored in our database. You can change, remove or correct these at any time. Optionally you have the possibility to completely delete your profile.',
-    'GDPRaccept' => 'You must accept the storage of your personal data'
+    'GDPRaccept' => 'You must accept the storage of your personal data',
+     'discord' => 'Discord'
 );
 

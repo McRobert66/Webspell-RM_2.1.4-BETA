@@ -50,7 +50,8 @@ $language_array = Array(
   'tags'=>'Tags',
   'options'=>'Optionen',
   'saved successfully'=>'erfolgreich gespeichert',
-  'delete_info'=>'Möchten Sie diese Statische Seite wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.'
+  'delete_info'=>'Möchten Sie diese Statische Seite wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.',
+  'editor_is_displayed' => 'Editor aus / einschalten'
  
 );
 

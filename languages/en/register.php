@@ -93,22 +93,20 @@ $language_array = array(
 
     'homepage1' => 'Website',
     'homepage2' => 'Enter your website.',
-    'sexuality' => 'Gender',
+    'gender' => 'gender',
+    'select_gender' => 'select your gender',
     'female' => 'female',
     'diverse' => 'diverse',
     'male' => 'male',
     'unknown' => 'not specified',
     'date_of_birth' => 'Date of birth',
     'fields_star_required' => 'Required fields',
-    'enter_homepage' => 'You did not enter your website address',
-	
-	'enter_your_firstname' => 'Enter your first name',
-    'enter_your_lastname' => 'Enter your last name',
-    'firstname' => 'First name',
-    'lastname' => 'Last name',
-    'gender' => 'Gender',
-    'select_gender' => 'Select your gender'
+    'enter_homepage' => 'You did not enter your website address.',
 
+    'enter_your_firstname' => 'Enter your first name',
+    'enter_your_lastname' => 'Enter your last name',
+    'firstname' => 'first names',
+    'lastname' => 'last name'
 
 );
 

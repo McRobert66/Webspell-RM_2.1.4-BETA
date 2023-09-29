@@ -128,7 +128,7 @@ $language_array = array(
     'status' => 'Stato',
     'submit' => 'Invia',
     'unknown' => 'non disponibile',
-    'user_doesnt_exist' => 'Questo utente non esiste.',
+    'user_doesnt_exist' => '<blockquote>Questo utente non esiste.</blockquote>',
     'usergalleries_disabled' => 'Gallerie utente disabilitate.',
     'userpic' => 'Immagine Utente',
     'usertitle' => 'Titolo Utente',
@@ -192,5 +192,6 @@ $language_array = array(
 'admin' => 'Amministrazione',
     'edit_account' => 'Edit Account',
      'cashbox' => 'Cassa',
-     'usergalleries' => 'Galleria Utenti'
+     'usergalleries' => 'Galleria Utenti',
+     'discord' => 'Discord'
 );

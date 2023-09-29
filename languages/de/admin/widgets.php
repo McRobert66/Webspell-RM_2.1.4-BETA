@@ -62,6 +62,11 @@ $language_array = Array(
 	'page_footer_widget' => 'Page Footer',
 	'modul_info' => 'Widgetbereich',
 	'really_delete'=>'Möchten Sie dieses Widget wirklich entfernen?',
+    'access_denied'=>'<div class="alert alert-danger" role="alert">Zugriff verweigert</div>',
+    'transaction_invalid'=>'<div class="alert alert-danger" role="alert">Transaktions ID ungültig</div>',
+    'transaction_done'=>'<div class="alert alert-success" role="alert">Erfolgreich hinzugefügt.</div>',
+    'info' => 'Die angefragte Seite konnte nicht gefunden werden. <i><b>Aktiviere ein Template im Dashbord!</b></i>',
+    'activate_template' => 'Template aktivieren',
 
 
 
