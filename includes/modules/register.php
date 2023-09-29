@@ -125,10 +125,12 @@ if (isset($_POST['save'])) {
         if($recaptcha=="0") { 
             if (!$CAPCLASS->checkCaptcha($_POST['captcha'], $_POST['captcha_hash'])) {
                 $error[] = "Securitycode Error";
-            } else { $runregister = "false"; }
+            } else { 
+                $runregister = "false"; 
+            }
         } else {
       
-                  $msg='';
+            $msg='';
             if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $recaptcha=$_POST['g-recaptcha-response'];
                 if(!empty($recaptcha)) {
@@ -343,12 +345,10 @@ if (isset($_GET['key'])) {
                 }
 
                 $gender = '
-                <option value="select_gender">' . $_language->module['select_gender'] . '</option>
-            <option value="male">' . $_language->module['male'] . '</option>
-            <option value="female">' . $_language->module['female'] . '</option>
-            <option value="diverse">' . $_language->module['diverse'] . '</option>';
-            
-            #$gender = str_replace('value="' . $ds['gender'] . '"', 'value="' . $ds['gender'] . '" selected="selected"', $gender);
+                    <option value="select_gender">' . $_language->module['select_gender'] . '</option>
+                    <option value="male">' . $_language->module['male'] . '</option>
+                    <option value="female">' . $_language->module['female'] . '</option>
+                    <option value="diverse">' . $_language->module['diverse'] . '</option>';
 
                 if (isset($_POST['homepage'])) {
                     $homepage = getforminput($_POST['homepage']);
@@ -357,13 +357,13 @@ if (isset($_GET['key'])) {
                 }
 
                 $format_date = "<option value='d.m.y'>DD.MM.YY</option>
-                <option value='d.m.Y'>DD.MM.YYYY</option>
-                <option value='j.n.y'>D.M.YY</option>
-                <option value='j.n.Y'>D.M.YYYY</option>
-                <option value='y-m-d'>YY-MM-DD</option>
-                <option value='Y-m-d'>YYYY-MM-DD</option>
-                <option value='y/m/d'>YY/MM/DD</option>
-                <option value='Y/m/d'>YYYY/MM/DD</option>";
+                    <option value='d.m.Y'>DD.MM.YYYY</option>
+                    <option value='j.n.y'>D.M.YY</option>
+                    <option value='j.n.Y'>D.M.YYYY</option>
+                    <option value='y-m-d'>YY-MM-DD</option>
+                    <option value='Y-m-d'>YYYY-MM-DD</option>
+                    <option value='y/m/d'>YY/MM/DD</option>
+                    <option value='Y/m/d'>YYYY/MM/DD</option>";
                 $format_date = str_replace(
                     "value='" . $ds['date_format'] . "'",
                     "value='" . $ds['date_format'] . "' selected='selected'",
@@ -402,9 +402,6 @@ if (isset($_GET['key'])) {
                 $data_array['$format_date'] = $format_date;
                 $data_array['$format_time'] = $format_time;
 
-
-
-
                 $data_array['$registration'] = $_language->module[ 'registration' ];
                 $data_array['$info'] = $_language->module[ 'info' ];
                 $data_array['$nickname'] = $_language->module[ 'nickname' ];
@@ -426,7 +423,6 @@ if (isset($_GET['key'])) {
                 $data_array['$pw4'] = $_language->module['pw4'];
                 $data_array['$pw5'] = $_language->module['pw5'];
                 $data_array['$pw6'] = $_language->module['pw6'];
-
                 $data_array['$login'] = $_language->module[ 'login' ];
                 $data_array['$email_address'] = $_language->module[ 'email_address' ];
                 $data_array['$already_have_an_account'] = $_language->module['already_have_an_account'];
@@ -436,13 +432,11 @@ if (isset($_GET['key'])) {
                 $data_array['$repeat'] = $_language->module['repeat'];
                 $data_array['$info1'] = $_language->module['info1'];
                 $data_array['$info2'] = $_language->module['info2'];
-
                 $data_array['$date_of_birth'] = $_language->module[ 'date_of_birth' ];
                 $data_array['$lang_gender'] = $_language->module[ 'gender' ];
                 $data_array['$homepage1'] = $_language->module[ 'homepage1' ];
                 $data_array['$homepage2'] = $_language->module[ 'homepage2' ];
                 $data_array['$fields_star_required'] = $_language->module[ 'fields_star_required' ];
-
                 $data_array['$enter_your_firstname'] = $_language->module['enter_your_firstname'];
                 $data_array['$enter_your_lastname'] = $_language->module['enter_your_lastname'];
                 $data_array['$firstname'] = $_language->module['firstname'];

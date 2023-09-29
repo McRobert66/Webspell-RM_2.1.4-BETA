@@ -252,8 +252,7 @@ echo'<div class="card">
             <div class="card-body">';    
 echo'
     <a href="admincenter.php?site=settings" class="btn btn-primary disabled" type="button">'.$_language->module[ 'settings' ] .'</a>
-    <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary" type="button">'.$_language->module[ 'social_settings' ] .'</a>
-    <!--<a href="admincenter.php?site=settings&action=plugin_setting" class="btn btn-primary" type="button">'.$_language->module[ 'plugin_settings' ] .'</a>-->';
+    <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary" type="button">'.$_language->module[ 'social_settings' ] .'</a>';
 
 
 
@@ -826,8 +825,7 @@ if (isset($_POST[ "saveedit" ])) {
             <div class="card-body">';    
 echo'
     <a href="admincenter.php?site=settings" class="btn btn-primary" type="button">'.$_language->module[ 'settings' ] .'</a>
-    <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary disabled" type="button">'.$_language->module[ 'social_settings' ] .'</a>
-    <!--<a href="admincenter.php?site=settings&action=plugin_setting" class="btn btn-primary" type="button">'.$_language->module[ 'plugin_settings' ] .'</a>-->';
+    <a href="admincenter.php?site=settings&action=social_setting" class="btn btn-primary disabled" type="button">'.$_language->module[ 'social_settings' ] .'</a>';
 
   $ds =
         mysqli_fetch_array(safe_query(

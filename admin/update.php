@@ -200,11 +200,11 @@ $settings = safe_query("SELECT * FROM " . PREFIX . "settings");
   $url = $updateserverurl.'/base/vupdate.php';
   @$check = fopen($url,"r");
   if($check) {
-  $url = ''.$updateserverurl.'/base/'.$dir.'/setup213.json';
+  $url = ''.$updateserverurl.'/base/'.$dir.'/setup.json';
   $updatepfad = $updateserverurl.'/base/'.$dir;
   }
   else {
-  $url = ''.$dangerupdateserverurl.'/base/'.$dir.'/setup213.json';
+  $url = ''.$dangerupdateserverurl.'/base/'.$dir.'/setup.json';
   $updatepfad = $dangerupdateserverurl.'/base/'.$dir;
   }  
 
@@ -359,7 +359,6 @@ try {
 
             
             $url2  = $ftp['file'];
-            $datei = $url2;
 
             /*if(@file_exists('.$datei.')) {
 
@@ -376,12 +375,12 @@ try {
           if (@unlink($datei))
           {
             $filesgrant[] = ''.$_language->module[ 'file_deleted' ].': '.$datei.'<br />';
-              $filesgranted++;
+            $filesgranted++;
           }
           else
           {
             $filesgrant[] = '<span style="color: #ff0000;">'.$_language->module[ 'file_not_deleted' ].': '.$datei.'</span><br />';
-              $filesgranted++;
+            $filesgranted++;
           }
 
 

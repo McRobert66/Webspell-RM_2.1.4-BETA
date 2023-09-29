@@ -1015,7 +1015,7 @@ if (php_sapi_name() != "cli") {
     
 </div>
 
-</div></div>';
+</div>';
 
   
 

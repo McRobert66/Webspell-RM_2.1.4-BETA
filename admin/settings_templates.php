@@ -46,13 +46,27 @@ if (isset($_GET[ 'action' ])) {
 
 if(isset($_GET[ 'delete' ])) {
 
-  $dir = $_GET[ 'modulname' ];
+  #$dir = $_GET['dir'];
+  $dir = $_GET['modulname'];
+  $name = $_GET['modulname'];
+  // Name Tabelle | Where Klause | ID name
+  DeleteData("settings_themes","modulname",$name);
+DeleteData("settings_module","themes_modulname",$name);
+DeleteData("settings_widgets","themes_modulname",$name);
+DeleteData("settings_buttons","modulname",$name);
+DeleteData("navigation_website_sub","themes_modulname",$name);
+  recursiveRemoveDirectory('../includes/themes/'. $dir);
+  safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");   
+  header('Location: ?site=settings_templates');
+  exit;  
+
+  /*$dir = $_GET[ 'modulname' ];
   $name = str_replace("/", "", $dir);
   require_once('../includes/themes/' . $_GET[ 'modulname' ] . '/uninstall.php');
   recursiveRemoveDirectory('../includes/themes/'. $dir);
   safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");  
   header('Location: ?site=settings_templates');
-  exit;
+  exit;*/
 
 
 } elseif (isset($_GET["delete_pic"])) {
@@ -150,7 +164,7 @@ foreach($objects as $nname => $object){
 }
    
 @unlink("../includes/themes/$pfad/install.php");
-@unlink("../includes/themes/$pfad/uninstall.php");
+#@unlink("../includes/themes/$pfad/uninstall.php");
 @unlink("../includes/themes/$pfad/update.php");
 
 ############# Plugin und Modul Einstellung ############################################################################################
@@ -338,6 +352,7 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
                 `nav9`='" . $_POST[ 'nav9' ] . "',
                 `nav10`='" . $_POST[ 'nav10' ] . "',
                 `nav11`='" . $_POST[ 'nav11' ] . "',
+                `nav12`='" . $_POST[ 'nav12' ] . "',
                 `body1`='" . $_POST[ 'body1' ] . "',
                 `body2`='" . $_POST[ 'body2' ] . "',
                 `body3`='" . $_POST[ 'body3' ] . "',
@@ -953,16 +968,20 @@ if ($ds[ 'express_active' ] == '1') {
         $express_active = '
 
 
-<div class="accordion" id="accordionExample">
+<div class="accordion accordion-flush" id="accordionFlushExample">
   <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#Express_Settings" aria-expanded="true" aria-controls="Express_Settings">
-        <i class="fas fa-tasks"></i> Express Settings
+    <h2 class="accordion-header" id="Express_Settings">
+      <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#Express_Settings" aria-expanded="false" aria-controls="Express_Settings">
+       <i class="fas fa-bars"></i> Express Settings
       </button>
     </h2>
-    <div id="Express_Settings" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    <div id="Express_Settings" class="accordion-collapse collapse" aria-labelledby="Express_Settings" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
         <h4>Express Settings</h4>
+
+
+
+
 <div class="row">
     <div class="col-md-6">
         <div class="mb-3 row">
@@ -973,7 +992,7 @@ if ($ds[ 'express_active' ] == '1') {
         </div>
       
         <div class="mb-3 row">
-        <label class="col-md-4 control-label">primary-bg text color:gen2 schrift</label>
+        <label class="col-md-4 control-label">text color:gen2 Schriftfarbe / Navilink </label>
         <div id="cp13" class="input-group colorpicker-component col-md-7">
         <input type="text" value="' . $ds[ 'nav7' ] . '" class="form-control" name="gen2" /><span class="input-group-text input-group-addon"><i></i></span> 
         </div>
@@ -982,14 +1001,14 @@ if ($ds[ 'express_active' ] == '1') {
 
     <div class="col-md-6">
           <div class="mb-3 row">
-            <label class="col-md-4 control-label">primary-bg text color link:gen3 linkschrift</label>
+            <label class="col-md-4 control-label">text color link:gen3 Linkschrift</label>
             <div id="cp14" class="input-group colorpicker-component col-md-7">
             <input type="text" value="' . $ds[ 'typo4' ] . '" class="form-control" name="gen3" /><span class="input-group-text input-group-addon"><i></i></span> 
             </div>
           </div>
           
         <div class="mb-3 row">
-            <label class="col-md-4 control-label" for="name">primary-bg text color hoverlink:gen4 linkschrift hover</label>
+            <label class="col-md-4 control-label" for="name">text color hoverlink:gen4 Linkschrift Hover</label>
             <div id="cp73" class="input-group colorpicker-component col-md-7">
             <input type="text" value="' . $ds[ 'typo8' ] . '" class="form-control" name="gen4" /><span class="input-group-text input-group-addon"><i></i></span> 
             </div>
@@ -1000,12 +1019,17 @@ if ($ds[ 'express_active' ] == '1') {
             <div id="cp74" class="input-group colorpicker-component col-md-7">
             <input type="text" value="' . $ds[ 'reg1' ] . '" class="form-control" name="gen5" /><span class="input-group-text input-group-addon"><i></i></span> 
             </div>
-          </div>
+  </div>
+
+       </div>
+
+</div></div>
+       
+      
+      
     </div>
-</div>
-
-</div> <!-- accordion end -->
-
+  </div> <!-- accordion end -->
+<br> <br>
 ';
     } else {
         $express_active = '
@@ -1050,11 +1074,20 @@ echo'
 <div class="col-md-6">
 
 <div class="mb-3 row">
-    <label class="col-md-4 control-label">Background:</label>
+    <label class="col-md-4 control-label">Background Primare:</label>
     <div id="cp1" class="input-group colorpicker-component col-md-7">
     <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_1'].'" type="text" value="' . $ds[ 'nav1' ] . '" class="form-control" name="nav1" /><span class="input-group-text input-group-addon"><i></i></span>
     </div>
   </div>
+
+  <div class="mb-3 row">
+    <label class="col-md-4 control-label">Background Secondar:</label>
+    <div id="cp76" class="input-group colorpicker-component col-md-7">
+    <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_1'].'" type="text" value="' . $ds[ 'nav12' ] . '" class="form-control" name="nav12" /><span class="input-group-text input-group-addon"><i></i></span>
+    </div>
+  </div>
+
+
   <div class="mb-3 row">
     <label class="col-md-4 control-label">Font-size:</label>
     <div class="input-group col-md-7">
@@ -2698,9 +2731,8 @@ echo'<div class="card">
 # Themplate default kann man nicht löschen!
 if (@$db[ 'modulname' ] != 'default') {
                     
-echo'                        
-<!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_16' ]. ' " data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_templates&amp;delete=true&amp;themeID='.$db['themeID'].'&amp;name='.$db['name'].'&amp;pfad='.$db['pfad'].'&amp;modulname='.$db['modulname'].'&amp;captcha_hash='.$hash.'">
+echo' <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_16' ]. ' " data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=settings_templates&amp;delete=true&themeID='.$db['themeID'].'&name='.$db['name'].'&pfad='.$db['pfad'].'&modulname='.$db['modulname'].'&amp;captcha_hash='.$hash.'">
     ' . $_language->module['delete'] . '
     </button></th>';echo'
     <!-- Button trigger modal END-->  ';

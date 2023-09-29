@@ -40,10 +40,7 @@ if ($loggedin && $cookievalue == 'accepted') {
                 header( 'Location: index.php');
             } else {
                 header( 'Location: ' . $_SESSION['HTTP_REFERER'] );
-}
-
-
-            
+            }
             ob_end_clean();
             exit( 1 );
         } else {

@@ -1,9 +1,9 @@
 >											  
->### WEBSPELL-RM - Release: 2.1.2
+>### WEBSPELL-RM - Release: 2.1.4
 >						   
->### WEBSPELL-RM - Release: 2.1.2 - https://www.webspell-rm.de
+>### WEBSPELL-RM - Release: 2.1.4 - https://www.webspell-rm.de
 >
->### WIKI WEBSPELL-RM - Release: 2.1.2 - https://www.webspell-rm.de/wiki.html
+>### WIKI WEBSPELL-RM - Release: 2.1.4 - https://www.webspell-rm.de/wiki.html
 >
 ```
 /**
@@ -17,22 +17,23 @@
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
  * @version         webspell-rm                                                                              *
  *                                                                                                           *
- * @copyright       2018-2023 by webspell-rm.de <https://www.webspell-rm.de>                                 *
+ * @copyright       2018-2023 by webspell-rm.de                                                              *
  * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de                 *
- * @Forum           <https://www.webspell-rm.de/forum.html>                                                  *
- * @WIKI            webspell-rm.de <https://www.webspell-rm.de/wiki.html>                                    *
+ * @website         <https://www.webspell-rm.de>                                                             *
+ * @forum           <https://www.webspell-rm.de/forum.html>                                                  *
+ * @wiki            <https://www.webspell-rm.de/wiki.html>                                                   *
  *                                                                                                           *
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
  * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                         *
  *                  It's NOT allowed to remove this copyright-tag                                            *
  *                  <http://www.fsf.org/licensing/licenses/gpl.html>                                         *
  *                                                                                                           *
- * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                        *
- * @copyright       2005-2018 by webspell.org / webspell.info                                                *
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                        *
+ * @copyright       2005-2011 by webspell.org / webspell.info                                                *
  *                                                                                                           *
  *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- */
+*/
 ```
 	Webspell-RM is a free Content Management System (CMS) that is available free of charge at https://www.webspell-rm.de. The following information should give you a first impression of how it works.
 
@@ -50,7 +51,7 @@ Webspell-RM ist ein CMS mit Plugin System
 - installierbare Themes
 - deinstallierbare Themes
 - Webspell-RM Update möglich im Admincenter
-- PHP 8.0 kompatibel
+- PHP 8.x kompatibel
 - DSGVO konform
 
 ###############################################
@@ -74,7 +75,7 @@ Bei Fragen nutzen Sie unser Forum!
 
 	1. Requirements
 
-	    * Webspace with PHP and mySQL support (MySQL >= 5.6, PHP >= 7.2/8.0)
+	    * Webspace with PHP and mySQL support (MySQL >= 5.6, PHP >= 7.2/8.x)
 	    * (g)unzip/tar to extract the downloaded Webspell-RM release
 	    * A FTP program to upload the Webspell-RM files to your webspace - we recommend SmartFTP
 

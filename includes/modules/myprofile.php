@@ -1,30 +1,32 @@
 <?php
 /**
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*  
- *                                    Webspell-RM      /                        /   /                                                 *
- *                                    -----------__---/__---__------__----__---/---/-----__---- _  _ -                                *
- *                                     | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                                 *
- *                                    _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                                 *
- *                                                 Free Content / Management System                                                   *
- *                                                             /                                                                      *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @version         Webspell-RM                                                                                                       *
- *                                                                                                                                    *
- * @copyright       2018-2022 by webspell-rm.de <https://www.webspell-rm.de>                                                          *
- * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de <https://www.webspell-rm.de/forum.html>  *
- * @WIKI            webspell-rm.de <https://www.webspell-rm.de/wiki.html>                                                             *
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                                                  *
- *                  It's NOT allowed to remove this copyright-tag <http://www.fsf.org/licensing/licenses/gpl.html>                    *
- *                                                                                                                                    *
- * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                                                 *
- * @copyright       2005-2018 by webspell.org / webspell.info                                                                         *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- */
-
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ *                  Webspell-RM      /                        /   /                                          *
+ *                  -----------__---/__---__------__----__---/---/-----__---- _  _ -                         *
+ *                   | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                          *
+ *                  _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                          *
+ *                               Free Content / Management System                                            *
+ *                                           /                                                               *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @version         webspell-rm                                                                              *
+ *                                                                                                           *
+ * @copyright       2018-2023 by webspell-rm.de                                                              *
+ * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de                 *
+ * @website         <https://www.webspell-rm.de>                                                             *
+ * @forum           <https://www.webspell-rm.de/forum.html>                                                  *
+ * @wiki            <https://www.webspell-rm.de/wiki.html>                                                   *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                         *
+ *                  It's NOT allowed to remove this copyright-tag                                            *
+ *                  <http://www.fsf.org/licensing/licenses/gpl.html>                                         *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                        *
+ * @copyright       2005-2011 by webspell.org / webspell.info                                                *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+*/
 
 $_language->readModule('myprofile');
 
@@ -39,12 +41,12 @@ if (!$userID) {
     echo $template;
 
     if (isset($_GET[ 'action' ])) {
-    $action = $_GET[ 'action' ];
-} else {
-    $action = '';
-}
+        $action = $_GET[ 'action' ];
+    } else {
+        $action = '';
+    }
 
-if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
         $nickname = htmlspecialchars(mb_substr(trim($_POST['nickname']), 0, 30));
         if (strpos($nickname, "'") !== false) {
             $nickname = ""; 
@@ -68,13 +70,13 @@ if (isset($_POST['submit'])) {
             #$games = "0";
         }
         
-        $usertext = cleartext($_POST['usertext']);
+        $usertext = $_POST['usertext'];
         $firstname = cleartext($_POST['firstname']);
         $lastname = cleartext($_POST['lastname']);
         $birthday = cleartext($_POST['birthday']);
         $gender = cleartext($_POST['gender']);
         $town = cleartext($_POST['town']);
-        $about = cleartext($_POST['messageabout']);
+        $about = $_POST['messageabout'];
         $email_hide = cleartext($_POST['email_hide']);
         $discord = cleartext($_POST['discord']);
         $twitch = cleartext($_POST['twitch']);
@@ -265,22 +267,18 @@ if (isset($_POST['submit'])) {
         }
 
         $team = array();
-    if (is_array($games)) {
-        foreach ($games as $player) {
-            if (!in_array($player, $team)) {
-                $team[ ] = $player;
+        if (is_array($games)) {
+            foreach ($games as $player) {
+                if (!in_array($player, $team)) {
+                    $team[ ] = $player;
+                }
             }
         }
-    }
-    $home_string = serialize($team);
+        $home_string = serialize($team);
 
         if (count($error_array)) {
             $showerror = generateErrorBoxFromArray($_language->module['errors_there'], $error_array);
         } else {
-
-
-
-
             safe_query(
                 "UPDATE `" . PREFIX . "user`
                     SET
@@ -523,14 +521,10 @@ if (isset($_POST['submit'])) {
         }
 	    
 	} else {
-
     
     $CAPCLASS = new \webspell\Captcha;
     $CAPCLASS->createTransaction();
     $hash = $CAPCLASS->getHash();
-
-
-
 
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "user WHERE userID='" . $userID . "'");
         $anz = mysqli_num_rows($ergebnis);
@@ -579,8 +573,6 @@ if (isset($_POST['submit'])) {
                                     </div>';
                 };
 
-
-
             $format_date = "<option value='d.m.y'>DD.MM.YY</option>
                 <option value='d.m.Y'>DD.MM.YYYY</option>
                 <option value='j.n.y'>D.M.YY</option>
@@ -615,21 +607,6 @@ if (isset($_POST['submit'])) {
             
             $birthday = date("Y-m-d", strtotime($ds[ 'birthday' ]));
             
-            /*if ($ds[ 'avatar' ]) {
-                $viewavatar = '<a href="javascript:void(0);" onclick="window.open(\'images/avatars/' .
-                    $ds[ 'avatar' ] . '\',\'avatar\',\'width=120,height=120\')">' . $_language->module[ 'avatar' ] .
-                    '</a>';
-            } else {
-                $viewavatar = $_language->module['avatar'];
-            }
-            if ($ds[ 'userpic' ]) {
-                $viewpic = '&#8226; <a href="javascript:void(0);" onclick="window.open(\'images/userpics/' .
-                    $ds[ 'userpic' ] . '\',\'userpic\',\'width=250,height=285\')">' . $_language->module[ 'userpic' ] .
-                    '</a>';
-            } else {
-                $viewpic = $_language->module['userpic'];
-            }*/
-
             if (!empty($ds[ 'userpic' ])) {
                 $viewpic = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 150px" src="../images/userpics/' . $ds[ 'userpic' ] . '" alt="">';
             } else {
@@ -706,15 +683,11 @@ if (isset($_POST['submit'])) {
                     );
             }
 
-
-
             $games = '';
             $gamesa = safe_query("SELECT tag, name FROM " . PREFIX . "settings_games ORDER BY name");
             while ($dv = mysqli_fetch_array($gamesa)) {
                 $games .= '<option value="' . $dv[ 'tag' ] . '">' . getinput($dv[ 'name' ]) . '</option>';
             }
-
-
 
             if (!empty($ds[ 'games' ])) {
             $array = unserialize($ds[ 'games' ]);
@@ -725,7 +698,6 @@ if (isset($_POST['submit'])) {
                 }
             }
         }
-
        
         $data_array = array();
         $data_array['$showerror'] = $showerror;
@@ -768,7 +740,6 @@ if (isset($_POST['submit'])) {
         $data_array['$signature'] = $_language->module[ 'signature' ];
         $data_array['$lang_avatar'] = $_language->module[ 'avatar' ];
         $data_array['$lang_userpic'] = $_language->module[ 'userpic' ];
-
         $data_array['$personal_info'] = $_language->module[ 'personal_info' ];
         $data_array['$first_name'] = $_language->module[ 'first_name' ];
         $data_array['$last_name'] = $_language->module[ 'last_name' ];
@@ -777,14 +748,12 @@ if (isset($_POST['submit'])) {
         $data_array['$lang_gender'] = $_language->module[ 'gender' ];
         $data_array['$home_page'] = $_language->module[ 'homepage' ];
         $data_array['$about_myself'] = $_language->module[ 'about_myself' ];
-
         $data_array['$options'] = $_language->module[ 'options' ];
         $data_array['$language'] = $_language->module[ 'language' ];
         $data_array['$mail_on_new_pm'] = $_language->module[ 'mail_on_new_pm' ];
         $data_array['$hide_e-mail'] = $_language->module[ 'hide_e-mail' ];
         $data_array['$formatdate'] = $_language->module[ 'format_date' ];
-        $data_array['$formattime'] = $_language->module[ 'format_time' ];
-        
+        $data_array['$formattime'] = $_language->module[ 'format_time' ];        
         $data_array['$social_media'] = $_language->module[ 'social_media' ];
         $data_array['$media_twitch'] = $_language->module[ 'twitch' ];
         $data_array['$media_youtube'] = $_language->module[ 'youtube' ];
@@ -797,14 +766,11 @@ if (isset($_POST['submit'])) {
         $data_array['$lang_you_have_to_nickname'] = $_language->module[ 'you_have_to_nickname' ];
         $data_array['$lang_you_have_to_firstname'] = $_language->module[ 'you_have_to_firstname' ];
         $data_array['$lang_you_have_to_bday'] = $_language->module[ 'you_have_to_bday' ];
-
         $data_array['$lang_hint'] = $_language->module['hint'];
         $data_array['$lang_GDPRinfo'] = $_language->module['GDPRinfo'];
         $data_array['$lang_GDPRaccept'] = $_language->module['GDPRaccept'];
         $data_array['$lang_privacy_policy'] = $_language->module['privacy_policy'];
         $data_array['$lang_discord'] = $_language->module[ 'discord' ];
-
-
 
         $template = $tpl->loadTemplate("myprofile","content", $data_array);
         echo $template;

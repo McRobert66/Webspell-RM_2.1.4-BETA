@@ -53,7 +53,7 @@ function getter($url) {
     curl_close($ch);
     return $data;
 }
-$getversion = $plugin_version;
+$getversion = $version;
 
 ####### Plugins #########
 $url = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json';
@@ -92,11 +92,18 @@ if (!$getnew = $plugin) {
 
 if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
-  $name = str_replace("/", "", $dir);
-  require_once('../includes/plugins'. $dir.'uninstall.php');
+    $name = $_GET['modulname'];
+  // Name Tabelle | Where Klause | ID name
+  DeleteData("settings_plugins","modulname",$name);
+  DeleteData("navigation_dashboard_links","modulname",$name);
+  DeleteData("navigation_website_sub","modulname",$name);
+  DeleteData("settings_module","modulname",$name);
+  DeleteData("settings_widgets","modulname",$name);
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."");
   recursiveRemoveDirectory('../includes/plugins'. $dir); 
   header('Location: ?site=plugin_installer');
   exit;
+
 } elseif(!empty($_GET['do'])) {
   echo'<div class="card">
         <div class="card-header">
@@ -120,11 +127,33 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $id = $_GET['id'];
   echo rmmodinstall('plugin','install',$dir,$id,$getversion);
   echo'</div></div>';
- 
-} elseif(!empty($_GET['up'])) {
+} elseif(!empty($_GET['re'])) {
   echo'<div class="card">
         <div class="card-header">
             <i class="fas fa-puzzle-piece"></i> Plugin Installer
+        </div>
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">Plugin Installer</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Install</li>
+        </ol>
+      </nav>
+
+    <div class="card-body">';
+  $dir = $_GET['dir'];
+  $dir = str_replace('/','',$dir);
+  ############ Plugin und Modul Einstellung ###############
+  DeleteData("settings_module","modulname",$dir);
+  DeleteData("navigation_website_sub","modulname",$dir);
+  DeleteData("navigation_dashboard_links","modulname",$dir);
+  DeleteData("settings_plugins","modulname",$dir);
+  $id = $_GET['id'];
+  echo rmmodinstall('plugin','install',$dir,$id,$getversion);
+  echo'</div></div>'; 
+} elseif(!empty($_GET['up'])) {
+  echo'<div class="card">
+        <div class="card-header">
+            <i class="fas fa-puzzle-piece"></i> Plugin Installer Update
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -137,10 +166,10 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
-  DeleteData("settings_module","modulname",$dir);
+  /*DeleteData("settings_module","modulname",$dir);
   DeleteData("navigation_website_sub","modulname",$dir);
   DeleteData("navigation_dashboard_links","modulname",$dir);
-  DeleteData("settings_plugins","modulname",$dir);
+  DeleteData("settings_plugins","modulname",$dir);*/
   $id = $_GET['id'];
   echo rmmodinstall('plugin','update',$dir,$id,$getversion);
   echo'</div></div>';
@@ -168,7 +197,7 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
   $install_datei ="";
   
    for($plug=1; $plug<=$anz; $plug++) {
-      $installedversion = 'n/a';
+            $installedversion = 'n/a';
             $translate = new multiLanguage(detectCurrentLanguage());
             $translate->detectLanguages($result['item'.$plug]['description_de']);
             $result['item'.$plug]['description_de'] = $translate->getTextByLanguage($result['item'.$plug]['description_de']);
@@ -179,37 +208,41 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
             
             $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname`='".$result['item'.$plug]['modulname']."'");
             if(mysqli_num_rows($ergebnis) == '1') {
-                $row = mysqli_fetch_assoc($ergebnis);
+              $row = mysqli_fetch_assoc($ergebnis);              
                 if($row['version'] !== ''){
-                    $installedversion = $row['version'];
+                  $installedversion = $row['version'];
                 }
             }
+
+            if($result['item'.$plug]['version_final'] > $installedversion){
+              $installed_version = '<span class="badge text-bg-warning">'.$installedversion.'</span>';
+            }elseif($result['item'.$plug]['version_final'] == $installedversion){
+              $installed_version = '<span class="badge text-bg-success">'.$installedversion.'</span>';
+            }else{
+              $installed_version = $installedversion;
+            } 
+
+            
             $output .= '  <tr>';
-      $output .= '<th>
-      <div class="imageHold">
-    <div><img class="featured-image img-thumbnail" style="z-index: 1;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" /></div>
-</div>
-</th>';
-      $output .= '<td><h5>'.$result['item'.$plug]['name'].'</h5>
-                      
-                      '.$result['item'.$plug]['description_de'].'';
+            $output .= '<th>
+                        <div class="imageHold">
+                        <div><img class="featured-image img-thumbnail" style="z-index: 1;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" /></div>
+                        </div>
+                        </th>';
+            $output .= '<td><h5>'.$result['item'.$plug]['name'].'</h5>
+                        '.$result['item'.$plug]['description_de'].'';
 
-                      if($result['item'.$plug]['required']=="") {
-                        $output .= '';    
-                      } else {
-                        $output .= '<div class="alert alert-success" role="alert">
-                                    ' . $_language->module['plus_plugin'] . ':<br>
-                                    '.$result['item'.$plug]['plus_plugin'].'
-                                    </div>';
-                      }
+          if($result['item'.$plug]['required']=="") {
+            $output .= '';    
+          } else {
+            $output .= '<div class="alert alert-success" role="alert">' . $_language->module['plus_plugin'] . ':<br>'.$result['item'.$plug]['plus_plugin'].'</div>';
+          }
 
+			      $output .= '</td>';
+	          $output .= '<td>' . $_language->module['plugin_ver'] . ' '.$result['item'.$plug]['version_final'].'<br />
 
 
-			$output .= '</td>';
-	    $output .= '<td>' . $_language->module['plugin_ver'] . ' '.$result['item'.$plug]['version_final'].'<br />
-                    ' . $_language->module['inst_plugin_ver'] . ' '.$installedversion.'
-                    <span class="label label-warning">'.$result['item'.$plug]['version_beta'].'</span>
-                    <span class="label label-danger">'.$result['item'.$plug]['version_test'].'</span><br />
+                    ' . $_language->module['inst_plugin_ver'] . ' '.$installed_version.'<br />
                     ' . $_language->module['required'] . ' '.$result['item'.$plug]['req'].'<br />
                     
                     Update: '.$result['item'.$plug]['update'].'<br />
@@ -218,24 +251,21 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
     
       include("../system/version.php");
       if(is_dir("../includes/plugins/".$result['item'.$plug]['path'])) {
-        $output .= '<td>';
+            $output .= '<td>';
 
-    if($result['item'.$plug]['req']==$plugin_version) {
+    
           if($result['item'.$plug.'']['version_final'] === $installedversion) { 
-              $output .='<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_3' ]. ' " style="width: 160px" href="?site=plugin_installer&do=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['reinstall'] . '</a>';
+            $output .='<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_3' ]. ' " style="width: 160px" href="?site=plugin_installer&re=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['reinstall'] . '</a>';
           } else { 
-              $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 160px" href="?site=plugin_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version_final'].'</a>';  
+            $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 160px" href="?site=plugin_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version_final'].'</a>';  
           }
-
      
-          $output .='    
-
-
+            $output .=' 
               <!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_2' ]. ' " style="width: 160px" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=plugin_installer&deinstall=plugin&dir='.$result['item'.$plug]['path'].'">
-    ' . $_language->module['plugin_deinstallieren'] . '
-    </button></th>';echo'
-    <!-- Button trigger modal END-->            
+              <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_2' ]. ' " style="width: 160px" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=plugin_installer&deinstall=plugin&dir='.$result['item'.$plug]['path'].'&modulname='.$result['item'.$plug]['modulname'].'">
+              ' . $_language->module['plugin_deinstallieren'] . '
+              </button></th>';echo'
+              <!-- Button trigger modal END-->            
 
               <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -255,27 +285,18 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
                   </div>
               </div>';
         
-    } else {
-      $output.= '<button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_1' ]. ' " style="width: 160px">' . $_language->module['incompatible'] . '</button>';
-    }     
-        
-      } else {
-        if($result['item'.$plug]['req']==$plugin_version) {
+          } else {
 
-        if (@$result['item'.$plug]['aktive' ] != '1') {
-        $output .= '<td><button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_5' ]. ' " style="width: 160px">' . $_language->module['no_install'] . '</button></td>';
-        } else {
-
-          $output .= '<td><a class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_6' ]. ' " style="width: 160px" href="?site=plugin_installer&do=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['installation'] . '</a></td>';
-        }
-
-          $output .= '  </tr>';
-        } else {
-          $output.= '<td><button class="btn btn-info" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_1' ]. ' " style="width: 160px">' . $_language->module['incompatible'] . '</button> Nicht für die RM Version gültig</td>';
-          $output .= '  </tr>';
-        }
-
-    } 
+            if($result['item'.$plug]['req']==$version) {
+              $output .= '<th><a class="btn btn-success" style="width: 160px" href="?site=plugin_installer&do=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['installation'] . '</a></th>';
+              $output .= '  </tr>';
+            } else {
+              $output.= '<th><button class="btn btn-info" style="width: 160px">' . $_language->module['incompatible'] . '</button></th>';
+              $output .= '  </tr>';
+            }
+          }  
+         
+          
 
 } 
 

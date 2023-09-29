@@ -53,7 +53,11 @@ function getter($url) {
     curl_close($ch);
     return $data;
 }
-$getversion = $template_version;
+
+
+$getversion = $version;
+
+
 ####### Theme #########
 $url = $updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json';
 @$check = fopen($url,"r");
@@ -91,16 +95,37 @@ if (!$getnew = $theme) {
 
 if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
+  $name = $_GET['modulname'];
+  // Name Tabelle | Where Klause | ID name
+  DeleteData("settings_themes","modulname",$name);
+  DeleteData("settings_module","themes_modulname",$name);
+  DeleteData("settings_widgets","themes_modulname",$name);
+  DeleteData("settings_buttons","modulname",$name);
+  DeleteData("navigation_website_sub","themes_modulname",$name);
+  recursiveRemoveDirectory('../includes/themes'. $dir);
+  safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");   
+  header('Location: ?site=template_installer');
+  exit;
+
+/*
+
+
+  $dir = $_GET['dir'];
   $name = str_replace("/", "", $dir);
   require_once('../includes/themes'. $dir.'uninstall.php');
   recursiveRemoveDirectory('../includes/themes'. $dir);
   safe_query("UPDATE `".PREFIX."settings_themes` SET active = 1 WHERE modulname = 'default'");   
   header('Location: ?site=template_installer');
   exit;
+
+*/
+
+
+
 } elseif(!empty($_GET['do'])) {
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer
+            <i class="fas fa-puzzle-piece"></i> Themes Installer
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -118,7 +143,7 @@ if(isset($_GET['deinstall'] )== 'plugin') {
 } elseif(!empty($_GET['re'])) {
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer Re-install
+            <i class="fas fa-puzzle-piece"></i> Themes Installer Re-install
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -144,7 +169,7 @@ if(isset($_GET['deinstall'] )== 'plugin') {
 } elseif(!empty($_GET['up'])) {
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer
+            <i class="fas fa-puzzle-piece"></i> Themes Installer Update
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -157,40 +182,14 @@ if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $dir = str_replace('/','',$dir);
   ############ Plugin und Modul Einstellung ###############
-  DeleteData("settings_widgets","themes_modulname",$dir);
+  /*DeleteData("settings_widgets","themes_modulname",$dir);
   DeleteData("settings_buttons","modulname",$dir);
   DeleteData("settings_themes","modulname",$dir);
   DeleteData("settings_module","themes_modulname",$dir);
-  DeleteData("navigation_website_sub","themes_modulname",$dir);
+  DeleteData("navigation_website_sub","themes_modulname",$dir);*/
   $id = $_GET['id'];
   echo rmmodinstall('temp','update',$dir,$id,$getversion);
   echo'</div></div>';
-} elseif(!empty($_GET['reup'])) {
-  global $userID,$_database,$add_database_install,$str,$str2,$modulname,$add_plugin_manager,$add_navigation,$navi_link,$add_dashboard_navigation,$dashnavi_link,$add_module_install,$add_button_install,$add_theme_install,$add_widget_install,$themes_modulname,$getversion;
-  echo'<div class="card">
-        <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer Re-update
-        </div>
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=template_installer">Themes Installer</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Install</li>
-        </ol>
-      </nav>
-
-    <div class="card-body">';
-    
-  $dir = $_GET['dir'];
-  $dir = str_replace('/','',$dir);
-  ############ Plugin und Modul Einstellung ############
-  #DeleteData("settings_module","themes_modulname",$dir);
-  DeleteData("navigation_website_sub","modulname","contact","themes_modulname",$themes_modulname);
-  DeleteData("navigation_website_sub","modulname","privacy_policy","themes_modulname",$themes_modulname);
-  DeleteData("navigation_website_sub","modulname","imprint","themes_modulname",$themes_modulname);
-  
-  $id = $_GET['id'];
-  echo rmmodinstall('temp','install',$dir,$id,$getversion);
-  echo'</div></div>';    
 } else {
 try {
 ####### theme #########
@@ -219,17 +218,20 @@ else {
             $result['item'.$plug]['description_de'] = $translate->getTextByLanguage($result['item'.$plug]['description_de']);
             $ergebnis = safe_query("SELECT * FROM `".PREFIX."settings_themes` WHERE `modulname`='".$result['item'.$plug]['modulname']."'");
             if(mysqli_num_rows($ergebnis) == '1') {
-                $row = mysqli_fetch_assoc($ergebnis);
+              $row = mysqli_fetch_assoc($ergebnis);
                 if($row['version'] !== ''){
-                    $installedversion = $row['version'];
+                  $installedversion = $row['version'];
                 }
-            }
+            }else{
+              $installedversion = '<span class="badge text-bg-info">not installed</span>';
+            }            
+
             $output .= '  <tr>';
-      $output .= '<td>
-        <div class="imageHold">
-        <div><img class="featured-image img-thumbnail" style="z-index: 1;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" /></div>
-        </div>';
-      $output .= '<td><h5>'.$result['item'.$plug]['name'].'</h5>
+            $output .= '<td>
+              <div class="imageHold">
+              <div><img class="featured-image img-thumbnail" style="z-index: 1;" src="'.$imgurl.''.$result['item'.$plug]['path'].$result['item'.$plug]['preview'].'" alt="{img}" /></div>
+              </div>';
+            $output .= '<td><h5>'.$result['item'.$plug]['name'].'</h5>
                       
                       '.$result['item'.$plug]['description_de'].'';
 
@@ -242,9 +244,7 @@ else {
                                     </div>';
                       }
 
-
-
-      $output .= '<td>Template Ver.: <span class="label label-success">'.$result['item'.$plug]['version_final'].'</span><br />
+            $output .= '<td>Template Ver.: <span class="label label-success">'.$result['item'.$plug]['version_final'].'</span><br />
                       Inst. Template Ver.: '.$installedversion.'
                       <span class="label label-warning">'.$result['item'.$plug]['version_beta'].'</span>
                       <span class="label label-danger">'.$result['item'.$plug]['version_test'].'</span><br />
@@ -252,25 +252,27 @@ else {
                       Update: '.$result['item'.$plug]['update'].'<br>
                       Modified and Coding by: '.$result['item'.$plug]['author'].'<br />
                       Language: '.$result['item'.$plug]['languages'].'</td>';
-                      
+
       include("../system/version.php");
       if(is_dir("../includes/themes/".$result['item'.$plug]['path'])) {
         $output .= '<td>';
           if($result['item'.$plug.'']['version_final'] === $installedversion) { 
               $output .='<a class="btn btn-success mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_3' ]. ' " style="width: 170px" href="?site=template_installer&re=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['reinstall'] . '</a>
-              <a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_6' ]. ' " style="width: 170px" href="?site=template_installer&id='.$plug.'&reup=install&dir='.$result['item'.$plug]['path'].'">RE ' . $_language->module['update'] . '</a>';
+
+              <!--<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_6' ]. ' " style="width: 170px" href="?site=template_installer&id='.$plug.'&reup=install&dir='.$result['item'.$plug]['path'].'">RE ' . $_language->module['update'] . '</a>-->';
+
           } else { 
               $output .='<a class="btn btn-warning mb-3" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_4' ]. ' " style="width: 170px" href="?site=template_installer&id='.$plug.'&up=install&dir='.$result['item'.$plug]['path'].'">' . $_language->module['update'] . ' to Ver. '.$result['item'.$plug]['version_final'].'</a>';  
           }
 
-if (@$row[ 'modulname' ] != 'default') {
+      if (@$row[ 'modulname' ] != 'default') {
 
         $output .='<!-- Button trigger modal -->
-          <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_2' ]. ' " style="width: 170px" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=template_installer&deinstall=plugin&dir='.$result['item'.$plug]['path'].'">' . $_language->module['template_deinstallieren'] . '
-    </button></th>';echo'
-    <!-- Button trigger modal END-->
+        <button type="button" class="btn btn-danger" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_2' ]. ' " style="width: 170px" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=template_installer&deinstall=plugin&dir='.$result['item'.$plug]['path'].'&modulname='.$result['item'.$plug]['modulname'].'">' . $_language->module['template_deinstallieren'] . '
+          </button></th>';echo'
+          <!-- Button trigger modal END-->
 
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                       <div class="modal-content">
                           <div class="modal-header">
@@ -288,15 +290,15 @@ if (@$row[ 'modulname' ] != 'default') {
                   </div>
               </div>';
 
-} else {
+      } else {
         #$output .='<div class="alert alert-info" role="alert">Template "default" kann nicht gelöscht werden!!! Es ist ein Bestandteil von Webspell-RM!</div>';
         $output .=' ';
-}
+      }
         $output .=' ';
         
         
       } else {
-        if($result['item'.$plug]['req']==$getversion) {
+        if($result['item'.$plug]['req']==$version) {
           $output .= '<td><a class="btn btn-success" data-toggle="tooltip" data-html="true" title="' . $_language->module[ 'tooltip_5' ]. ' " style="width: 160px" href="?site=template_installer&do=install&id='.$plug.'&dir='.$result['item'.$plug]['path'].'">' . $_language->module['installation'] . '</a></td>';
           $output .= '  </tr>';
         } else {
@@ -304,8 +306,7 @@ if (@$row[ 'modulname' ] != 'default') {
           $output .= '  </tr>';
         }
 
-    } 
-
+    }
 } 
 
 
@@ -332,7 +333,7 @@ $_language->readModule('template_installer', false, true);
   <h4 class="alert-heading">Template Installer</h4><p class="text-sm-start">'.$server_status.'</p>
   '.$_language->module['info'].'
   <hr>
-  <i class="fas fa-info-circle"></i> '.$_language->module['all_templates_1'].' '.$anz.' '.$_language->module['all_templates_2'].'
+  <i class="fas fa-info-circle"></i> '.$_language->module['all_templates_1'].' '.$anz.' '.$_language->module['all_templates_2'].' <br><br>Anzahl stimmt nicht
 </div>
     
     <!-- END -->

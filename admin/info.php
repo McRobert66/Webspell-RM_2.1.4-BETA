@@ -47,8 +47,7 @@ $CAPCLASS = new \webspell\Captcha;
 $CAPCLASS->createTransaction();
 $hash = $CAPCLASS->getHash();
 
-$getpluginversion = $plugin_version;
-$gettemplateversion = $template_version;
+$getversion = $version;
 
 $report = '';
 if(getter($updateserverurl.'/base/vupdate.php') != '') {
@@ -57,7 +56,7 @@ if(getter($updateserverurl.'/base/vupdate.php') != '') {
   $on = '<i class="fa fa-check text-success"></i>';
 
 ####### Plugins #########
-$url = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
+$url = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json';
 @$check = fopen($url,"r");
 if($check) {
 $plugin = '<i class="fa fa-check text-success"></i>';
@@ -67,7 +66,7 @@ $plugin = '<i class="fa fa-times text-danger"></i>';
 }  
 #######################
 ####### Themes #########
-$url = $updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json';
+$url = $updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json';
 @$check = fopen($url,"r");
 if($check) {
 $theme = '<i class="fa fa-check text-success"></i>';
@@ -85,7 +84,7 @@ $theme = '<i class="fa fa-times text-danger"></i>';
   $on = '<i class="fa fa-check text-success"></i>';
 
 ####### Plugins #########
-$url = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
+$url = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json';
 @$check = fopen($url,"r");
 
 if($check) {
@@ -96,7 +95,7 @@ $plugin = '<i class="fa fa-times text-danger"></i>';
 } 
 ############################
 ####### Themes #########
-$url = $dangerupdateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json';
+$url = $dangerupdateserverurl.'/theme/style-base_v.'.$getversion.'/list.json';
 @$check = fopen($url,"r");
 if($check) {
 $theme = '<i class="fa fa-check text-success"></i>';
@@ -217,7 +216,7 @@ echo'
 
 <div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            Live Ticker
+            <i class="fas fa-exclamation-triangle text-warning"></i> Live Ticker
         </div>
 <div class="card-body" style="height: 400px">';?>
 <style>
@@ -246,7 +245,7 @@ echo getter('https://www.webspell-rm.de/includes/modules/live_ticker.php');
 
 <div class="card" style="margin-left: 50px; margin-right: 50px">
   <div class="card-header">
-    '.$_language->module['update_support'].'
+    <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['update_support'].'
   </div>
   <div class="card-body">
     <div class="style_prevu_kit" style="width: 300px;">
@@ -354,27 +353,17 @@ return json_decode($output, true);
 
 $getversion = $version;
 
-####### Plugins #########
-$url = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
-@$check = fopen($url,"r");
-if($check) {
-$plugin = @file_get_contents($updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json');
-$server_status = '(Alpha Server)';
-}
-else {
-$plugin = @file_get_contents($dangerupdateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json');
-$server_status = '(Beta Server)';
-}  
-#######################
-
-if (!$getnew = $plugin) {
-  echo '<div class="alert alert-info" role="alert">
-        <b>' . $_language->module[ 'error' ] . '</b></div>';
+if (!$getnew = @file_get_contents($updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json')) {
+  echo '';
 } else {
+if(!empty($_GET['up'])) {
   
+       echo'';    
+ 
+} else { 
 try {
-  $url = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'/list.json';
-  $imgurl = $updateserverurl.'/plugin/plugin-base_v.'.$getpluginversion.'';
+  $url = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'/list.json';
+  $imgurl = $updateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
   $result = curl_json2array($url);
   $anz = (count($result)-1);
   $output = "";
@@ -394,14 +383,16 @@ try {
                 }
             }
             
+
+
       include("../system/version.php");
 
       if(is_dir("../includes/plugins/".$result['item'.$plug]['path'])) {
-        #$output .= '<tr><td>';
+        
 
-          if($result['item'.$plug.'']['version_final'] === $installedversion) { 
-              #$output .='';
-            #$input = "test";
+          if($result['item'.$plug.'']['version_final'] == $installedversion) { 
+              
+            
           } else {
 
               $output .='
@@ -417,7 +408,7 @@ try {
                 <span>'.$_language->module['update_plugin'].'</span>
               </div>
   
-              <div class="cart-header" style="text-align: center;"><p style="margin-top: 8px"><b>Plugin:</b> '.$result['item'.$plug]['name'].' / <b>new Ver.:</b> '.$result['item'.$plug]['version_final'].'</p>
+              <div class="cart-header" style="text-align: center;"><p style="margin-top: 8px">Version '.$result['item'.$plug]['version_final'].'</p>
   
               </div>
               </div>
@@ -426,7 +417,7 @@ try {
             }
         
       } else { 
-        
+
     }   
 
 } 
@@ -438,7 +429,7 @@ try {
 
 echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            '.$_language->module['plugin_update'].'
+            <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['plugin_update'].'
         </div>
 <div class="card-body">
 
@@ -447,11 +438,11 @@ echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
 </div>
     ';
 }
-
+}
 
 $getversion = $version;
 
-if (!$getnew = @file_get_contents($updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json')) {
+if (!$getnew = @file_get_contents($updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json')) {
   echo '';
 } else {
 if(!empty($_GET['up'])) {
@@ -460,8 +451,8 @@ if(!empty($_GET['up'])) {
  
 } else { 
 try {
-  $url = $updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'/list.json';
-  $imgurl = $updateserverurl.'/theme/style-base_v.'.$gettemplateversion.'';
+  $url = $updateserverurl.'/theme/style-base_v.'.$getversion.'/list.json';
+  $imgurl = $updateserverurl.'/theme/style-base_v.'.$getversion.'';
   $result = curl_json2array($url);
   $anz = (count($result)-1);
   $output = "";
@@ -529,7 +520,7 @@ try {
 
 echo'<div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            '.$_language->module['templates_update'].'
+            <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['templates_update'].'
         </div>
 <div class="card-body">
 

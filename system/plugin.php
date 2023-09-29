@@ -1,41 +1,32 @@
 <?php
 /**
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*  
- *                                    Webspell-RM      /                        /   /                                                 *
- *                                    -----------__---/__---__------__----__---/---/-----__---- _  _ -                                *
- *                                     | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                                 *
- *                                    _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                                 *
- *                                                 Free Content / Management System                                                   *
- *                                                             /                                                                      *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @version         Webspell-RM                                                                                                       *
- *                                                                                                                                    *
- * @copyright       2018-2022 by webspell-rm.de <https://www.webspell-rm.de>                                                          *
- * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de <https://www.webspell-rm.de/forum.html>  *
- * @WIKI            webspell-rm.de <https://www.webspell-rm.de/wiki.html>                                                             *
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                                                  *
- *                  It's NOT allowed to remove this copyright-tag <http://www.fsf.org/licensing/licenses/gpl.html>                    *
- *                                                                                                                                    *
- * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                                                 *
- * @copyright       2005-2018 by webspell.org / webspell.info                                                                         *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- */
-
-/**
- * Plugin-Manager 1.4
- * 
- * The Plugin-Manager can load plugins from a folder 
- * without overwrite the original file.
- * @author Matti 'Getschonnik' W. <info@Getschonnik.de>
- * @version: 1.3
- *
- * @modified: T-Seven | Webspell-RM.de
- * @version: 1.4
- */
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ *                  Webspell-RM      /                        /   /                                          *
+ *                  -----------__---/__---__------__----__---/---/-----__---- _  _ -                         *
+ *                   | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                          *
+ *                  _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                          *
+ *                               Free Content / Management System                                            *
+ *                                           /                                                               *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @version         webspell-rm                                                                              *
+ *                                                                                                           *
+ * @copyright       2018-2023 by webspell-rm.de                                                              *
+ * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de                 *
+ * @website         <https://www.webspell-rm.de>                                                             *
+ * @forum           <https://www.webspell-rm.de/forum.html>                                                  *
+ * @wiki            <https://www.webspell-rm.de/wiki.html>                                                   *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                         *
+ *                  It's NOT allowed to remove this copyright-tag                                            *
+ *                  <http://www.fsf.org/licensing/licenses/gpl.html>                                         *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                        *
+ * @copyright       2005-2011 by webspell.org / webspell.info                                                *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+*/
 
 class plugin_manager {
 	var $_debug;
@@ -459,18 +450,25 @@ function DeleteThemeData($name,$where,$data,$theme,$themedate) {
 // Loescht die Mysqli Datenbank xyz
 function DeleteTable($table) {
   global $_database;
-  if (safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`")) {
-    //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
-    //return true;
-  } else {
-    echo "<div class='alert alert-danger'>String failed <br />";
-    echo "String ausf&uuml;hren fehlgeschlagen!<br /></div>";
-    return "<pre>DROP TABLE IF EXISTS `" . PREFIX . "".$table."</pre>";
-    //return 'false';
-  }
+	  if (safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`")) {
+	    //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
+	    //return true;
+	  } else {
+	    echo "<div class='alert alert-danger'>String failed <br />";
+	    echo "String ausf&uuml;hren fehlgeschlagen!<br /></div>";
+	    return "<pre>DROP TABLE IF EXISTS `" . PREFIX . "".$table."</pre>";
+	    //return 'false';
+	  }
 }
 
 # Einträge in Datenbank settings_module
+function get_add_module_install () {
+
+		global $userID, $_database,$add_module_install, $str, $modulname, $head_activated, $content_head_activated, $content_foot_activated, $head_section_activated, $foot_section_activated, $modul_display, $full_activated, $plugin_settings, $plugin_module, $plugin_widget, $widget1, $widget2, $widget3;
+
+		add_module_install($add_module_install = "INSERT INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `activate`, `sidebar`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `full_activated`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', '$str', '$modulname', 'default', '1', 'activated', '$head_activated', '$content_head_activated', '$content_foot_activated', '$head_section_activated', '$foot_section_activated', '$modul_display', '$full_activated', '$plugin_settings', '$plugin_module', '$plugin_widget', '$widget1', '$widget2', '$widget3')");
+
+}
 function add_module_install() {
     global $_database,$add_module_install,$str,$themes_modulname,$modulname;
         if(mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname ='".$modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
@@ -635,6 +633,14 @@ function add_database_install() {
         }
 }
 # Add to Plugin-Manager
+function get_add_plugin_manager () {
+
+  	global $userID, $_database, $str, $modulname, $add_plugin_manager, $info, $admin_file, $activate, $author, $website, $index_link, $hiddenfiles, $version, $path, $widgetname1, $widgetname2, $widgetname3, $widget_link1, $widget_link2, $widget_link3, $modul_display;
+
+		add_plugin_manager($add_plugin_manager = "INSERT INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES ('', '$str', '$modulname', '$info', '$admin_file', '$activate', '$author', '$website', '$index_link', '$hiddenfiles', '$version', '$path', '$widgetname1', '$widgetname2', '$widgetname3', '$widget_link1', '$widget_link2', '$widget_link3', '$modul_display');");
+}
+
+
 function add_plugin_manager() {
     global $_database,$add_plugin_manager,$str,$modulname,$version;
         if(mysqli_num_rows(safe_query("SELECT modulname,version FROM `" . PREFIX . "settings_plugins` WHERE modulname ='".$modulname."' AND version = '".$version."'"))>0) {
@@ -646,7 +652,7 @@ function add_plugin_manager() {
                 if(safe_query($add_plugin_manager)) { 
                     echo "<div class='alert alert-success'><b>Plugin Manager:</b><br>".$str." added to the plugin manager <br />";
                     echo "".$str." wurde dem Plugin Manager hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=plugin_manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
+                    echo "<a href = '/admin/admincenter.php?site=plugin-manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
                 } else {
                     echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>Add to plugin manager failed <br />";
                     echo "Zum Plugin Manager hinzuf&uuml;gen fehlgeschlagen <br /></div>";
@@ -671,7 +677,7 @@ function add_plugin_manager_two() {
                 if(safe_query($add_plugin_manager_two)) { 
                     echo "<div class='alert alert-success'><b>Plugin Manager:</b><br>".$str_two." added to the plugin manager <br />";
                     echo "".$str_two." wurde dem Plugin Manager hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=plugin_manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
+                    echo "<a href = '/admin/admincenter.php?site=plugin-manager' target='_blank'><b>LINK => Plugin Manager</b></a></div>";
                 } else {
                     echo "<div class='alert alert-danger'><b>Plugin Manager:</b><br>Add to plugin manager failed <br />";
                     echo "Zum Plugin Manager hinzuf&uuml;gen fehlgeschlagen <br /></div>";
@@ -685,6 +691,45 @@ function add_plugin_manager_two() {
         }
 }
 # Einträge in Datenbank navigation_website_sub
+function get_add_navigation () {
+
+		global $userID, $_database, $mnavID, $navi_name, $modulname, $add_navigation, $navi_link, $themes_modulname,$navi_cat_name;
+
+		if ($mnavID=="1"){
+		  $navi_cat_name = "{[de]}HAUPT{[en]}MAIN{[it]}PRINCIPALE";
+		  $sort = '1';
+		}elseif ($mnavID=="2"){
+		  $navi_cat_name = "{[de]}TEAM{[en]}TEAM{[it]}TEAM";
+		  $sort = '2';
+		}elseif ($mnavID=="3"){
+		  $navi_cat_name = "{[de]}GEMEINSCHAFT{[en]}COMMUNITY{[it]}COMMUNITY";
+		  $sort = '3';
+		}elseif ($mnavID=="4"){
+		  $navi_cat_name = "{[de]}MEDIEN{[en]}MEDIA{[it]}MEDIA";
+		  $sort = '4';
+		}elseif ($mnavID=="5"){
+		  $navi_cat_name = "{[de]}SONSTIGES{[en]}MISCELLANEOUS[it]}VARIE";
+		  $sort = '5';
+		}else{
+		  $navi_cat_name = "mistake";
+		  $sort = '6';
+		}
+
+		$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "navigation_website_main WHERE mnavID=$mnavID"));
+		if (@$dx[ 'mnavID' ] != $mnavID) {
+		add_navigation($add_navigation = "INSERT INTO `".PREFIX."navigation_website_main` (`mnavID`, `name`, `url`, `default`, `sort`, `isdropdown`, `windows`) VALUES
+		($mnavID, '$navi_cat_name', '#', 1, '$sort', 1, 1);");
+
+		add_navigation($add_navigation = "INSERT INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
+		          VALUES ('$mnavID','$navi_name', '$modulname', 'index.php?site=$navi_link', '1', '1', '$themes_modulname');");
+
+		} else {
+
+		add_navigation($add_navigation = "INSERT INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
+		          VALUES ('$mnavID','$navi_name', '$modulname', 'index.php?site=$navi_link', '1', '1', '$themes_modulname');");
+		}
+}
+
 function add_navigation() {
     global $_database,$add_navigation,$navi_link,$str,$modulname,$themes_modulname;
         if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
@@ -709,7 +754,15 @@ function add_navigation() {
             }
         }
 }
-# Einträge in Datenbank navigation_website_sub
+# Einträge in Datenbank navigation_dashboard_links
+function get_add_dashboard_navigation () {
+
+		global $userID, $_database, $catID, $navi_name, $modulname, $add_dashboard_navigation, $dashnavi_link;
+
+		add_dashboard_navigation($add_dashboard_navigation = "INSERT INTO `".PREFIX."navigation_dashboard_links` (`catID`, `name`, `modulname`, `url`, `accesslevel`, `sort`) 
+		          VALUES ('$catID','$navi_name', '$modulname', 'admincenter.php?site=$dashnavi_link', 'page', '1');");
+}
+
 function add_two_navigation() {
     global $_database,$add_two_navigation,$two_navi_link,$str,$two_modulname,$themes_modulname,$two_navi_name,$modulname;
         if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$two_modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
@@ -746,7 +799,7 @@ function add_dashboard_navigation() {
                 if(safe_query($add_dashboard_navigation)) { 
                     echo "<div class='alert alert-success'><b>Dashboard Navigation:</b><br>".$str." added to the Dashboard Navigation <br />";
                     echo "".$str." wurde der Dashboard Navigation hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=dashboard_navigation' target='_blank'><b>LINK => Dashboard Navigation</b></a></div>";
+                    echo "<a href = '/admin/admincenter.php?site=dashnavi' target='_blank'><b>LINK => Dashboard Navigation</b></a></div>";
                 } else {
                     echo "<div class='alert alert-danger'><b>Dashboard Navigation:</b><br>Add to Dashboard Navigation failed <br />";
                     echo "Zur Dashboard Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
@@ -781,5 +834,6 @@ function get_widget($modulname, $widgetnummer) {
                     
       };
 }
+
 
 ?>

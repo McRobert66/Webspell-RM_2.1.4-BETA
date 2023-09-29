@@ -52,6 +52,7 @@ $link_hover_color = substr($ds["typo8"], 4, -1);
 $nav_border_top_color = substr($ds["nav5"], 4, -1);
 $nav_border_top_size = $ds["nav6"];
 $nav_bg = substr($ds["nav1"], 4, -1);
+$nav_bg_sec = substr($ds["nav12"], 4, -1);
 $nav_font_size = $ds["nav2"];
 
 $nav_link_color = substr($ds["nav7"], 4, -1);
@@ -113,6 +114,7 @@ echo'
   --bs-nav-border-top-color-rgb: '.$nav_border_top_color.';
   --bs-nav-border-top-size: '.$nav_border_top_size.';
   --bs-nav-bg-rgb: '.$nav_bg.';
+  --bs-nav-sec-bg-rgb: '.$nav_bg_sec.';
   --bs-nav-font-size: '.$nav_font_size.';
 
   --bs-rm-nav-link-color-rgb: '.$nav_link_color.';

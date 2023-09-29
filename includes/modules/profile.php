@@ -1,29 +1,32 @@
 <?php
 /**
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*  
- *                                    Webspell-RM      /                        /   /                                                 *
- *                                    -----------__---/__---__------__----__---/---/-----__---- _  _ -                                *
- *                                     | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                                 *
- *                                    _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                                 *
- *                                                 Free Content / Management System                                                   *
- *                                                             /                                                                      *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @version         Webspell-RM                                                                                                       *
- *                                                                                                                                    *
- * @copyright       2018-2022 by webspell-rm.de <https://www.webspell-rm.de>                                                          *
- * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de <https://www.webspell-rm.de/forum.html>  *
- * @WIKI            webspell-rm.de <https://www.webspell-rm.de/wiki.html>                                                             *
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                                                  *
- *                  It's NOT allowed to remove this copyright-tag <http://www.fsf.org/licensing/licenses/gpl.html>                    *
- *                                                                                                                                    *
- * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                                                 *
- * @copyright       2005-2018 by webspell.org / webspell.info                                                                         *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- */
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ *                  Webspell-RM      /                        /   /                                          *
+ *                  -----------__---/__---__------__----__---/---/-----__---- _  _ -                         *
+ *                   | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                          *
+ *                  _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                          *
+ *                               Free Content / Management System                                            *
+ *                                           /                                                               *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @version         webspell-rm                                                                              *
+ *                                                                                                           *
+ * @copyright       2018-2023 by webspell-rm.de                                                              *
+ * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de                 *
+ * @website         <https://www.webspell-rm.de>                                                             *
+ * @forum           <https://www.webspell-rm.de/forum.html>                                                  *
+ * @wiki            <https://www.webspell-rm.de/wiki.html>                                                   *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                         *
+ *                  It's NOT allowed to remove this copyright-tag                                            *
+ *                  <http://www.fsf.org/licensing/licenses/gpl.html>                                         *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                        *
+ * @copyright       2005-2011 by webspell.org / webspell.info                                                *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+*/
 
 GLOBAL $profilelast;
 
@@ -50,7 +53,7 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
     }	
 
 
- if ($action == "lastposts") {
+    if ($action == "lastposts") {
         //profil: last posts
 
         $data_array = array();
@@ -65,44 +68,33 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
 
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
-        $last_post = '';
+            $last_post = '';
         } else {
-        $last_post = '<li class="nav-item">
-    <a class="nav-link active" href="index.php?site=profile&amp;id=' . $id . '&amp;action=lastposts"> ' . $_language->module[ 'last' ] . ' ' . $profilelast . ' ' . $_language->module[ 'posts' ] . '</a>
-  </li>';
+            $last_post = '<li class="nav-item">
+            <a class="nav-link active" href="index.php?site=profile&amp;id=' . $id . '&amp;action=lastposts"> ' . $_language->module[ 'last' ] . ' ' . $profilelast . ' ' . $_language->module[ 'posts' ] . '</a></li>';
         }
 
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
         if (@$dx[ 'modulname' ] != 'usergallery') {
-        $gallery = '';
+            $gallery = '';
         } else {
-        $gallery = '<li class="nav-item">
-    <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=galleries"> ' . $_language->module[ 'galleries' ] . '</a>
-  </li>';
+            $gallery = '<li class="nav-item">
+            <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=galleries"> ' . $_language->module[ 'galleries' ] . '</a></li>';
         }
 
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
         if (@$dx[ 'modulname' ] != 'useraward') {
-          $awardlist = '';
+            $awardlist = '';
         } else {
-          $awardlist = '
+            $awardlist = '
             <li class="nav-item">
-              <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=awardlist"> ' . $_language->module[ 'awardslist' ] . '</a>
-            </li>
-          ';
+              <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=awardlist"> ' . $_language->module[ 'awardslist' ] . '</a></li>';
         }
 
-
-
-
-echo '<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '">' . $_language->module[ 'profile' ] . '</a>
-  </li>'.$last_post.'
-  
-        '.$gallery.' '.$awardlist.'
-  
-</ul>';
+        echo '<ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '">' . $_language->module[ 'profile' ] . '</a>
+                </li>'.$last_post.' '.$gallery.' '.$awardlist.'</ul>';
 
         $topiclist = "";
         $topics = safe_query(
@@ -264,117 +256,113 @@ echo '<ul class="nav nav-tabs">
 
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
-        $last_post = '';
+            $last_post = '';
         } else {
-        $last_post = '<li class="nav-item">
-    <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=lastposts"> ' . $_language->module[ 'last' ] . ' ' . $profilelast . ' ' . $_language->module[ 'posts' ] . '</a>
-  </li>';
+            $last_post = '
+            <li class="nav-item">
+            <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=lastposts"> ' . $_language->module[ 'last' ] . ' ' . $profilelast . ' ' . $_language->module[ 'posts' ] . '</a>
+            </li>';
         }
 
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
         if (@$dx[ 'modulname' ] != 'usergallery') {
-        $gallery = '';
+            $gallery = '';
         } else {
-        $gallery = '<li class="nav-item">
-    <a class="nav-link active" href="index.php?site=profile&amp;id=' . $id . '&amp;action=galleries"> ' . $_language->module[ 'galleries' ] . '</a>
-  </li>';
+            $gallery = '
+            <li class="nav-item">
+            <a class="nav-link active" href="index.php?site=profile&amp;id=' . $id . '&amp;action=galleries"> ' . $_language->module[ 'galleries' ] . '</a>
+            </li>';
         }
 
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
         if (@$dx[ 'modulname' ] != 'useraward') {
-          $awardlist = '';
+            $awardlist = '';
         } else {
-          $awardlist = '
+            $awardlist = '
             <li class="nav-item">
               <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=awardlist"> ' . $_language->module[ 'awardslist' ] . '</a>
-            </li>
-          ';
+            </li>';
         }
 
 
-echo '<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '">' . $_language->module[ 'profile' ] . '</a>
-  </li>'.$last_post.'
-  
-        '.$gallery.' '.$awardlist.'
-  
-</ul>';
+        echo '<ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '">' . $_language->module[ 'profile' ] . '</a>
+                </li>'.$last_post.' '.$gallery.' '.$awardlist.'
+            </ul>';
 
-// -- NEWS INFORMATION -- //
-include_once("./includes/plugins/gallery/gallery_functions.php");
+        // -- NEWS INFORMATION -- //
+        include_once("./includes/plugins/gallery/gallery_functions.php");
 
         $galclass = new \webspell\Gallery;
 
         $galleries = safe_query("SELECT * FROM " . PREFIX . "plugins_gallery WHERE userID='" . $id . "'");
 
         echo '<div class="card">
-            <div class="card-body">
-            ' . $_language->module[ 'galleries' ] . ' ' . $_language->module[ 'by' ] . ' ' . getnickname($id) . '
-            <table class="table">
-            <tr>
-                <td></td>
-                <td><strong>' . $_language->module[ 'date' ] . '</strong></td>
-                <td><strong>' . $_language->module[ 'name' ] . '</strong></td>
-                <td><strong>' . $_language->module[ 'pictures' ] . '</strong></td>
-            </tr>';
-
+                <div class="card-body">
+                    ' . $_language->module[ 'galleries' ] . ' ' . $_language->module[ 'by' ] . ' ' . getnickname($id) . '
+                    <table class="table">
+                        <tr>
+                            <td></td>
+                            <td><strong>' . $_language->module[ 'date' ] . '</strong></td>
+                            <td><strong>' . $_language->module[ 'name' ] . '</strong></td>
+                            <td><strong>' . $_language->module[ 'pictures' ] . '</strong></td>
+                        </tr>';
         
-            if (mysqli_num_rows($galleries)) {
-                $n = 1;
-                while ($ds = mysqli_fetch_array($galleries)) {
+        if (mysqli_num_rows($galleries)) {
+            $n = 1;
+            while ($ds = mysqli_fetch_array($galleries)) {
                     
-                    $piccount =
-                        mysqli_num_rows(
-                            safe_query(
-                                "SELECT
-                                    *
-                                FROM
-                                    " . PREFIX . "plugins_gallery_pictures
-                                WHERE
-                                    galleryID='" . (int)$ds[ 'galleryID' ]."'"
-                            )
-                        );
-                    $ds[ 'count' ] =
-                        mysqli_num_rows(
-                            safe_query(
-                                "SELECT
-                                    `picID`
-                                FROM
-                                    `" . PREFIX . "plugins_gallery_pictures`
-                                WHERE
-                                    `galleryID` = '" . (int)$ds[ 'galleryID' ] . "'"
-                            )
-                        );
+                $piccount =
+                mysqli_num_rows(
+                    safe_query(
+                        "SELECT
+                            *
+                        FROM
+                            " . PREFIX . "plugins_gallery_pictures
+                        WHERE
+                            galleryID='" . (int)$ds[ 'galleryID' ]."'"
+                    )
+                );
+                $ds[ 'count' ] =
+                mysqli_num_rows(
+                    safe_query(
+                        "SELECT
+                            `picID`
+                        FROM
+                            `" . PREFIX . "plugins_gallery_pictures`
+                        WHERE
+                            `galleryID` = '" . (int)$ds[ 'galleryID' ] . "'"
+                    )
+                );
                     
-                    if (isset($ds[ 'date' ])) {
+                if (isset($ds[ 'date' ])) {
                     $ds[ 'date' ] = date('d.m.Y', $ds[ 'date' ]);
-                    }
+                }
 
-                    $data_array = array();
-                    $data_array['$date'] = $ds[ 'date' ];
-                    $data_array['$picID'] = $galclass->randomPic($ds[ 'galleryID' ]);
-                    $data_array['$galleryID'] = $ds[ 'galleryID' ];
-                    $data_array['$title'] = $ds[ 'name' ];
-                    $data_array['$count'] = $ds[ 'count' ];
-                    $data_array['$id'] = $id;
-                    $data_array['$profilelast'] = $profilelast;
-                    
-                    $template = $tpl->loadTemplate("profile","galleries", $data_array);
-                    echo $template;
-
-                    $n++;
+                $data_array = array();
+                $data_array['$date'] = $ds[ 'date' ];
+                $data_array['$picID'] = $galclass->randomPic($ds[ 'galleryID' ]);
+                $data_array['$galleryID'] = $ds[ 'galleryID' ];
+                $data_array['$title'] = $ds[ 'name' ];
+                $data_array['$count'] = $ds[ 'count' ];
+                $data_array['$id'] = $id;
+                $data_array['$profilelast'] = $profilelast;
+                
+                $template = $tpl->loadTemplate("profile","galleries", $data_array);
+                echo $template;
+                $n++;
                 }
             } else {
                 echo '<tr><td colspan="4">' . $_language->module[ 'no_galleries' ] . '</td></tr>';
             }
         
 
-echo'</table></div></div>';
+            echo'</table></div></div>';
 
 
 
-}  elseif ($action == "awardlist") {
+        }  elseif ($action == "awardlist") {
         //galleries
         $data_array = array();
         $data_array['$id'] = $id;

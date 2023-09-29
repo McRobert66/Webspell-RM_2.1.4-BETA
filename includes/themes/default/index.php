@@ -82,6 +82,10 @@ header('X-UA-Compatible: IE=edge,chrome=1');
         /* Module DB Abfrage */
         echo get_hide();
         /* Module DB Abfrage END */
+
+        /* ckeditor */
+        echo get_editor();
+        /* ckeditor END*/
     ?>
 </head>
 <body>
@@ -178,11 +182,7 @@ header('X-UA-Compatible: IE=edge,chrome=1');
             <i class="fa fa-2x fa-arrow-circle-up"></i>
         </span>
     </div>
-    <!-- scroll to top feature END -->
-
-    
-   
-    <?php include('./system/ckeditor.php'); ?>
+    <!-- scroll to top feature END --> 
 
     <!-- Link muss noch geändert werden-->
     <script src='https://www.google.com/recaptcha/api.js'></script>

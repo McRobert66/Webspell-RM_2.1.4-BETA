@@ -1,29 +1,33 @@
 <?php
 /**
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*  
- *                                    Webspell-RM      /                        /   /                                                 *
- *                                    -----------__---/__---__------__----__---/---/-----__---- _  _ -                                *
- *                                     | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                                 *
- *                                    _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                                 *
- *                                                 Free Content / Management System                                                   *
- *                                                             /                                                                      *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @version         Webspell-RM                                                                                                       *
- *                                                                                                                                    *
- * @copyright       2018-2022 by webspell-rm.de <https://www.webspell-rm.de>                                                          *
- * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de <https://www.webspell-rm.de/forum.html>  *
- * @WIKI            webspell-rm.de <https://www.webspell-rm.de/wiki.html>                                                             *
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                                                  *
- *                  It's NOT allowed to remove this copyright-tag <http://www.fsf.org/licensing/licenses/gpl.html>                    *
- *                                                                                                                                    *
- * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                                                 *
- * @copyright       2005-2018 by webspell.org / webspell.info                                                                         *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- *                                                                                                                                    *
- *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
- */
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ *                  Webspell-RM      /                        /   /                                          *
+ *                  -----------__---/__---__------__----__---/---/-----__---- _  _ -                         *
+ *                   | /| /  /___) /   ) (_ `   /   ) /___) /   / __  /     /  /  /                          *
+ *                  _|/_|/__(___ _(___/_(__)___/___/_(___ _/___/_____/_____/__/__/_                          *
+ *                               Free Content / Management System                                            *
+ *                                           /                                                               *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @version         webspell-rm                                                                              *
+ *                                                                                                           *
+ * @copyright       2018-2023 by webspell-rm.de                                                              *
+ * @support         For Support, Plugins, Templates and the Full Script visit webspell-rm.de                 *
+ * @website         <https://www.webspell-rm.de>                                                             *
+ * @forum           <https://www.webspell-rm.de/forum.html>                                                  *
+ * @wiki            <https://www.webspell-rm.de/wiki.html>                                                   *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @license         Script runs under the GNU GENERAL PUBLIC LICENCE                                         *
+ *                  It's NOT allowed to remove this copyright-tag                                            *
+ *                  <http://www.fsf.org/licensing/licenses/gpl.html>                                         *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+ * @author          Code based on WebSPELL Clanpackage (Michael Gruber - webspell.at)                        *
+ * @copyright       2005-2011 by webspell.org / webspell.info                                                *
+ *                                                                                                           *
+ *¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*
+*/
+
 global $myclanname;
 $ergebnis = safe_query("SELECT * FROM `".PREFIX."settings_social_media`");
 if(mysqli_num_rows($ergebnis)){
@@ -157,114 +161,92 @@ if(mysqli_num_rows($ergebnis)){
 
 echo'<!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="description" content="Website using webSPELL-RM CMS">
-	<meta name="keywords" content="Clandesign, Webspell, Webspell | RM, Wespellanpassungen, Webdesign, Tutorials, Downloads, Webspell-rm, rm, addon, plugin, Templates Webspell Addons, Webspell-rm, rm, plungin, mods, Wespellanpassungen, Modifikationen und Anpassungen und mehr!">
-    <meta name="robots" content="all">
-    <meta name="abstract" content="Anpasser an Webspell | RM">
-    <meta name="copyright" content="Copyright &copy; 2017-2019 by webspell-rm.de">
-    <meta name="author" content="webspell-rm.de">
-    <meta name="revisit-After" content="1days">
-    <meta name="distribution" content="global">
-    <link rel="SHORTCUT ICON" href="/includes/themes/default/templates/favicon.ico">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="description" content="Website using webSPELL-RM CMS">
+    	<meta name="keywords" content="Clandesign, Webspell, Webspell | RM, Wespellanpassungen, Webdesign, Tutorials, Downloads, Webspell-rm, rm, addon, plugin, Templates Webspell Addons, Webspell-rm, rm, plungin, mods, Wespellanpassungen, Modifikationen und Anpassungen und mehr!">
+        <meta name="robots" content="all">
+        <meta name="abstract" content="Anpasser an Webspell | RM">
+        <meta name="copyright" content="Copyright &copy; 2017-2019 by webspell-rm.de">
+        <meta name="author" content="webspell-rm.de">
+        <meta name="revisit-After" content="1days">
+        <meta name="distribution" content="global">
+        <link rel="SHORTCUT ICON" href="/includes/themes/default/templates/favicon.ico">
 
-    <title>'.$pagetitle.'</title>
-    <base href="$rewriteBase">
-    <link href="../components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../components/css/lockpage.css" rel="stylesheet" type="text/css">
-    <link type="text/css" rel="stylesheet" href="../components/fontawesome/css/all.css" />
-    
-</head>
+        <title>'.$pagetitle.'</title>
+        <base href="$rewriteBase">
+        <link href="../components/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../components/css/lockpage.css" rel="stylesheet" type="text/css">
+        <link type="text/css" rel="stylesheet" href="../components/fontawesome/css/all.css" />        
+    </head>
+    <body>
 
-<body>
-
-<header id="header" class="text-center">
-
-<img src="images/webspell-logo-lock.png" alt="" style="height: 150px"/>
-
-</header>
-
-<main id="main" class="container text-center">
-<div class="row justify-content-center">
-    <h2>
-We’re Launching Our Website Soon
-</h2></div>
-</main>
-
-<section id="about" class="about">
-
-<div class="container login_card text-center">
-
-<!--<h3>'.$pagetitle.'</h3>-->
-                    <h5>Information</h5>
-  <div class="row justify-content-center">
-    <div class="col-4" style="background: #fff;color: #000">
-      <p>'.$reason.'</p>
+    <header id="header" class="text-center">
+        <img src="images/webspell-logo-lock.png" alt="" style="height: 150px"/>
+    </header>
+    <main id="main" class="container text-center">
+    <div class="row justify-content-center">
+        <h2>
+            We’re Launching Our Website Soon
+        </h2>
     </div>
-    
-  </div>
-
-</div>
-
-
-</section>
-
-
-
-<section id="contact" class="contact text-center">
-<div class="card container login_card text-center">
-                    <div class="card-body">
-<h3>Admin Login</h3>
-
-<form class="row g-3 form-inlin justify-content-center" method="post" name="login" action="/includes/modules/checklogin.php">
-                      <div class="col-auto">
+    </main>
+    <section id="about" class="about">
+        <div class="container login_card text-center">
+        <!--<h3>'.$pagetitle.'</h3>-->
+                    <h5>Information</h5>
+            <div class="row justify-content-center">
+                <div class="col-4" style="background: #fff;color: #000">
+                    <p>'.$reason.'</p>
+                </div>    
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact text-center">
+        <div class="card container login_card text-center">
+            <div class="card-body">
+                <h3>Admin Login</h3>
+                <form class="row g-3 form-inlin justify-content-center" method="post" name="login" action="/includes/modules/checklogin.php">
+                    <div class="col-auto">
                         <label for="staticEmail2" class="visually-hidden">Email</label>
                         <input name="ws_user" type="text"  class="form-control" placeholder="Enter email">
-                      </div>
-                      <div class="col-auto">
+                    </div>
+                    <div class="col-auto">
                         <label for="inputPassword2" class="visually-hidden">Password</label>
                         <input name="password" type="password" class="form-control" placeholder="Password">
-                      </div>
-                      <div class="col-auto">
+                    </div>
+                    <div class="col-auto">
                         <button type="submit" name="Submit" class="btn btn-success ">Login</button>
-                      </div>
-                    </form>
-                    </div></div>
-</section>
-
-<section id="social" class="social">
-                    <div class="social-links text-center">
-                    <h4>Follow us<small> on Social Media</small></h4>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="social" class="social">
+        <div class="social-links text-center">
+            <h4>Follow us<small> on Social Media</small></h4>
         
-                        <span class="social1 social-media-circle twitch">'.$twitch.'</span>
-                        <span class="social2 social-media-circle facebook">'.$facebook.'</span>
-                        <span class="social3 social-media-circle twitter">'.$twitter.'</span>
-                        <span class="social4 social-media-circle youtube">'.$youtube.'</span>
-                        <span class="social5 social-media-circle rss">'.$rss.'</span>
-                        <span class="social6 social-media-circle vine">'.$vine.'</span>
-                        <span class="social7 social-media-circle flickr">'.$flickr.'</span>
-                        <span class="social8 social-media-circle linkedin">'.$linkedin.'</span>
-                        <span class="social9 social-media-circle instagram">'.$instagram.'</span>
-                        <span class="social10 social-media-circle steam">'.$steam.'</span>
-                        <span class="social11 social-media-circle discord">'.$discord.'</span>
-      </div>
+            <span class="social1 social-media-circle twitch">'.$twitch.'</span>
+            <span class="social2 social-media-circle facebook">'.$facebook.'</span>
+            <span class="social3 social-media-circle twitter">'.$twitter.'</span>
+            <span class="social4 social-media-circle youtube">'.$youtube.'</span>
+            <span class="social5 social-media-circle rss">'.$rss.'</span>
+            <span class="social6 social-media-circle vine">'.$vine.'</span>
+            <span class="social7 social-media-circle flickr">'.$flickr.'</span>
+            <span class="social8 social-media-circle linkedin">'.$linkedin.'</span>
+            <span class="social9 social-media-circle instagram">'.$instagram.'</span>
+            <span class="social10 social-media-circle steam">'.$steam.'</span>
+            <span class="social11 social-media-circle discord">'.$discord.'</span>
+        </div>
+    </section>
 
-                   
-
-
-</section>
-
-<section id="foot">
-
-<footer class="footer">
-  <div class="container text-center"><small>
-        All content copyright '.$myclanname.'  &copy; Date | '.$since.' | All rights reserved.</small>
-      
-  </div>
-</footer>
-
-</section>
-</body>
+    <section id="foot">
+        <footer class="footer">
+            <div class="container text-center"><small>
+                All content copyright '.$myclanname.'  &copy; Date | '.$since.' | All rights reserved.</small>
+            </div>
+        </footer>
+    </section>
+    </body>
 </html>';

@@ -83,6 +83,7 @@ $(function(){
             $('#cp73').colorpicker();
             $('#cp74').colorpicker();
             $('#cp75').colorpicker();
+            $('#cp76').colorpicker();
 
 
             $(document).ready(function(){

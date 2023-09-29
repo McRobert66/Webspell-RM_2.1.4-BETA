@@ -49,6 +49,7 @@ $language_array = array(
   'no_partners' => '<blockquote> no head elements </blockquote>',
   'headelements_name' => 'Head Elements Name',
   'headelements_side_name'=>'Head Elements Side Name',
+  'headelements_side_info'=>'Head Elements Seiten Info',
   'headelements' => 'Head Elements',
   'really_delete' => 'Are you sure you want to delete this head element?',
   'sort' => 'Sorting',
@@ -56,6 +57,8 @@ $language_array = array(
   'to_sort' => 'sort',
   'yes' => 'Yes',
   'options' => 'Options',
-  'update' => 'change' 
+  'update'=>'edit',
+  'image_to_big' => 'image is too big',
+  'format_incorrect' => 'Impermissible image format (permitted: *.gif, *.jpg or *.png)',
 );
 

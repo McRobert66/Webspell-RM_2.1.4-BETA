@@ -1,3 +1,15 @@
+### WEBSPELL | RM - Release: 2.1.4 (16.08.2023)
+---------------------------------------------------------------------
+
++ /admin/update.php                 -> Neu erstellt und es werden keine FTP Daten mehr benötigt.
++ /admin/plugin_installer.php       -> Fehler bei verschiedenen Versionen bereinigt 
++ /admin/template_installer.php     -> Fehler bei verschiedenen Versionen bereinigt 
++ /admin/plugin_manager.php         -> Ausgliederung von einigen Bereichen
+
+
+
+
+
 ### WEBSPELL | RM - Release: 2.1.3 (06.08.2023)
 ---------------------------------------------------------------------
 + /Umbau der Plugin und Widget Konfiguration (vereinfachte install/update Datei, Zuordnung)
