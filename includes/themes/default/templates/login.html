@@ -1,0 +1,116 @@
+<!-- login_content -->
+<div class="login__body">
+<div class="login__container">
+        <div class="row login__row foto">
+            
+           <div class="col-md-6 d-flex">
+                    <div class="row col-md-11 my-auto">
+                    <div class="col-md-12 mx-auto">
+                        <h1 class="text-11 reg_pic_text mb-4">$info1</h1>
+                        <p class="text-4 reg_pic_text lh-base mb-5">$info2</p>
+                    </div>
+                    </div>
+            </div>
+
+            
+            <div class="col-md-6 d-flex">
+                <div class="align-self-center login__card w-100">
+                 <div class="card login_card">
+                    <div class="card-body">
+
+                    <h2 class="text-muted text-center">$login_titel</h2>
+
+                                <div class="my-5 alert alert-info p-2" role="alert">
+                                    <b>$forgotten_your_login</b>
+                                    <br><br>
+                                    $info_login
+                                </div>         
+
+                        <form method="post" name="login" action="$_modulepath/checklogin.php" role="form">
+                            
+                                
+                                <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input name="ws_user" type="email" class="form-control input-lg" id="emailAddress" placeholder="$enter_your_email" required>
+                                </div>
+                                </div>
+                                <link rel="stylesheet" href="/includes/themes/default/css/passtrength.css" media="screen" title="no title">
+                                <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <script type="text/javascript" src="/includes/themes/default/js/passtrength.js"></script>
+                                    <input name="password" type="password" class="form-control input-lg" id="loginPassword" placeholder="$enter_password" required>
+                               
+                                    <script type="text/javascript">
+                                        $(document).ready(function($) {
+                                            $('#loginPassword').passtrength({
+                                                
+                                                passwordToggle: true,
+                                                tooltip: false
+                                            });
+                                        });
+                                    </script>
+                                </div>        
+                                </div>
+                                <br>
+                                <div class="col-lg-12 col-sm-12">
+                                <span id="btn-response">
+                                    <button type="submit" name="submit" class="text-uppercase btn btn-info btn-lg">$login</button>
+                                    <div id="ws-login-alert" class="alert hidden"></div>
+                                </span>  
+                                </div>
+                                <hr>
+
+                                <div class="d-flex justify-content-between">
+                                    <a href="index.php?site=lostpassword">$lost_password</a>
+                                    <span> <p class="text-center text-muted mb-0">$have_an_account <a href="index.php?site=register">$reg</a></p></span>
+                                </div>
+                        </form>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</div>     
+<!-- END -->
+
+<!-- login_cookie_error -->
+<div class="login__body">
+<div class="login__container">
+        <div class="row login__row foto">
+            
+           <div class="col-md-6 d-flex">
+                    <div class="row col-md-11 my-auto">
+                    <div class="col-md-12 mx-auto">
+                        <h1 class="text-11 reg_pic_text mb-4">$info3</h1>
+                        <p class="text-4 reg_pic_text lh-base mb-5">$info4</p>
+                    </div>
+                    </div>
+            </div>
+
+            
+            <div class="col-md-6 d-flex">
+                <div class="align-self-center login__card w-100">
+                 <div class="card login_card">
+                    <div class="card-body"> 
+                    
+                        <form method="post" name="login" action="$_modulepath/checklogin.php">
+                            <h2 class="text-muted text-center"> $cookie_title</h2>
+
+                            <div class="my-5 alert alert-info p-2" role="alert">
+                                $cookie_text
+                            </div>
+                            <div class="text-center">
+                                <p class="text-center text-muted mb-0">$return_to <a href="index.php?site=login">$log_in</a></p>
+                            </div>
+                        </form>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>         
+<!-- END -->

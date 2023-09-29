@@ -1,0 +1,45 @@
+/*----------navigation default---------------*/
+/* ============ desktop view ============ */
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none;padding:5px 0px;background-color: transparent;border-color: transparent; }
+	.navbar .nav-item:hover .nav-link{ outline: none;  }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top: 8px; }
+	
+.nav-link {
+padding:30px 10px;
+margin-top: -10px;
+margin-bottom: -10px;
+/*background:#000;*/
+}
+}
+
+
+/*.nav-link .flag {height: 22px}*/
+/* ============ desktop view .end// ============ */
+
+/*----------navigation Logo---------------*/
+
+.box {
+
+}
+
+.box span {
+ display: block;
+}
+
+.logo-box .logo {
+ margin-top: 0px;
+}
+
+.logo-box .box .webspell {
+ font-size: 20px;
+ font-weight: 600;
+}
+
+.logo-box .box .slogan {
+ font-size: 12px;
+ font-weight: 600;
+}
+
+
