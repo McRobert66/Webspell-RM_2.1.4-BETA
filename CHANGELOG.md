@@ -5,8 +5,13 @@
 + /admin/plugin_installer.php       -> Fehler bei verschiedenen Versionen bereinigt 
 + /admin/template_installer.php     -> Fehler bei verschiedenen Versionen bereinigt 
 + /admin/plugin_manager.php         -> Ausgliederung von einigen Bereichen
+                                    -> Side-Widgets können jetzt gleichzeitig rechts und links positioniert werden
++ /system/plugin.php                -> Installation der Plugins geändert
 
 
+
+install,update und unistall neu gestallten für Plugins und Themes
+Global zentralisieren 
 
 
 
