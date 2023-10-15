@@ -408,7 +408,6 @@ echo'<div class="">
         }
 
         $widget_alle = "<option value='blank'>Keine Startpage</option>
-        <option value='welcome_page'>Welcome Page</option>
         <option value='startpage'>Startpage</option>
         '".@$news."'
         '".@$about_us."'
