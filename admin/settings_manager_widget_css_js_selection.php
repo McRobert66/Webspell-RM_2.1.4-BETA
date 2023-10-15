@@ -32,7 +32,8 @@ $widget_akti = @$modulname == 'footer'
                 || @$modulname == 'picupdate'
                 || @$modulname == 'lastlogin'
                 || @$modulname == 'about_box'
-                || @$modulname == 'features';
+                || @$modulname == 'features'
+                || @$modulname == 'features_box';
 
 # Bei diesen Plugins werden die css und js bei der Widget-Zuweisung extra geladen!
 
@@ -68,7 +69,8 @@ $widget_css = @$modulname == 'footer'
                 || @$modulname == 'picupdate'
                 || @$modulname == 'lastlogin'
                 || @$modulname == 'about_box'
-                || @$modulname == 'features';
+                || @$modulname == 'features'
+                || @$modulname == 'features_box';
 # Bei diesen Plugins werden die css und js bei der Widget-Zuweisung geladen ja / nein! END
 
 
@@ -108,6 +110,7 @@ $widget_nav = @$modulname == 'footer'
                 || @$modulname == 'news_manager' /*prüfen*/
                 || @$modulname == 'clanwars' /*prüfen*/
                 || @$modulname == 'features'
+                || @$modulname == 'features_box'
                 || @$modulname == 'useraward';                
 
 ?>        

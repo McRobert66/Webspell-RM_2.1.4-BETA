@@ -142,8 +142,11 @@ try {
                         }
 
                 }
+                
                 $sclose = $tpl->loadTemplate("navigation","sub_close", array());
                 echo $sclose;
+                $head = $tpl->loadTemplate("navigation","dd_foot", array());
+                echo $head;
                 
             }
         } else {
@@ -169,10 +172,11 @@ try {
             $head_array['$name'] = $name; 
             $main_head = $tpl->loadTemplate("navigation","main_head", $head_array);
             echo $main_head;
+            
         }
         unset($sub_array, $sub);
-        $head = $tpl->loadTemplate("navigation","dd_foot", array());
-        echo $head;
+        #$head = $tpl->loadTemplate("navigation","dd_foot", array());
+        #echo $head;
 
     }
 } catch (Exception $e) {

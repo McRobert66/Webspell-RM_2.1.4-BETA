@@ -140,10 +140,10 @@ if (isset($_POST[ 'saveedit' ])) {
                 );
             //remove from mods
             if ($moderator === false) {
-                safe_query("DELETE FROM " . PREFIX . "plugins_forum_moderators WHERE userID='" . $id . "'");
+                safe_query("DELETE FROM " . PREFIX . "forum_moderators WHERE userID='" . $id . "'");
             }
 
-            $sql = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_groups");
+            $sql = safe_query("SELECT * FROM " . PREFIX . "forum_groups");
             while ($dc = mysqli_fetch_array($sql)) {
                 $name = $dc[ 'name' ];
                 $fgrID = $dc[ 'fgrID' ];
@@ -428,7 +428,7 @@ $squads .= '
     }
 
     $usergrp = array();
-    $ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_groups");
+    $ergebnis = safe_query("SELECT * FROM " . PREFIX . "forum_groups");
     while ($ds = mysqli_fetch_array($ergebnis)) {
         $name = $ds[ 'name' ];
         $fgrID = $ds[ 'fgrID' ];
@@ -469,7 +469,7 @@ $squads .= '
     );
 
     $ranks = "<option value='0'>" . $_language->module[ 'no_special_rank' ] . "</option>";
-    $get = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_ranks WHERE special='1'");
+    $get = safe_query("SELECT * FROM " . PREFIX . "forum_ranks WHERE special='1'");
     while ($rank = mysqli_fetch_assoc($get)) {
         $ranks .="<option value='" . $rank[ 'rankID' ] . "'>" . $rank[ 'rank' ] . "</option>";
     }
@@ -636,7 +636,7 @@ echo '
 
 ';
 
-    $sql = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_groups");
+    $sql = safe_query("SELECT * FROM " . PREFIX . "forum_groups");
     
     $i = 1;
     while ($dc = mysqli_fetch_array($sql)) {

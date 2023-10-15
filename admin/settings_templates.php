@@ -357,6 +357,7 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
                 `body2`='" . $_POST[ 'body2' ] . "',
                 `body3`='" . $_POST[ 'body3' ] . "',
                 `body4`='" . $_POST[ 'body4' ] . "',
+                `body5`='" . $_POST[ 'body5' ] . "',
                 
                 `typo4`='" . $_POST[ 'typo4' ] . "',
                 
@@ -1081,7 +1082,7 @@ echo'
   </div>
 
   <div class="mb-3 row">
-    <label class="col-md-4 control-label">Background Secondar:</label>
+    <label class="col-md-4 control-label">Background Secondary:</label>
     <div id="cp76" class="input-group colorpicker-component col-md-7">
     <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_1'].'" type="text" value="' . $ds[ 'nav12' ] . '" class="form-control" name="nav12" /><span class="input-group-text input-group-addon"><i></i></span>
     </div>
@@ -1423,9 +1424,15 @@ echo'
   <div class="col-md-6">
 
   <div class="mb-3 row">
-    <label class="col-md-4 control-label">Background Color:</label>
+    <label class="col-md-4 control-label">Background Primary Color:</label>
     <div id="cp7" class="input-group colorpicker-component col-md-7">
     <input type="text" value="' . $ds[ 'body3' ] . '" class="form-control" name="body3" /><span class="input-group-text input-group-addon"><i></i></span> 
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-md-5 control-label">Background Secondary Color <small>(content widgets)</small>:</label>
+    <div id="cp77" class="input-group colorpicker-component col-md-7">
+    <input type="text" value="' . $ds[ 'body5' ] . '" class="form-control" name="body5" /><span class="input-group-text input-group-addon"><i></i></span> 
     </div>
   </div>
 

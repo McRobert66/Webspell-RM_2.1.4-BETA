@@ -246,7 +246,7 @@ function ismoderator($userID, $boardID)
                 "SELECT
                     userID
                 FROM
-                    " . PREFIX . "plugins_forum_moderators
+                    " . PREFIX . "forum_moderators
                 WHERE
                     `userID` = " . (int)$userID . " AND
                     `boardID` = " . (int)$boardID

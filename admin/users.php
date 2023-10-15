@@ -276,7 +276,7 @@ if (isset($_POST[ 'add' ])) {
     if ($CAPCLASS->checkCaptcha(0, $_GET[ 'captcha_hash' ])) {
         $id = $_GET[ 'id' ];
         if (!issuperadmin($id) || (issuperadmin($id) && issuperadmin($userID))) {
-          @  safe_query("DELETE FROM " . PREFIX . "plugins_forum_moderators WHERE userID='$id'");
+          @  safe_query("DELETE FROM " . PREFIX . "forum_moderators WHERE userID='$id'");
           #  safe_query("DELETE FROM " . PREFIX . "plugins_messenger WHERE touser='$id'");
           @  safe_query("DELETE FROM " . PREFIX . "squads_members WHERE userID='$id'");
           #  safe_query("DELETE FROM " . PREFIX . "upcoming_announce WHERE userID='$id'");
@@ -708,7 +708,7 @@ if ($action == "activate") {
     );
 
     $ranks = "<option value='0'>" . $_language->module[ 'no_special_rank' ] . "</option>";
-    $get = safe_query("SELECT * FROM " . PREFIX . "plugins_forum_ranks WHERE special='1'");
+    $get = safe_query("SELECT * FROM " . PREFIX . "forum_ranks WHERE special='1'");
     while ($rank = mysqli_fetch_assoc($get)) {
         $ranks .="<option value='" . $rank[ 'rankID' ] . "'>" . $rank[ 'rank' ] . "</option>";
     }

@@ -387,7 +387,6 @@ onsubmit="return chkFormular();">
 </div>
  
 <div class="col-sm-12">
-        '.$_language->module['info'].'<br>
         '.$_language->module['squad_info'].':
         <textarea class="ckeditor" id="ckeditor" rows="5" cols="" name="message" style="width: 100%;"></textarea>
     </div>
@@ -527,7 +526,6 @@ onsubmit="return chkFormular();">
 </div>
  
 <div class="col-sm-12">
-        '.$_language->module['info'].'<br>
         '.$_language->module['squad_info'].':
         <textarea class="ckeditor" id="ckeditor" rows="5" cols="" name="message" style="width: 100%;">'.getinput($ds['info']).'</textarea>
     </div>

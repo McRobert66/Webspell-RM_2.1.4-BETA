@@ -43,6 +43,7 @@ $s_color = substr($ds["typo4"], 4, -1);
 
 $rm_body_bg = substr($ds["body3"], 4, -1);
 $rm_body_color = substr($ds["body4"], 4, -1);
+$rm_body2_color = substr($ds["body5"], 4, -1);
 $body_font_size = $ds["body2"];
 
 $link_color = substr($ds["typo4"], 4, -1);
@@ -100,7 +101,8 @@ echo'
 
 /* Body */
   --bs-rm-body-bg: '.$rm_body_bg.';
-  --bs-body-color: '.$rm_body_color.'; 
+  --bs-body-color: '.$rm_body_color.';
+  --bs-body-secondary-color: '.$rm_body2_color.'; 
   --bs-body-font-size: '.$body_font_size.'; 
   --bs-font-family: '.$font_family.';
   --bs-rm-body-pic: url('.$rm_body_pic.');

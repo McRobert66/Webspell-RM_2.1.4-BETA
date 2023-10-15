@@ -209,7 +209,6 @@ function get_mainContent() {
 #Ausgabe Navi
 function get_navigation_modul(){
     GLOBAL $logo, $theme_name, $themes, $site, $_language, $loggedin, $url;
-            
     $widget_menu = new widgets();
     $widget_menu->registerWidget("page_navigation_widget");
 }

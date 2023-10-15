@@ -754,14 +754,71 @@ function add_navigation() {
             }
         }
 }
-# Einträge in Datenbank navigation_dashboard_links
-function get_add_dashboard_navigation () {
 
-		global $userID, $_database, $catID, $navi_name, $modulname, $add_dashboard_navigation, $dashnavi_link;
+# Einträge in Datenbank navigation_website_sub
+/*function get_add_two_navigation () {
 
-		add_dashboard_navigation($add_dashboard_navigation = "INSERT INTO `".PREFIX."navigation_dashboard_links` (`catID`, `name`, `modulname`, `url`, `accesslevel`, `sort`) 
-		          VALUES ('$catID','$navi_name', '$modulname', 'admincenter.php?site=$dashnavi_link', 'page', '1');");
+		global $userID, $_database, $mnavID, $navi_name_two, $modulname_two, $add_two_navigation, $navi_link_two, $themes_modulname,$navi_cat_name;
+
+		if ($mnavID=="1"){
+		  $navi_cat_name = "{[de]}HAUPT{[en]}MAIN{[it]}PRINCIPALE";
+		  $sort = '1';
+		}elseif ($mnavID=="2"){
+		  $navi_cat_name = "{[de]}TEAM{[en]}TEAM{[it]}TEAM";
+		  $sort = '2';
+		}elseif ($mnavID=="3"){
+		  $navi_cat_name = "{[de]}GEMEINSCHAFT{[en]}COMMUNITY{[it]}COMMUNITY";
+		  $sort = '3';
+		}elseif ($mnavID=="4"){
+		  $navi_cat_name = "{[de]}MEDIEN{[en]}MEDIA{[it]}MEDIA";
+		  $sort = '4';
+		}elseif ($mnavID=="5"){
+		  $navi_cat_name = "{[de]}SONSTIGES{[en]}MISCELLANEOUS[it]}VARIE";
+		  $sort = '5';
+		}else{
+		  $navi_cat_name = "mistake";
+		  $sort = '6';
+		}
+
+		$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "navigation_website_main WHERE mnavID=$mnavID"));
+		if (@$dx[ 'mnavID' ] != $mnavID) {
+		add_two_navigation($add_two_navigation = "INSERT INTO `".PREFIX."navigation_website_main` (`mnavID`, `name`, `url`, `default`, `sort`, `isdropdown`, `windows`) VALUES
+		($mnavID, '$navi_cat_name', '#', 1, '$sort', 1, 1);");
+
+		add_two_navigation($add_two_navigation = "INSERT INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
+		          VALUES ('$mnavID','$navi_name_two', '$modulname_two', 'index.php?site=$navi_link_two', '1', '1', '$themes_modulname');");
+
+		} else {
+
+		add_two_navigation($add_two_navigation = "INSERT INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
+		          VALUES ('$mnavID','$navi_name_two', '$modulname_two', 'index.php?site=$navi_link_two', '1', '1', '$themes_modulname');");
+		}
 }
+
+function add_two_navigation() {
+    global $_database,$add_two_navigation,$navi_link_two,$str_two,$modulname_two,$themes_modulname;
+        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$modulname_two."' AND themes_modulname ='".$themes_modulname."'"))>0) {
+                    echo "<div class='alert alert-warning'><b>Website Navigation:</b><br>".$str_two." Navigation entry already exists <br />";
+                    echo "".$str_two." Navigationseintrag schon vorhanden <br /></div>";
+                    
+        } else {
+            try {
+                if(safe_query($add_two_navigation)) { 
+                    echo "<div class='alert alert-success'><b>Website Navigation:</b><br>".$str_two." added to the Website Navigation <br />";
+                    echo "".$str_two." wurde der Website Navigation hinzugef&uuml;gt <br />";
+                    echo "<a href = '/admin/admincenter.php?site=webside_navigation' target='_blank'><b>LINK => Website Navigation</b></a></div>";
+                } else {
+                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>Add to Website Navigation failed <br />";
+                    echo "Zur Website Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
+                }   
+            } CATCH (EXCEPTION $x) {
+                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>".$str_two." installation failed <br />";
+                    echo "Send the following line to the support team:<br /><br />";
+                    echo "<pre>".$x->message()."</pre>      
+                          </div>";
+            }
+        }
+}*/
 
 function add_two_navigation() {
     global $_database,$add_two_navigation,$two_navi_link,$str,$two_modulname,$themes_modulname,$two_navi_name,$modulname;
@@ -787,6 +844,15 @@ function add_two_navigation() {
             }
         }
 }
+# Einträge in Datenbank navigation_dashboard_links
+function get_add_dashboard_navigation () {
+
+		global $userID, $_database, $catID, $navi_name, $modulname, $add_dashboard_navigation, $dashnavi_link;
+
+		add_dashboard_navigation($add_dashboard_navigation = "INSERT INTO `".PREFIX."navigation_dashboard_links` (`catID`, `name`, `modulname`, `url`, `accesslevel`, `sort`) 
+		          VALUES ('$catID','$navi_name', '$modulname', 'admincenter.php?site=$dashnavi_link', 'page', '1');");
+}
+
 # Einträge in Datenbank navigation_dashboard_links
 function add_dashboard_navigation() {
        global $_database,$add_dashboard_navigation,$dashnavi_link,$str,$modulname;

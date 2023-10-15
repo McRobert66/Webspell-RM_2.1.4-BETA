@@ -92,7 +92,7 @@ function parseWebspellURL($parameters = null)
                 }
                 $get = mysqli_fetch_array(
                     safe_query(
-                        "SELECT articlecatname FROM `" . PREFIX . "plugins_articles_categorys` WHERE articlecatID=" . (int)$articlecatID
+                        "SELECT articlecatname FROM `" . PREFIX . "plugins_articles_categories` WHERE articlecatID=" . (int)$articlecatID
                     )
                 );
                 $get2 = mysqli_fetch_array(
@@ -530,7 +530,7 @@ function parseWebspellURL($parameters = null)
                 }
                 $get = mysqli_fetch_array(
                     safe_query(
-                        "SELECT linkcatname FROM `" . PREFIX . "plugins_links_categorys` WHERE linkcatID=" . (int)$linkcatID
+                        "SELECT linkcatname FROM `" . PREFIX . "plugins_links_categories` WHERE linkcatID=" . (int)$linkcatID
                     )
                 );
                 $get2 = mysqli_fetch_array(

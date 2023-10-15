@@ -642,6 +642,6 @@ function httpprotokoll($string) {
 // Rechte für Forum
 function usergrpexists($fgrID)
 {
-    return (mysqli_num_rows(safe_query("SELECT `fgrID` FROM `" . PREFIX . "plugins_forum_groups` WHERE `fgrID` = " . (int)$fgrID)) > 0);
+    return (mysqli_num_rows(safe_query("SELECT `fgrID` FROM `" . PREFIX . "forum_groups` WHERE `fgrID` = " . (int)$fgrID)) > 0);
 }
 ?>

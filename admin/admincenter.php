@@ -167,10 +167,21 @@ if ($getavatar = getavatar($userID)) {
 	<!-- DataTables -->	   
 	<link href="../components/admin/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 
+	<!-- ckeditor -->
+
+<?php	
+	if (issuperadmin($userID)) {
+		$ckeditor= '<script src="../components/ckeditor/admin_config.js"></script>';
+	} else {
+		$ckeditor= '<script src="../components/ckeditor/user_config.js"></script>';
+	}
+?>
+
+
 </head>
 
 <body>
-
+<?php echo $ckeditor ?>
 	<div id="wrapper">
 		<!-- Navigation -->
 		<ul class="nav nav-top-links justify-content-end">
@@ -244,17 +255,9 @@ if ($getavatar = getavatar($userID)) {
 		<!-- /#wrapper -->
 	</div>
 
-<!-- ckeditor -->
-<?php	
-	if (issuperadmin($userID)) {
-		echo'<script src="../components/ckeditor/ckeditor.js"></script>
-<script src="../components/ckeditor/admin_config.js"></script>';
-	} else {
-		echo'<script src="../components/ckeditor/ckeditor.js"></script>
-<script src="../components/ckeditor/user_config.js"></script>';
-	}
-?>
 
+<script src="../components/ckeditor/admin_config.js"></script>
+<script src="../components/ckeditor/ckeditor.js"></script>
 
 <!-- jQuery -->
 <script src="../components/admin/js/jquery.min.js"></script>

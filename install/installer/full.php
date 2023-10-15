@@ -268,10 +268,57 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."forum_topics_spam`
   KEY `date` (`date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;");
 
+$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."forum_ranks`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."forum_ranks` (
+  `rankID` int(11) NOT NULL AUTO_INCREMENT,
+  `rank` varchar(255) NOT NULL default '',
+  `pic` varchar(255) NOT NULL default '',
+  `postmin` int(11) NOT NULL default '0',
+  `postmax` int(11) NOT NULL default '0',
+  `special` int(1) NULL DEFAULT '0',
+  PRIMARY KEY  (`rankID`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+
+
+$transaction->addQuery("INSERT INTO `".PREFIX."forum_ranks` (`rankID`, `rank`, `pic`, `postmin`, `postmax`, `special`) VALUES 
+  (1, 'Rank 0', 'rank0.png', 0, 9, 0),
+  (2, 'Rank 1', 'rank1.png', 10, 29, 0),    
+  (3, 'Rank 2', 'rank2.png', 30, 49, 0),
+  (4, 'Rank 3', 'rank3.png', 50, 69, 0),
+  (5, 'Rank 4', 'rank4.png', 70, 89, 0),
+  (6, 'Rank 5', 'rank5.png', 90, 119, 0),
+  (7, 'Rank 6', 'rank6.png', 100, 299, 0),
+  (8, 'Rank 7', 'rank7.png', 300, 599, 0),
+  (9, 'Rank 8', 'rank8.png', 600, 899, 0),
+  (10, 'Rank 9', 'rank9.png', 900, 1299, 0),
+  (11, 'Rank 10', 'rank10.png', 1300, 1599, 0),
+  (12, 'Rank 11', 'rank11.png', 1600, 1999, 0),
+  (13, 'Rank 12', 'rank12.png', 2000, 2147483647, 0),
+  (14, 'Administrator', 'admin.png', 0, 0, 1),
+  (15, 'Moderator', 'moderator.png', 0, 0, 1)");
+
+
+$transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."forum_groups`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."forum_groups` (
+  `fgrID` int(11) NOT NULL auto_increment,
+  `name` varchar(32) NOT NULL default '0',
+  PRIMARY KEY  (`fgrID`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+
+$transaction->addQuery("INSERT INTO `".PREFIX."forum_groups` ( `fgrID` , `name` ) VALUES ('1', 'Intern board users')");
+
+$transaction->addQuery("DROP TABLE IF EXISTS `" . PREFIX . "forum_moderators`");
+$transaction->addQuery("CREATE TABLE IF NOT EXISTS `" . PREFIX . "forum_moderators` (
+  `modID` int(11) NOT NULL AUTO_INCREMENT,
+  `boardID` int(11) NOT NULL DEFAULT '0',
+  `userID` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`modID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci");
+
 ##############################################################################################################################
 ##############################################################################################################################
 if ($transaction->successful()) {
-        return array('status' => 'success', 'message' => '- Install successful for Webspell RM Database: <span class="badge bg-success">"forum_posts_spam"</span> <span class="badge bg-success">"forum_topics_spam"</span>');
+        return array('status' => 'success', 'message' => '- Install successful for Webspell RM Database: <span class="badge bg-success">"forum_posts_spam"</span> <span class="badge bg-success">"forum_topics_spam"</span> <span class="badge bg-success">"plugins_forum_ranks"</span> <span class="badge bg-success">"plugins_forum_groups"</span> <span class="badge bg-success">"plugins_forum_moderators"</span>');
     } else {
         return array('status' => 'fail', 'message' => '- Failed to install Webspell-RM<br/>' . $transaction->getError());
     }
@@ -426,18 +473,18 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."navigation_dashboa
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;");
 
 $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_categories` (`catID`, `name`, `fa_name`, `accesslevel`, `default`, `sort`) VALUES
-(1, '{[de]}Webseiten Info / Einstellungen{[en]}Website Info / Settings{[it]}Informazioni/Impostazioni del sito web', 'fas fa-chart-bar', 'any', 0, 1),
+(1, '{[de]}Webseiten Info - Einstellungen{[en]}Website Info - Settings{[it]}Informazioni - Impostazioni del sito web', 'fas fa-chart-bar', 'any', 0, 1),
 (2, '{[de]}Spam{[en]}Spam{[it]}Spam', 'fas fa-exclamation-triangle', 'user', 0, 2),
 (3, '{[de]}Benutzer Administration{[en]}User Administration{[it]}Amministrazione Utenti', 'fa fa-user-plus', 'user', 0, 3),
-(4, '{[de]}Team / Clan{[en]}Team / Clan{[it]}Team / Clan', 'fa fa-users', 'any', 0, 4),
-(5, '{[de]}Template / Layout{[en]}Template / Layout{[it]}Template / Disposizione', 'fa fa-sitemap', 'page', 0, 5),
+(4, '{[de]}Team - Clan{[en]}Team - Clan{[it]}Team - Clan', 'fa fa-users', 'any', 0, 4),
+(5, '{[de]}Template - Layout{[en]}Template - Layout{[it]}Template - Disposizione', 'fa fa-sitemap', 'page', 0, 5),
 (6, '{[de]}Plugin Verwaltung{[en]}Plugin Administration{[it]}Gestione Plugin', 'fas fa-puzzle-piece', 'page', 0, 6),
 (7, '{[de]}Webseiteninhalte{[en]}Website Content{[it]}Contenuto del sito web', 'fa fa-folder-open', 'page', 0, 7),
-(8, '{[de]}Grafik / Video / Projekte{[en]}Plugins System / Social Media{[it]}Gestione Plugin / Social Media', 'fa fa-video ', 'gallery', 0, 8),
-(9, '{[de]}Header / Slider{[en]}Header / Slider{[it]}Header / Slider', 'fa fa-image', 'page', 0, 9),
-(10, '{[de]}Game / Voice Server Tools{[en]}Game / Voice Server Tools{[it]}Game / Voice Server Tools', 'fa fa-gamepad', 'clanwars', 0, 10),
+(8, '{[de]}Grafik - Video - Projekte{[en]}Grafik - Video - Projekte{[it]}Grafik - Video - Projekte', 'fa fa-video ', 'gallery', 0, 8),
+(9, '{[de]}Header - Slider{[en]}Header - Slider{[it]}Header - Slider', 'fa fa-image', 'page', 0, 9),
+(10, '{[de]}Game - Voice Server Tools{[en]}Game - Voice Server Tools{[it]}Game - Voice Server Tools', 'fa fa-gamepad', 'clanwars', 0, 10),
 (11, '{[de]}Social Media{[en]}Social Media{[it]}Social Media', 'fab fa-steam', 'feedback', 0, 11),
-(12, '{[de]}Links / Download / Sponsoren{[en]}Links / Download / Sponsoren{[it]}Links / Download / Sponsoren', 'fa fa-link', 'any', 0, 12)");
+(12, '{[de]}Links - Download - Sponsoren{[en]}Links - Download - Sponsore{[it]}Links - Download - Sponsore', 'fa fa-link', 'any', 0, 12)");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."navigation_dashboard_links`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."navigation_dashboard_links` (
@@ -472,7 +519,7 @@ $transaction->addQuery("INSERT INTO `".PREFIX."navigation_dashboard_links` (`lin
 (18, 4, '{[de]}Spiele{[en]}Games{[it]}Giochi', 'ac_games', 'admincenter.php?site=settings_games', 'page', 3),
 (19, 5, '{[de]}Webseiten Navigation{[en]}Webside Navigation{[it]}Menu Navigazione Web', 'ac_webside_navigation', 'admincenter.php?site=webside_navigation', 'page', 1),
 (20, 5, '{[de]}Templates Installer{[en]}Templates Installer{[it]}Installazione Temi', 'ac_template_installer', 'admincenter.php?site=template_installer', 'page', 2),
-(21, 5, '{[de]}Templates / Style{[en]}Templates / Style{[it]}Templates Grafici / stile', 'ac_templates', 'admincenter.php?site=settings_templates', 'page', 3),
+(21, 5, '{[de]}Templates - Style{[en]}Templates - Style{[it]}Templates Grafici - stile', 'ac_templates', 'admincenter.php?site=settings_templates', 'page', 3),
 (22, 5, '{[de]}Head Elements{[en]}Head Elements{[it]}Head Elements', 'ac_headelements', 'admincenter.php?site=settings_headelements', 'page', 4),
 (23, 5, '{[de]}Startseite{[en]}Start Page{[it]}Pagina Principale', 'ac_startpage', 'admincenter.php?site=settings_startpage', 'page', 5),
 (24, 5, '{[de]}Statische Seiten{[en]}Static Pages{[it]}Pagine Statiche', 'ac_static', 'admincenter.php?site=settings_static', 'page', 6),
@@ -1460,7 +1507,7 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user` (
 
 
 $transaction->addQuery("INSERT INTO `".PREFIX."user` (`userID`, `registerdate`, `lastlogin`, `password`, `password_hash`, `password_pepper`, `nickname`, `email`, `email_hide`, `email_change`, `email_activate`, `firstname`, `lastname`, `gender`, `town`, `birthday`, `facebook`, `twitter`, `twitch`, `steam`, `instagram`, `youtube`, `discord`, `avatar`, `usertext`, `userpic`, `homepage`, `about`, `pmgot`, `pmsent`, `visits`, `banned`, `ban_reason`, `ip`, `topics`, `articles`, `demos`, `files`, `gallery_pictures`, `special_rank`, `mailonpm`, `userdescription`, `activated`, `language`, `date_format`, `time_format`, `newsletter`, `links`, `videos`, `games`, `acc_type`, `projectlist`) VALUES
-(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0001-01-01', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', 'Admin', '')");
+(1, '".time()."', '".time()."', '', '".$adminhash."', '".$new_pepper."', '".$adminname."', '".$adminmail."', 1, '', '', '', '', 'select_gender', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, NULL, '', '', '', '', '', '', '', 0, 0, '', '1', '', 'd.m.Y', 'H:i', 1, '', '', '', 'Admin', '')");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."user_forum_groups`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_forum_groups` (
@@ -1497,7 +1544,7 @@ $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_groups` (
 $transaction->addQuery("INSERT INTO `".PREFIX."user_groups` (`usgID`, `userID`, `news`, `news_writer`, `newsletter`, `polls`, `forum`, `moderator`, `clanwars`, `feedback`, `user`, `page`, `files`, `cash`, `gallery`, `super`) VALUES
 (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)"); 
 
-
+global $adminname;
 $transaction->addQuery("DROP TABLE IF EXISTS `" . PREFIX . "user_nickname`");
 $transaction->addQuery("CREATE TABLE `" . PREFIX . "user_nickname` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
@@ -1505,6 +1552,7 @@ $transaction->addQuery("CREATE TABLE `" . PREFIX . "user_nickname` (
   PRIMARY KEY (`userID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;");
 
+$transaction->addQuery("INSERT INTO `".PREFIX."user_nickname` (`userID`, `nickname`) VALUES (1, '".$adminname."')");
 
 $transaction->addQuery("DROP TABLE IF EXISTS `".PREFIX."user_visitors`");
 $transaction->addQuery("CREATE TABLE IF NOT EXISTS `".PREFIX."user_visitors` (

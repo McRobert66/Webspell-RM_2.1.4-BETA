@@ -74,16 +74,16 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
             <a class="nav-link active" href="index.php?site=profile&amp;id=' . $id . '&amp;action=lastposts"> ' . $_language->module[ 'last' ] . ' ' . $profilelast . ' ' . $_language->module[ 'posts' ] . '</a></li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
-        if (@$dx[ 'modulname' ] != 'usergallery') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='gallery'"));
+        if (@$dx[ 'modulname' ] != 'gallery') {
             $gallery = '';
         } else {
             $gallery = '<li class="nav-item">
             <a class="nav-link" href="index.php?site=profile&amp;id=' . $id . '&amp;action=galleries"> ' . $_language->module[ 'galleries' ] . '</a></li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
             $awardlist = '';
         } else {
             $awardlist = '
@@ -264,8 +264,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
             </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
-        if (@$dx[ 'modulname' ] != 'usergallery') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='gallery'"));
+        if (@$dx[ 'modulname' ] != 'gallery') {
             $gallery = '';
         } else {
             $gallery = '
@@ -274,8 +274,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
             </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
             $awardlist = '';
         } else {
             $awardlist = '
@@ -383,8 +383,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
-        if (@$dx[ 'modulname' ] != 'usergallery') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='gallery'"));
+        if (@$dx[ 'modulname' ] != 'gallery') {
         $gallery = '';
         } else {
         $gallery = '<li class="nav-item">
@@ -392,8 +392,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
           $awardlist = '';
         } else {
           $awardlist = '
@@ -456,7 +456,7 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
 		
         $awardselect=safe_query("SELECT * FROM ".PREFIX."plugins_user_award_list ORDER BY uawardID");
         while($df=mysqli_fetch_array($awardselect)){
-            $anz= mysqli_num_rows(safe_query("SELECT uwID FROM ".PREFIX."plugins_user_awards WHERE awardID='".$df['uawardID']."'"));
+            $anz= mysqli_num_rows(safe_query("SELECT uwID FROM ".PREFIX."plugins_user_award WHERE awardID='".$df['uawardID']."'"));
             $perc=$anz/$us*100;
             $percentage=round($perc, 4);
             $pfad = '';
@@ -512,8 +512,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='usergallery'"));
-        if (@$dx[ 'modulname' ] != 'usergallery') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='gallery'"));
+        if (@$dx[ 'modulname' ] != 'gallery') {
         $gallery = '';
         } else {
         $gallery = '<li class="nav-item">
@@ -521,8 +521,8 @@ if (isset($id) && getnickname($id) != '' && deleteduser($id) == '0') {
   </li>';
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
           $awardlist = '';
         } else {
           $awardlist = '
@@ -822,7 +822,7 @@ echo '<ul class="nav nav-tabs">
                     "SELECT
                         *
                     FROM
-                        " . PREFIX . "plugins_forum_ranks
+                        " . PREFIX . "forum_ranks
                     WHERE
                         " . $posts . " >= postmin AND
                         " . $posts . " <= postmax AND
@@ -840,7 +840,7 @@ echo '<ul class="nav nav-tabs">
             "SELECT IF
                 (u.special_rank = 0, 0, CONCAT_WS('__', r.rank, r.pic)) as RANK
             FROM
-                " . PREFIX . "user u LEFT JOIN " . PREFIX . "plugins_forum_ranks r ON u.special_rank = r.rankID
+                " . PREFIX . "user u LEFT JOIN " . PREFIX . "forum_ranks r ON u.special_rank = r.rankID
             WHERE
                 userID='" . $ds[ 'userID' ] . "'"
         );
@@ -898,7 +898,13 @@ echo '<ul class="nav nav-tabs">
 
             $settings = safe_query("SELECT * FROM " . PREFIX . "squads WHERE squadID='".$team."' ORDER BY sort");
             while ($df = mysqli_fetch_array($settings)) {
-            $pic = $df[ 'icon' ];
+            
+            if (!empty($df[ 'icon' ])) {
+                $pic = $df[ 'icon' ];
+            }else{
+                $pic='no-image.jpg';
+            }
+
             $name = $df[ 'name' ];
 
                 if (!empty($ds[ 'userID' ])) {
@@ -936,16 +942,16 @@ echo '<ul class="nav nav-tabs">
         #----news ----
         function getusernewsposts($userID)
         {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
-        if (@$dx[ 'modulname' ] != 'news_manager') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news'"));
+        if (@$dx[ 'modulname' ] != 'news') {
         $new_posts = '';
         } else {
         return mysqli_num_rows(safe_query("SELECT newsID FROM `" . PREFIX . "plugins_news` WHERE `poster` = " . (int)$userID));
         } 
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
-        if (@$dx[ 'modulname' ] != 'news_manager') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news'"));
+        if (@$dx[ 'modulname' ] != 'news') {
         $new_posts = '<i  class="application fas fa-times"></i>';
         } else {
         $new_posts = getusernewsposts($ds['userID']);
@@ -954,16 +960,16 @@ echo '<ul class="nav nav-tabs">
         #----news_comments ----
         function getusernewscomments($userID)
         {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
-        if (@$dx[ 'modulname' ] != 'news_manager') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news'"));
+        if (@$dx[ 'modulname' ] != 'news') {
         '';
         } else {
         return mysqli_num_rows(safe_query("SELECT commentID FROM `" . PREFIX . "plugins_news_comments` WHERE `userID` = " . (int)$userID . " AND `type` = 'ne'"));
         }
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
-        if (@$dx[ 'modulname' ] != 'news_manager') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news'"));
+        if (@$dx[ 'modulname' ] != 'news') {
         $news_comments = '<i  class="application fas fa-times"></i>';
         } else {
         $news_comments = getusernewscomments($ds['userID']);
@@ -1158,8 +1164,8 @@ echo '<ul class="nav nav-tabs">
         $data_array['$latest_visitors'] = $_language->module[ 'latest_visitors' ];
         $data_array['$statistics'] = $_language->module[ 'statistics' ];
         
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
             $awards = '';    
         } else {
 
@@ -1194,10 +1200,10 @@ echo '<ul class="nav nav-tabs">
         }
 
         function saveaward($userid,$awardid) {
-            $dz = mysqli_num_rows(safe_query("SELECT * FROM ".PREFIX."plugins_user_awards WHERE awardID = '" . $awardid . "' AND userID = '" . $userid . "'"));
+            $dz = mysqli_num_rows(safe_query("SELECT * FROM ".PREFIX."plugins_user_award WHERE awardID = '" . $awardid . "' AND userID = '" . $userid . "'"));
             if($dz == '0') {
                 safe_query("
-                    INSERT INTO ".PREFIX."plugins_user_awards 
+                    INSERT INTO ".PREFIX."plugins_user_award 
                     ( userID, awardID )
                     values
                     ( '" . $userid. "', '" . $awardid . "' )
@@ -1227,8 +1233,8 @@ echo '<ul class="nav nav-tabs">
         $anzforumposts = mysqli_num_rows(safe_query("SELECT poster FROM ".PREFIX."plugins_forum_posts WHERE poster='" . $id . "'"));
         }
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
-        if (@$dx[ 'modulname' ] != 'news_manager') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news'"));
+        if (@$dx[ 'modulname' ] != 'news') {
         $anznewsposts = '';
         } else {
         $anznewsposts = mysqli_num_rows(safe_query("SELECT poster FROM ".PREFIX."plugins_news WHERE poster='" . $id . "'"));
@@ -1244,8 +1250,8 @@ echo '<ul class="nav nav-tabs">
         $membertime = $aktuell - $alt;
         $membertime = $membertime / 86400;
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
         $status = '';
         } else {
         $ds1 = mysqli_fetch_array(safe_query("SELECT * FROM ".PREFIX."plugins_user_award_settings"));
@@ -1331,8 +1337,8 @@ echo '<ul class="nav nav-tabs">
         }
 
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
-        if (@$dx[ 'modulname' ] != 'news_manager') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news'"));
+        if (@$dx[ 'modulname' ] != 'news') {
         $status = '';
         } else {
             if(getawardpoints('Kommentare',$awcomments) != '' ) {
@@ -1415,13 +1421,13 @@ echo '<ul class="nav nav-tabs">
           $awards.='<img src="includes/plugins/useraward/images/userawards/awards_right.png" width="40" height="100" border="0" />'; 
         }
         
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='useraward'"));
-        if (@$dx[ 'modulname' ] != 'useraward') {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='user_award'"));
+        if (@$dx[ 'modulname' ] != 'user_award') {
         
         } else {
         $specialaward = '0';
         $spawards ='';
-        $awardselect=safe_query("SELECT * FROM ".PREFIX."plugins_user_awards WHERE userID='".$waruserID."'");
+        $awardselect=safe_query("SELECT * FROM ".PREFIX."plugins_user_award WHERE userID='".$waruserID."'");
         $awardanz=mysqli_num_rows($awardselect);
         if($awardanz!=0 OR $communityribbon) {
           $spawards.='<br /><img src="includes/plugins/useraward/images/userawards/awards_left.png" width="40" height="100" border="0" />';

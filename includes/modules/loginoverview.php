@@ -79,7 +79,7 @@ if ($loggedin && $cookievalue == 'accepted') {
                         "SELECT
                             *
                         FROM
-                            " . PREFIX . "plugins_forum_ranks
+                            " . PREFIX . "forum_ranks
                         WHERE
                             " . $posts . " >= postmin AND
                             " . $posts . " <= postmax AND
@@ -97,7 +97,7 @@ if ($loggedin && $cookievalue == 'accepted') {
                 "SELECT IF
                     (u.special_rank = 0, 0, CONCAT_WS('__', r.rank, r.pic)) as RANK
                 FROM
-                    " . PREFIX . "user u LEFT JOIN " . PREFIX . "plugins_forum_ranks r ON u.special_rank = r.rankID
+                    " . PREFIX . "user u LEFT JOIN " . PREFIX . "forum_ranks r ON u.special_rank = r.rankID
                 WHERE
                     userID='" . $ds[ 'userID' ] . "'"
             );

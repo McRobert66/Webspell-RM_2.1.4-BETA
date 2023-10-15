@@ -2288,7 +2288,7 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
 
 
 
-if($ds[ 'widget_link1' ] == 'widget_discord_sidebar'
+            if($ds[ 'widget_link1' ] == 'widget_discord_sidebar'
                 || $ds[ 'widget_link1' ] == 'widget_counter_sidebar'                
                 || $ds[ 'widget_link1' ] == 'widget_about_us_sidebar'
                 || $ds[ 'widget_link1' ] == 'widget_calendar_sidebar'
