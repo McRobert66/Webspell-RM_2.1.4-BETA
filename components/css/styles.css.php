@@ -187,15 +187,15 @@ color: '.$db['button3'].';
 background-color: '.$db['button1'].';
 border-color: '.$db['button4'].';
 }
-.btn-primary.focus,.btn-primary:focus{
-color: '.$db['button3'].';
-background-color: '.$db['button2'].';
-border-color: '.$db['button4'].';
-}
 .btn-primary:hover{
 color: '.$db['button3'].';
 background-color: '.$db['button2'].';
 border-color: '.$db['button5'].';
+}
+.btn-primary.focus,.btn-primary:focus{
+color: '.$db['button3'].';
+background-color: '.$db['button2'].';
+border-color: '.$db['button4'].';
 }
 .btn-primary.active,.btn-primary:active,.open>.dropdown-toggle.btn-primary{
 color: '.$db['button3'].';

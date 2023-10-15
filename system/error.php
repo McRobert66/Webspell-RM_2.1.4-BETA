@@ -30,8 +30,7 @@
 
 ob_start();
 
-function generateCallTrace()
-{
+function generateCallTrace() {
 
     $trace = debug_backtrace();
     $trace = array_reverse($trace);
@@ -55,8 +54,8 @@ function generateCallTrace()
     return implode("\n", $result);
 }
 
-function system_error($text, $system = 1, $strace = 0)
-{
+function system_error($text, $system = 1, $strace = 0) {
+    
     ob_clean();
     global $_database;
     if ($strace) {

@@ -300,9 +300,12 @@ $components = array(
         './components/ckeditor/plugins/codesnippet/lib/highlight/styles/school_book_output.css',
         './components/css/cookie.css',
         './components/css/styles.css.php',
-        './components/css/themify-icons.css',
-        './components/fonts/fonts_'.$font_family.'.css',
-        './components/css/'.$headlines.''
+        './components/css/animate.css',
+        './components/css/page.css',
+        './components/css/passtrength.css',
+        './components/css/passwordstrength.css',
+        './components/css/'.$headlines.'',
+        './components/fonts/fonts_'.$font_family.'.css'
         
     ),
     'js' => array(
@@ -311,10 +314,13 @@ $components = array(
         './components/tooltip.js/tooltip.min.js',
         './components/bootstrap/js/bootstrap.bundle.min.js',
         './components/webshim/polyfiller.js',
-        './components/scrolltotop/js/scrolltotop.js',
-        './components/js/bbcode.js',
+        './components/scrolltotop/js/scrolltotop.js',        
         './components/datatables/js/jquery.dataTables.js',
-        './components/js/index.js'
+        './components/js/bbcode.js',
+        './components/js/index.js',
+        './components/js/jquery.easing.min.js',
+        './components/js/passtrength.js',
+        './components/js/passwordstrength.js'
     )
 );
 

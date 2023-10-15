@@ -38,9 +38,7 @@
         $themes_modulname = $dx[ 'modulname' ];
     }
 	
-class widgets{
-
-	
+class widgets{	
 
 	function safe_query($query){
 			include_once("settings.php");
@@ -63,34 +61,32 @@ class widgets{
 		$query = safe_query("SELECT pluginID FROM `" . PREFIX . "settings_plugins` WHERE widgetname1='".$widgetname."'");
     	$data_array = mysqli_fetch_array($query);
     	if($data_array) { 
-    	$plugin = new plugin_manager();
-  		$plugin->set_debug(DEBUG);
-  		echo $plugin->plugin_widget1($data_array["pluginID"]);
+	    	$plugin = new plugin_manager();
+	  		$plugin->set_debug(DEBUG);
+	  		echo $plugin->plugin_widget1($data_array["pluginID"]);
 		}
 
 		$widgetname = $this->_widgetname;
 		$query = safe_query("SELECT pluginID FROM `" . PREFIX . "settings_plugins` WHERE widgetname2='".$widgetname."'");
     	$data_array = mysqli_fetch_array($query);
     	if($data_array) { 
-    	$plugin = new plugin_manager();
-  		$plugin->set_debug(DEBUG);
-  		echo $plugin->plugin_widget2($data_array["pluginID"]);
+	    	$plugin = new plugin_manager();
+	  		$plugin->set_debug(DEBUG);
+	  		echo $plugin->plugin_widget2($data_array["pluginID"]);
 		}
 
 		$widgetname = $this->_widgetname;
 		$query = safe_query("SELECT pluginID FROM `" . PREFIX . "settings_plugins` WHERE widgetname3='".$widgetname."'");
     	$data_array = mysqli_fetch_array($query);
     	if($data_array) { 
-    	$plugin = new plugin_manager();
-  		$plugin->set_debug(DEBUG);
-  		echo $plugin->plugin_widget3($data_array["pluginID"]);
+	    	$plugin = new plugin_manager();
+	  		$plugin->set_debug(DEBUG);
+	  		echo $plugin->plugin_widget3($data_array["pluginID"]);
 		}
-
 
 		return false;
 	}
-	
-	
+		
 	public function registerWidget($position, $template_file = "default_widget_box"){
 		global $themes_modulname;
 		$select_sql = "SELECT position FROM " . PREFIX . "settings_widgets WHERE position LIKE '$position' && themes_modulname='$themes_modulname'";
@@ -114,8 +110,7 @@ class widgets{
 					$curr_modulname 	= $widget['modulname'];
 					$this->_widgetname = $curr_widgetname;
 					$this->_modulname = $curr_modulname;
-					$curr_widget_template = $this->showWidget($curr_id, $curr_widgetname, $curr_modulname);
-					
+					$curr_widget_template = $this->showWidget($curr_id, $curr_widgetname, $curr_modulname);					
 				}
 			}else{
 				$curr_widget_template = true;

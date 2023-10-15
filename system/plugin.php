@@ -170,14 +170,12 @@ class plugin_manager {
 			
 			if (@$row['activate'] != "1") {
 				if($this->_debug==="ON") {
-					#return ('<span class="label label-warning">'.$_language->module['plugin_deactivated'].'</span>');
 					return ('');
     			}
 				return false;
 			}
 			if(file_exists($row['path'].$row['widget_link1'].".php")) {
 				$plugin_path = $row['path'];
-				#require_once($row['path'].$row['widget_link1'].".php");
 				require($row['path'].$row['widget_link1'].".php");
 				return false;
 			} else { 
@@ -198,14 +196,12 @@ class plugin_manager {
 			
 			if (@$row['activate'] != "1") {
 				if($this->_debug==="ON") {
-					#return ('<span class="label label-warning">'.$_language->module['plugin_deactivated'].'</span>');
 					return ('');
     			}
 				return false;
 			}
 			if(file_exists($row['path'].$row['widget_link2'].".php")) {
 				$plugin_path = $row['path'];
-				#require_once($row['path'].$row['widget_link2'].".php");
 				require($row['path'].$row['widget_link2'].".php");
 				return false;
 			} else { 
@@ -226,14 +222,12 @@ class plugin_manager {
 			
 			if (@$row['activate'] != "1") {
 				if($this->_debug==="ON") {
-					#return ('<span class="label label-warning">'.$_language->module['plugin_deactivated'].'</span>');
 					return ('');
     			}
 				return false;
 			}
 			if(file_exists($row['path'].$row['widget_link3'].".php")) {
 				$plugin_path = $row['path'];
-				#require_once($row['path'].$row['widget_link3'].".php");
 				require($row['path'].$row['widget_link3'].".php");
 				return false;
 			} else { 
@@ -282,78 +276,78 @@ class plugin_manager {
 	//				if in any plugin (direct) or in the subfolders (css & js)
 	//				are file which must load into the <head> Tag
 	function plugin_loadheadfile_css($pluginadmin=false) {
-          parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-          $getsite = '';
-        if(isset($qs_arr['site'])) {
-            $getsite = $qs_arr['site'];
-        }
+    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+    $getsite = '';
+    if(isset($qs_arr['site'])) {
+      $getsite = $qs_arr['site'];
+    }
 
-          $css="\n";
-					$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
-          if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
+    $css="\n";
+		$query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
+    if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
 		
-        	while($res=mysqli_fetch_array($query)) {
-	    		$res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
+    while($res=mysqli_fetch_array($query)) {
+	  	$res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
 
-						$themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
-            $db = mysqli_fetch_array($themeergebnis);
+			$themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
+      $db = mysqli_fetch_array($themeergebnis);
 
-            $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."'");
-            $dx = mysqli_fetch_array($ergebnis);
+      $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."'");
+      $dx = mysqli_fetch_array($ergebnis);
 
-						if(@$dx['activate'] == 1) {
+			if(@$dx['activate'] == 1) {
 
-            if($res['modulname'] == $getsite || $res2 == 1) {
-            	if(is_dir($pluginpath.$res['path']."css/")) { $subf1 = "css/"; } else { $subf1=""; }
-            	$f = array();
-            	$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
-            	$fc = count((array($f)), COUNT_RECURSIVE);
-            		if($fc>0) {
-                		for($b=0; $b<=$fc-2; $b++) {
-                    	$css .= '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
-                		}
-	  				}
-						}
+	      if($res['modulname'] == $getsite || $res2 == 1) {
+	       	if(is_dir($pluginpath.$res['path']."css/")) { $subf1 = "css/"; } else { $subf1=""; }
+	        $f = array();
+	        $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf1).'*.css');
+	        $fc = count((array($f)), COUNT_RECURSIVE);
+	        if($fc>0) {
+	         	for($b=0; $b<=$fc-2; $b++) {
+	           	$css .= '<link type="text/css" rel="stylesheet" href="./'.$f[$b].'" />'.chr(0x0D).chr(0x0A);
+	         	}
+					}
 				}
 			}
+		}
 	  return $css;
 	}
 
 	function plugin_loadheadfile_js($pluginadmin=false) {
-          parse_str($_SERVER['QUERY_STRING'], $qs_arr);
-          $getsite = '';
-          if(isset($qs_arr['site'])) {
-            $getsite = $qs_arr['site'];
-          }
+    parse_str($_SERVER['QUERY_STRING'], $qs_arr);
+    $getsite = '';
+    if(isset($qs_arr['site'])) {
+      $getsite = $qs_arr['site'];
+    }
 
-          $js="\n";
-          $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
-          if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
+    $js="\n";
+    $query = safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `activate`='1' ");
+    if($pluginadmin) { $pluginpath = "../"; } else { $pluginpath=""; }
 		
-          while($res=mysqli_fetch_array($query)) {
-            $res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
+    while($res=mysqli_fetch_array($query)) {
+      $res2 = mysqli_num_rows(safe_query("SELECT * FROM `" . PREFIX . "settings_plugins` WHERE `modulname` = '".$res['modulname']."'"));
 
-            $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
-            $db = mysqli_fetch_array($themeergebnis);
+      $themeergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_themes` WHERE active = '1'");
+      $db = mysqli_fetch_array($themeergebnis);
 
-            $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."' and `activate` = '1'");
-            $dx = mysqli_fetch_array($ergebnis);
+      $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "settings_module` WHERE modulname = '".$res['modulname']."' and themes_modulname='".$db['modulname']."' and `activate` = '1'");
+      $dx = mysqli_fetch_array($ergebnis);
 
-						if(@$dx['activate'] == 1) {
+			if(@$dx['activate'] == 1) {
 
-            if($res['modulname'] == $getsite || $res2 == 1) {
-             	if(is_dir($pluginpath.$res['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
-            	$f = array();
-            	$f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
-            	$fc = count((array($f)), COUNT_RECURSIVE);
-            		if($fc>0) {
-                		for($b=0; $b<=$fc-2; $b++) {
-                    	$js .= '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
-                		}
-	  				}
-	  				}
-				} 
-			}
+        if($res['modulname'] == $getsite || $res2 == 1) {
+         	if(is_dir($pluginpath.$res['path']."js/")) { $subf2 = "js/"; } else { $subf2=""; }
+          $f = array();
+          $f = glob(preg_replace('/(\*|\?|\[)/', '[$1]', $pluginpath.$res['path'].$subf2).'*.js');
+          $fc = count((array($f)), COUNT_RECURSIVE);
+         	if($fc>0) {
+           	for($b=0; $b<=$fc-2; $b++) {
+             	$js .= '<script defer src="./'.$f[$b].'"></script>'.chr(0x0D).chr(0x0A);
+           	}
+	  			}
+	  		}
+			} 
+		}
 	  return $js;
 	}
 	
@@ -401,30 +395,27 @@ class plugin_manager {
 	//@info		update website title for SEO
 	function plugin_updatetitle($site) {
 		try {
-		$pm = new plugin_manager();
-			if($pm->is_plugin($_GET['site'])==1) {
-				$arr = $pm->plugin_data($_GET['site']);
-				if(isset($arr['name'])) {
-					return settitle($arr['name']);
+			$pm = new plugin_manager();
+				if($pm->is_plugin($_GET['site'])==1) {
+					$arr = $pm->plugin_data($_GET['site']);
+					if(isset($arr['name'])) {
+						return settitle($arr['name']);
+					}
 				}
-			}
-		} CATCH (EXCEPTION $x) {
-			if($this->_debug==="ON") {
-				return ('<span class="label label-danger">'.$x->message().'</span>');
+			} CATCH (EXCEPTION $x) {
+				if($this->_debug==="ON") {
+					return ('<span class="label label-danger">'.$x->message().'</span>');
+				}
 			}
 		}
 	}
-	
-}
 
 #######################################################################################################################################
 
 // Löscht in der Mysqli Datenbank eine Definierte Tabelle
 function table_exist($table){ 
   safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`");   // Tabelle Löschen
-            
-     
-  } 
+} 
 
 
 // Loescht in der Mysqli Datenbank eine Definierte Spalte
@@ -450,15 +441,15 @@ function DeleteThemeData($name,$where,$data,$theme,$themedate) {
 // Loescht die Mysqli Datenbank xyz
 function DeleteTable($table) {
   global $_database;
-	  if (safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`")) {
-	    //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
-	    //return true;
-	  } else {
-	    echo "<div class='alert alert-danger'>String failed <br />";
-	    echo "String ausf&uuml;hren fehlgeschlagen!<br /></div>";
-	    return "<pre>DROP TABLE IF EXISTS `" . PREFIX . "".$table."</pre>";
-	    //return 'false';
-	  }
+	if (safe_query("DROP TABLE IF EXISTS`" . PREFIX . "$table`")) {
+	  //echo "<div class='alert alert-success'>String ausgef&uuml;hrt! <br />";
+	  //return true;
+	} else {
+	  echo "<div class='alert alert-danger'>String failed <br />";
+	  echo "String ausf&uuml;hren fehlgeschlagen!<br /></div>";
+	  return "<pre>DROP TABLE IF EXISTS `" . PREFIX . "".$table."</pre>";
+	  //return 'false';
+	}
 }
 
 # Einträge in Datenbank settings_module
@@ -466,7 +457,7 @@ function get_add_module_install () {
 
 		global $userID, $_database,$add_module_install, $str, $modulname, $head_activated, $content_head_activated, $content_foot_activated, $head_section_activated, $foot_section_activated, $modul_display, $full_activated, $plugin_settings, $plugin_module, $plugin_widget, $widget1, $widget2, $widget3;
 
-		add_module_install($add_module_install = "INSERT INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `activate`, `sidebar`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `full_activated`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', '$str', '$modulname', 'default', '1', 'activated', '$head_activated', '$content_head_activated', '$content_foot_activated', '$head_section_activated', '$foot_section_activated', '$modul_display', '$full_activated', '$plugin_settings', '$plugin_module', '$plugin_widget', '$widget1', '$widget2', '$widget3')");
+		add_module_install($add_module_install = "INSERT IGNORE INTO `".PREFIX."settings_module` (`pluginID`, `name`, `modulname`, `themes_modulname`, `activate`, `sidebar`, `head_activated`, `content_head_activated`, `content_foot_activated`, `head_section_activated`, `foot_section_activated`, `modul_display`, `full_activated`, `plugin_settings`, `plugin_module`, `plugin_widget`, `widget1`, `widget2`, `widget3`) VALUES ('', '$str', '$modulname', 'default', '1', 'activated', '$head_activated', '$content_head_activated', '$content_foot_activated', '$head_section_activated', '$foot_section_activated', '$modul_display', '$full_activated', '$plugin_settings', '$plugin_module', '$plugin_widget', '$widget1', '$widget2', '$widget3')");
 
 }
 function add_module_install() {
@@ -574,10 +565,7 @@ function add_widget_install() {
                       </div>";
             }
         }
-}    
-
-
-
+}  
 
 # Einträge in Datenbank
 function add_database_insert() {
@@ -632,14 +620,14 @@ function add_database_install() {
             }
         }
 }
+
 # Add to Plugin-Manager
 function get_add_plugin_manager () {
 
   	global $userID, $_database, $str, $modulname, $add_plugin_manager, $info, $admin_file, $activate, $author, $website, $index_link, $hiddenfiles, $version, $path, $widgetname1, $widgetname2, $widgetname3, $widget_link1, $widget_link2, $widget_link3, $modul_display;
 
-		add_plugin_manager($add_plugin_manager = "INSERT INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES ('', '$str', '$modulname', '$info', '$admin_file', '$activate', '$author', '$website', '$index_link', '$hiddenfiles', '$version', '$path', '$widgetname1', '$widgetname2', '$widgetname3', '$widget_link1', '$widget_link2', '$widget_link3', '$modul_display');");
+		add_plugin_manager($add_plugin_manager = "INSERT IGNORE INTO `".PREFIX."settings_plugins` (`pluginID`, `name`, `modulname`, `info`, `admin_file`, `activate`, `author`, `website`, `index_link`, `hiddenfiles`, `version`, `path`, `widgetname1`, `widgetname2`, `widgetname3`, `widget_link1`, `widget_link2`, `widget_link3`, `modul_display`) VALUES ('', '$str', '$modulname', '$info', '$admin_file', '$activate', '$author', '$website', '$index_link', '$hiddenfiles', '$version', '$path', '$widgetname1', '$widgetname2', '$widgetname3', '$widget_link1', '$widget_link2', '$widget_link3', '$modul_display');");
 }
-
 
 function add_plugin_manager() {
     global $_database,$add_plugin_manager,$str,$modulname,$version;
@@ -665,6 +653,7 @@ function add_plugin_manager() {
             }
         }
 }
+
 # Add to Plugin-Manager (wenn ein Plugin zwei Einträge benötigt)
 function add_plugin_manager_two() {
     global $_database,$add_plugin_manager_two,$str_two,$modulname_two,$version;
@@ -690,6 +679,7 @@ function add_plugin_manager_two() {
             }
         }
 }
+
 # Einträge in Datenbank navigation_website_sub
 function get_add_navigation () {
 
@@ -755,71 +745,6 @@ function add_navigation() {
         }
 }
 
-# Einträge in Datenbank navigation_website_sub
-/*function get_add_two_navigation () {
-
-		global $userID, $_database, $mnavID, $navi_name_two, $modulname_two, $add_two_navigation, $navi_link_two, $themes_modulname,$navi_cat_name;
-
-		if ($mnavID=="1"){
-		  $navi_cat_name = "{[de]}HAUPT{[en]}MAIN{[it]}PRINCIPALE";
-		  $sort = '1';
-		}elseif ($mnavID=="2"){
-		  $navi_cat_name = "{[de]}TEAM{[en]}TEAM{[it]}TEAM";
-		  $sort = '2';
-		}elseif ($mnavID=="3"){
-		  $navi_cat_name = "{[de]}GEMEINSCHAFT{[en]}COMMUNITY{[it]}COMMUNITY";
-		  $sort = '3';
-		}elseif ($mnavID=="4"){
-		  $navi_cat_name = "{[de]}MEDIEN{[en]}MEDIA{[it]}MEDIA";
-		  $sort = '4';
-		}elseif ($mnavID=="5"){
-		  $navi_cat_name = "{[de]}SONSTIGES{[en]}MISCELLANEOUS[it]}VARIE";
-		  $sort = '5';
-		}else{
-		  $navi_cat_name = "mistake";
-		  $sort = '6';
-		}
-
-		$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "navigation_website_main WHERE mnavID=$mnavID"));
-		if (@$dx[ 'mnavID' ] != $mnavID) {
-		add_two_navigation($add_two_navigation = "INSERT INTO `".PREFIX."navigation_website_main` (`mnavID`, `name`, `url`, `default`, `sort`, `isdropdown`, `windows`) VALUES
-		($mnavID, '$navi_cat_name', '#', 1, '$sort', 1, 1);");
-
-		add_two_navigation($add_two_navigation = "INSERT INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
-		          VALUES ('$mnavID','$navi_name_two', '$modulname_two', 'index.php?site=$navi_link_two', '1', '1', '$themes_modulname');");
-
-		} else {
-
-		add_two_navigation($add_two_navigation = "INSERT INTO `".PREFIX."navigation_website_sub` (`mnavID`, `name`, `modulname`, `url`, `sort`, `indropdown`, `themes_modulname`) 
-		          VALUES ('$mnavID','$navi_name_two', '$modulname_two', 'index.php?site=$navi_link_two', '1', '1', '$themes_modulname');");
-		}
-}
-
-function add_two_navigation() {
-    global $_database,$add_two_navigation,$navi_link_two,$str_two,$modulname_two,$themes_modulname;
-        if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$modulname_two."' AND themes_modulname ='".$themes_modulname."'"))>0) {
-                    echo "<div class='alert alert-warning'><b>Website Navigation:</b><br>".$str_two." Navigation entry already exists <br />";
-                    echo "".$str_two." Navigationseintrag schon vorhanden <br /></div>";
-                    
-        } else {
-            try {
-                if(safe_query($add_two_navigation)) { 
-                    echo "<div class='alert alert-success'><b>Website Navigation:</b><br>".$str_two." added to the Website Navigation <br />";
-                    echo "".$str_two." wurde der Website Navigation hinzugef&uuml;gt <br />";
-                    echo "<a href = '/admin/admincenter.php?site=webside_navigation' target='_blank'><b>LINK => Website Navigation</b></a></div>";
-                } else {
-                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>Add to Website Navigation failed <br />";
-                    echo "Zur Website Navigation hinzuf&uuml;gen fehlgeschlagen<br /></div>";
-                }   
-            } CATCH (EXCEPTION $x) {
-                    echo "<div class='alert alert-danger'><b>Website Navigation:</b><br>".$str_two." installation failed <br />";
-                    echo "Send the following line to the support team:<br /><br />";
-                    echo "<pre>".$x->message()."</pre>      
-                          </div>";
-            }
-        }
-}*/
-
 function add_two_navigation() {
     global $_database,$add_two_navigation,$two_navi_link,$str,$two_modulname,$themes_modulname,$two_navi_name,$modulname;
         if(mysqli_num_rows(safe_query("SELECT * FROM `".PREFIX."navigation_website_sub` WHERE modulname ='".$two_modulname."' AND themes_modulname ='".$themes_modulname."'"))>0) {
@@ -879,26 +804,24 @@ function add_dashboard_navigation() {
         }
 }
 
-
 /*Plugins manuell einbinden 
 get_widget('about_us','plugin_widget1'); #für das erste Plugin
 get_widget('about_us','plugin_widget2'); #für das zweite Plugin
 get_widget('about_us','plugin_widget3'); #für das dritte Plugin
 */
 function get_widget($modulname, $widgetnummer) {
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$modulname."'"));
-      if (@$dx[ 'modulname' ] != $modulname) {
-        $test = '';
-      } else {
-        $test = $query = safe_query("SELECT pluginID FROM `".PREFIX."settings_plugins` WHERE modulname='".$modulname."'");
-        $data_array = mysqli_fetch_array($query);
-          if($data_array) { 
-            $plugin = new plugin_manager();
-            $plugin->set_debug(DEBUG);
-            echo $plugin->$widgetnummer($data_array['pluginID']);
-          }
-                    
-      };
+  $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='".$modulname."'"));
+  if (@$dx[ 'modulname' ] != $modulname) {
+    $test = '';
+  } else {
+    $test = $query = safe_query("SELECT pluginID FROM `".PREFIX."settings_plugins` WHERE modulname='".$modulname."'");
+        	  $data_array = mysqli_fetch_array($query);
+              if($data_array) { 
+            		$plugin = new plugin_manager();
+            		$plugin->set_debug(DEBUG);
+            		echo $plugin->$widgetnummer($data_array['pluginID']);
+          		}                    
+  };
 }
 
 

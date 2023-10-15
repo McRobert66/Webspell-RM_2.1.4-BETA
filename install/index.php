@@ -61,8 +61,7 @@ if($step == '1') {
     
     if(isset($_POST['agree'])) {
         $_SESSION['agree'] = $_POST['agree'];
-    } 
-    
+    }     
 
     if($adminname != '') {
         $data_array['$adminname'] = $adminname;
@@ -215,8 +214,7 @@ if($step == '1') {
         $data_array['$accepted4'] = $accepted4;
         $data_array['$accepted5'] = $accepted5;
 
-        $fatal2_error = '';
-            
+        $fatal2_error = '';            
             
         if($fatal2_error == 'true') {
             $data_array['$buttondisabled'] = 'disabled';
@@ -320,7 +318,6 @@ if($step == '1') {
         echo $step03;
     }
 }  elseif($step == '4') {
-
 
         if(checksession('hp_url')) {
             $_SESSION['hp_url'] = checksession('hp_url');
@@ -533,7 +530,6 @@ if($step == '1') {
         }
 
         $data_array = array();
-
         $data_array['$in_progress'] = $in_progress;
         $data_array['$text'] = $text;
         $data_array['$type'] = $type;

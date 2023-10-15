@@ -32,7 +32,6 @@
 
 #Title Ausgabe für die Webseite
 function get_sitetitle() {
-
     $sitetitle = new plugin_manager();
     if(isset($_GET['site']) AND $sitetitle->plugin_updatetitle($_GET['site'])) {
         echo $sitetitle->plugin_updatetitle($_GET['site']);
@@ -46,88 +45,86 @@ function get_sitetitle() {
 function get_hide () { 
     global $hide, $hide1, $hide2, $hide3, $hide4, $hide5, $hide6, $hide7, $hide8,$themes_modulname;
 
-$sql = safe_query("SELECT themes_modulname, modulname, head_activated FROM ".PREFIX."settings_module WHERE head_activated = '0' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide[] = $row['modulname'];
+    $sql = safe_query("SELECT themes_modulname, modulname, head_activated FROM ".PREFIX."settings_module WHERE head_activated = '0' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 're_activated' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide1[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide1 = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'le_activated' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide2[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide2 = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'activated' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide3[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide3 = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, content_head_activated FROM ".PREFIX."settings_module WHERE content_head_activated = '0' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide4[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide4 = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, content_foot_activated FROM ".PREFIX."settings_module WHERE content_foot_activated = '0' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide5[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide5 = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, head_section_activated FROM ".PREFIX."settings_module WHERE head_section_activated = '0' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide6[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide6 = array();
+    }
+
+    $sql = safe_query("SELECT themes_modulname, modulname, foot_section_activated FROM ".PREFIX."settings_module WHERE foot_section_activated = '0' AND themes_modulname='$themes_modulname'");
+    if(mysqli_num_rows($sql)) {
+        while($row = mysqli_fetch_array($sql)) {
+            $hide7[] = $row['modulname'];
+        }
+    }
+    else {
+        $hide7 = array();
     }
 }
-else {
-    $hide = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 're_activated' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide1[] = $row['modulname'];
-    }
-}
-else {
-    $hide1 = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'le_activated' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide2[] = $row['modulname'];
-    }
-}
-else {
-    $hide2 = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, sidebar FROM ".PREFIX."settings_module WHERE sidebar = 'activated' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide3[] = $row['modulname'];
-    }
-}
-else {
-    $hide3 = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, content_head_activated FROM ".PREFIX."settings_module WHERE content_head_activated = '0' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide4[] = $row['modulname'];
-    }
-}
-else {
-    $hide4 = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, content_foot_activated FROM ".PREFIX."settings_module WHERE content_foot_activated = '0' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide5[] = $row['modulname'];
-    }
-}
-else {
-    $hide5 = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, head_section_activated FROM ".PREFIX."settings_module WHERE head_section_activated = '0' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide6[] = $row['modulname'];
-    }
-}
-else {
-    $hide6 = array();
-}
-
-$sql = safe_query("SELECT themes_modulname, modulname, foot_section_activated FROM ".PREFIX."settings_module WHERE foot_section_activated = '0' AND themes_modulname='$themes_modulname'");
-if(mysqli_num_rows($sql)) {
-    while($row = mysqli_fetch_array($sql)) {
-        $hide7[] = $row['modulname'];
-    }
-}
-else {
-    $hide7 = array();
-}
-
-}
-
 
 # die Breite von content wird automatisch angepasst / linke - rechte Spalte activated oder deactivated
 
