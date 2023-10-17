@@ -34,22 +34,22 @@
                 || $ds[ 'widget_link1' ] == 'widget_lastregistered'
                 || $ds[ 'widget_link1' ] == 'widget_articles_sidebar') {
 
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="left_side_widget">Page Left</option>
-                    <option value="right_side_widget">Page Right</option>';
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                    <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
+                    <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>';
 
-        }else if($ds[ 'widget_link1' ] == 'widget_navigation_default'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_2one'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_agency'
-                || $ds[ 'widget_link1' ] == 'navigation_nor_navbar'
-                || $ds[ 'widget_link1' ] == 'navigation_partner'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_sticky'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_vargul'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_skewed'
-                || $ds[ 'widget_link1' ] == 'widget_navigation_2one') {           
+        }else if($ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_default'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_2one'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_agency'
+                || $ds[ 'widget_link1' ] == ''.$_language->module[ 'select_widget_navigation' ].'_nor_navbar'
+                || $ds[ 'widget_link1' ] == ''.$_language->module[ 'select_widget_navigation' ].'_partner'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_sticky'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_vargul'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_skewed'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_2one') {           
 
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                <option value="page_navigation_widget">Navigation</option>';  
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                <option value="page_'.$_language->module[ 'select_widget_navigation' ].'_widget">'.$_language->module[ 'select_widget_'.$_language->module[ 'select_widget_navigation' ].'' ].'</option>';  
         
 
         }else if($ds[ 'widget_link1' ] == 'widget_breaking_news_content'               
@@ -72,43 +72,43 @@
                 || $ds[ 'widget_link1' ] == 'widget_summary_news'
                 || $ds[ 'widget_link1' ] == 'widget_projectslider_content') {
 
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>                    
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>                    
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';
 
         }else if($ds[ 'widget_link1' ] == 'widget_default_footer_content' ) {
             
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                   <option value="page_footer_widget">Page Footer</option>';
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                   <option value="page_footer_widget">'.$_language->module[ 'footpage' ].'</option>';
 
         }else if($ds[ 'widget_link1' ] == 'widget_parallax_header') {
 
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_head_widget">Page Head</option>';
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>';
 
         }else if($ds[ 'widget_link1' ] == 'widget_carousel_only') {
 
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_head_widget">Page Head</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>                    
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>                    
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';
                                 
 
         }else{    
 
-        $widget1 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_navigation_widget">Navigation</option>
-                    <option value="page_head_widget">Page Head</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>
-                    <option value="left_side_widget">Page Left</option>
-                    <option value="right_side_widget">Page Right</option>
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';        
+        $widget1 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                    <option value="page_'.$_language->module[ 'select_widget_navigation' ].'_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>
+                    <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
+                    <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';        
         } 
         
         
@@ -118,14 +118,14 @@
        
         if($ds[ 'widget_link2' ] == 'widget_upcoming_sidebar') {
 
-        $widget2 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="left_side_widget">Page Left</option>
-                    <option value="right_side_widget">Page Right</option>';
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                    <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
+                    <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>';
 
         }else if($ds[ 'widget_link2' ] == 'widget_socialmedia_vergul') {           
 
-        $widget2 = '<option value="1">Widget Bereich auswählen ...</option>
-                <option value="page_navigation_widget">Navigation</option>';            
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                <option value="page_'.$_language->module[ 'select_widget_navigation' ].'_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>';            
 
        }else if($ds[ 'widget_link2' ] == 'widget_about_us_content'
                 || $ds[ 'widget_link2' ] == 'widget_newsletter_content'
@@ -142,29 +142,29 @@
                 || $ds[ 'widget_link2' ] == 'widget_carousel_crossfade'
                 || $ds[ 'widget_link2' ] == 'widget_summary_article') {
 
-        $widget2 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_head_widget">Page Head</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>                    
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>                    
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';
 
         }else if($ds[ 'widget_link2' ] == 'widget_easyfooter_content') {
             
-        $widget2 = '<option value="1">Widget Bereich auswählen ...</option>
-                   <option value="page_footer_widget">Page Footer</option>';          
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                   <option value="page_footer_widget">'.$_language->module[ 'footpage' ].'</option>';          
         
         }else{    
 
-        $widget2 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_navigation_widget">Navigation</option>
-                    <option value="page_head_widget">Page Head</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>
-                    <option value="left_side_widget">Page Left</option>
-                    <option value="right_side_widget">Page Right</option>
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';        
+        $widget2 = '<option value="1">'.$_language->module[ 'select_widget_area' ].' ...</option>
+                    <option value="page_'.$_language->module[ 'select_widget_navigation' ].'_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>
+                    <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
+                    <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';        
         } 
 
 
@@ -175,9 +175,9 @@
                 || $ds[ 'widget_link3' ] == 'widget_facebook_sidebar_verdux'
                 || $ds[ 'widget_link3' ] == 'widget_videos_sidebar_coincidence') {
 
-        $widget3 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="left_side_widget">Page Left</option>
-                    <option value="right_side_widget">Page Right</option>';
+        $widget3 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                    <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
+                    <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>';
 
         }else if($ds[ 'widget_link3' ] == 'widget_social-sidebar_content'
                 || $ds[ 'widget_link3' ] == 'widget_footer_box_content'
@@ -185,30 +185,30 @@
                 || $ds[ 'widget_link3' ] == 'widget_sponsors_content_two'
                 || $ds[ 'widget_link3' ] == 'widget_news_headlines_2') {
 
-        $widget3 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_head_widget">Page Head</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>                    
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';
+        $widget3 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>                    
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';
 
         }else if($ds[ 'widget_link3' ] == 'widget_plugin_footer_content'
                 || $ds[ 'widget_link3' ] == 'widget_footer_vargul') {
             
-        $widget3 = '<option value="1">Widget Bereich auswählen ...</option>
-                   <option value="page_footer_widget">Page Footer</option>';               
+        $widget3 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                   <option value="page_footer_widget">'.$_language->module[ 'footpage' ].'</option>';               
 
         }else{    
 
-        $widget3 = '<option value="1">Widget Bereich auswählen ...</option>
-                    <option value="page_navigation_widget">Navigation</option>
-                    <option value="page_head_widget">Page Head</option>
-                    <option value="head_section_widget">Head Section</option>
-                    <option value="center_head_widget">Content Head</option>
-                    <option value="left_side_widget">Page Left</option>
-                    <option value="right_side_widget">Page Right</option>
-                    <option value="center_footer_widget">Content Foot</option>
-                    <option value="foot_section_widget">Foot Section</option>';        
+        $widget3 = '<option value="1">'.$_language->module[ 'select_widget_area' ].'</option>
+                    <option value="page_'.$_language->module[ 'select_widget_navigation' ].'_widget">'.$_language->module[ 'select_widget_navigation' ].'</option>
+                    <option value="page_head_widget">'.$_language->module[ 'pagehead' ].'</option>
+                    <option value="head_section_widget">'.$_language->module[ 'headsection' ].'</option>
+                    <option value="center_head_widget">'.$_language->module[ 'headcontent' ].'</option>
+                    <option value="left_side_widget">'.$_language->module[ 'left_sidebar_activated' ].'</option>
+                    <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>
+                    <option value="center_footer_widget">'.$_language->module[ 'footcontent' ].'</option>
+                    <option value="foot_section_widget">'.$_language->module[ 'footselection' ].'</option>';        
         } 
 
 

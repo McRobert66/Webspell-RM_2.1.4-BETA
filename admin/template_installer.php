@@ -223,7 +223,7 @@ else {
                   $installedversion = $row['version'];
                 }
             }else{
-              $installedversion = '<span class="badge text-bg-info">not installed</span>';
+              $installedversion = '<span class="badge text-bg-info">' . $_language->module['not_installed'] . '</span>';
             }            
 
             $output .= '  <tr>';
@@ -249,9 +249,9 @@ else {
                       <span class="label label-warning">'.$result['item'.$plug]['version_beta'].'</span>
                       <span class="label label-danger">'.$result['item'.$plug]['version_test'].'</span><br />
                       ' . $_language->module['required'] . ' '.$result['item'.$plug]['req'].'<br />
-                      Update: '.$result['item'.$plug]['update'].'<br>
-                      Modified and Coding by: '.$result['item'.$plug]['author'].'<br />
-                      Language: '.$result['item'.$plug]['languages'].'</td>';
+                      ' . $_language->module[ 'update' ]. ': '.$result['item'.$plug]['update'].'<br>
+                      ' . $_language->module[ 'code_by' ]. ': '.$result['item'.$plug]['author'].'<br />
+                      ' . $_language->module[ 'language' ]. ': '.$result['item'.$plug]['languages'].'</td>';
 
       include("../system/version.php");
       if(is_dir("../includes/themes/".$result['item'.$plug]['path'])) {

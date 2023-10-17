@@ -96,6 +96,7 @@ $language_array = Array(
   'additional_options'            => 'Website deaktivieren',
   'pagelock'                      => 'Seite sperren',
   'startpage'                     => 'Startseite wählen',
+  'no_startpage'                  => 'Keine Startpage',
   
  
   /*Google reCaptcha */
@@ -144,5 +145,6 @@ $language_array = Array(
 /*===================================================================*/
   /*social settings*/
   'social_settings'               => 'Social Media Einstellungen',
-  'title_social_media'            => 'Einstellungen'
+  'title_social_media'            => 'Einstellungen',
+  'social_sidebar_widget'         => 'Für Social-Sidebar Widget'
 );

@@ -357,7 +357,6 @@ safe_query("INSERT INTO `".PREFIX."navigation_website_sub` (`snavID`, `mnavID`, 
                 `body2`='" . $_POST[ 'body2' ] . "',
                 `body3`='" . $_POST[ 'body3' ] . "',
                 `body4`='" . $_POST[ 'body4' ] . "',
-                `body5`='" . $_POST[ 'body5' ] . "',
                 
                 `typo4`='" . $_POST[ 'typo4' ] . "',
                 
@@ -779,8 +778,7 @@ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=se
     <div class="mb-3 row">
     <label class="col-md-2 control-label">Info:</label>
     <div class="col-md-8"><div class="alert alert-warning" role="alert">
-  Es wird ein Abbild von dem Default Template erstellt. Alle Dateien sind enthalten und sind im Ordner <b><i>/includes/themes/<u>Template Name</u>/</i></b> zu finden.<br>
-  Der Template Name und Modulname kann später nicht mehr geändert werden. Sie sind Systemrelevant!
+  '.$_language->module['new_template_alert'].'
 </div>
 
     </div>
@@ -900,7 +898,7 @@ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=se
   </div>
 
   <div class="mb-3 row">
-    <label class="col-md-2 control-label">Ordner:</label>
+    <label class="col-md-2 control-label">'.$_language->module['folder_template'].':</label>
     <div class="col-md-8"><span class="text-muted small"><em>
       <input type="text" class="form-control" placeholder=" /includes/themes/'.getinput($ds['pfad']).'" / disabled></em></span>
     </div>
@@ -1065,12 +1063,12 @@ echo'
   <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-       <i class="fas fa-bars"></i> Navigation
+       <i class="fas fa-bars"></i>&nbsp;'.$_language->module['navi_navigation'].'
       </button>
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-        <h4>Navigation Settings</h4>
+        <h4>'.$_language->module['navi_setting'].'</h4>
 <div class="row">   
 <div class="col-md-6">
 
@@ -1082,7 +1080,7 @@ echo'
   </div>
 
   <div class="mb-3 row">
-    <label class="col-md-4 control-label">Background Secondary:</label>
+    <label class="col-md-4 control-label">Background Secondar:</label>
     <div id="cp76" class="input-group colorpicker-component col-md-7">
     <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_1'].'" type="text" value="' . $ds[ 'nav12' ] . '" class="form-control" name="nav12" /><span class="input-group-text input-group-addon"><i></i></span>
     </div>
@@ -1118,7 +1116,7 @@ echo'
       </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-md-4 control-label">Main aa:link hover:</label>
+    <label class="col-md-4 control-label">Main a:link hover:</label>
     <div id="cp4" class="input-group colorpicker-component col-md-7">
     <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_6'].'" type="text" value="' . $ds[ 'nav8' ] . '" class="form-control" name="nav8" /><span class="input-group-text input-group-addon"><i></i></span> 
       </div>
@@ -1132,11 +1130,11 @@ echo'
   </div>
 
 <div class="mb-3 row">
-    <label class="col-md-4 control-label">Navi Text Ausrichtung:</label>
+    <label class="col-md-4 control-label">Navi Text Alignment:</label>
     <div class="input-group col-md-7">
 
-';   $nav_text = "<option value='ms-auto'>Rechtsbündig</option>
-                    <option value='me-auto'>Linksbündung</option>";
+';   $nav_text = "<option value='ms-auto'>" . $_language->module[ 'navi_right_align' ] . "</option>
+                    <option value='me-auto'>" . $_language->module[ 'navi_left_align' ] . "</option>";
     $nav_text = str_replace(
         "value='" . $ds[ 'nav_text_alignment' ] . "'",
         "value='" . $ds[ 'nav_text_alignment' ] . "' selected='selected'",
@@ -1155,7 +1153,7 @@ echo'
 
 <hr>
 
-<h4>Dropdown Navigation Settings</h4>
+<h4>'.$_language->module['navi_dropdown'].'</h4>
 
        
        <div class="col-md-6">
@@ -1206,12 +1204,12 @@ echo'
 <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingTwo">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-        <i class="far fa-image"></i> Logo / Login
+        <i class="far fa-image"></i>&nbsp;'.$_language->module['logo_logo_login'].'
       </button>
     </h2>
     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-        <h4>Navigation</h4>
+        <h4>'.$_language->module['navi_navigation'].'</h4>
 <div class="row"> 
 <div class="col-md-6">
 
@@ -1233,13 +1231,13 @@ echo'
   <div class="col-md-6">
 
   <div class="mb-6 row">
-    <label class="col-md-4 control-label">Name der Webseite <small>(Text)</small>:</label>
+    <label class="col-md-4 control-label">'.$_language->module['logo_name_web'].':</label>
     <div class="input-group col-md-7">
    <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_12'].'" class="form-control" type="text" name="logotext1" value="' . $ds[ 'logotext1' ] . '" />
     </div>
   </div>
   <div class="mb-6 row">
-    <label class="col-md-4 control-label">Slogan der Webseite <small>(Text)</small>:</label>
+    <label class="col-md-4 control-label">'.$_language->module['logo_name_slogan'].':</label>
     <div class="input-group col-md-7">
    <input data-toggle="tooltip" data-html="true" title="'.$_language->module['tooltip_13'].'" class="form-control" type="text" name="logotext2" value="' . $ds[ 'logotext2' ] . '" />
     </div>
@@ -1293,12 +1291,12 @@ echo'
 <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingThree">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-        <i class="fas fa-globe"></i> Body
+        <i class="fas fa-globe"></i>&nbsp;Body
       </button>
     </h2>
     <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
-        <h4>Body Settings</h4>
+        <h4>'.$_language->module['body_setting'].'</h4>
 <div class="col-md-12">
  <div class="row">
  
@@ -1314,13 +1312,13 @@ echo'
     
     
     <div class="col-md-4" style="background: '.$ds['body3'].'; height: 280px;">
-      <h3 style="color: '.$ds['body4'].';">Example body text</h3>
+      <h3 style="color: '.$ds['body4'].';">'.$_language->module['body_example'].'</h3>
       <p style="font-size: '.$ds['body2'].'; color: '.$ds['body4'].';">Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
       <p style="font-size: '.$ds['body2'].'; color: '.$ds['body4'].';">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec sed odio dui.</p>
     </div>
   
     <div class="col-md-4" style="background: '.$ds['body3'].'; height: 280px;">
-       <h3 style="color: '.$ds['body4'].';">Example addresses</h3>
+       <h3 style="color: '.$ds['body4'].';">'.$_language->module['body_example_addresses'].'</h3>
       <address  style="font-size: '.$ds['body2'].'; color: '.$ds['body4'].';">
         <strong>Twitter, Inc.</strong><br>
         795 Folsom Ave, Suite 600<br>
@@ -1424,15 +1422,9 @@ echo'
   <div class="col-md-6">
 
   <div class="mb-3 row">
-    <label class="col-md-4 control-label">Background Primary Color:</label>
+    <label class="col-md-4 control-label">Background Color:</label>
     <div id="cp7" class="input-group colorpicker-component col-md-7">
     <input type="text" value="' . $ds[ 'body3' ] . '" class="form-control" name="body3" /><span class="input-group-text input-group-addon"><i></i></span> 
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label class="col-md-5 control-label">Background Secondary Color <small>(content widgets)</small>:</label>
-    <div id="cp77" class="input-group colorpicker-component col-md-7">
-    <input type="text" value="' . $ds[ 'body5' ] . '" class="form-control" name="body5" /><span class="input-group-text input-group-addon"><i></i></span> 
     </div>
   </div>
 
@@ -1637,7 +1629,7 @@ echo'
 <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingFour">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseTwo">
-        <i class="far fa-image"></i> Überschriften / Headlines
+        <i class="far fa-image"></i>&nbsp;'.$_language->module['head_headlines'].'
       </button>
     </h2>
     <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
@@ -1649,41 +1641,41 @@ echo'
 <div class="form-check">
   '.$headlines_01.'
   <label class="form-check-label" for="flexRadioDefault1">
-    Überschrift 1 <small>(default)</small></label> 
+    '.$_language->module['head_headlines1'].'</label> 
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-01.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-01.jpg" title="'.$_language->module['head_headlines1'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_02.'
   <label class="form-check-label" for="flexRadioDefault2">
-    Überschrift 2
+    '.$_language->module['head_headlines2'].'
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-02.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-02.jpg" title="'.$_language->module['head_headlines2'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_03.'
   <label class="form-check-label" for="flexRadioDefault3">
-    Überschrift 3  
+    '.$_language->module['head_headlines3'].' 
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-03.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-03.jpg" title="'.$_language->module['head_headlines3'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_04.'
   <label class="form-check-label" for="flexRadioDefault4">
-    Überschrift 4  
+    '.$_language->module['head_headlines4'].' 
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-04.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-04.jpg" title="'.$_language->module['head_headlines4'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_05.'
   <label class="form-check-label" for="flexRadioDefault5">
-    Überschrift 5  
+    '.$_language->module['head_headlines5'].' 
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-05.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-05.jpg" title="'.$_language->module['head_headlines5'].'" >
 
   </div>
   <div class="col-md-6">
@@ -1691,42 +1683,42 @@ echo'
   <div class="form-check">
   '.$headlines_06.'
   <label class="form-check-label" for="flexRadioDefault6">
-    Überschrift 6  
+    '.$_language->module['head_headlines6'].'  
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-06.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-06.jpg" title="'.$_language->module['head_headlines6'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_07.'
   <label class="form-check-label" for="flexRadioDefault7">
-    Überschrift 7  
+    '.$_language->module['head_headlines7'].'  
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-07.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-07.jpg" title="'.$_language->module['head_headlines7'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_08.'
   <label class="form-check-label" for="flexRadioDefault8">
-    Überschrift 8  
+    '.$_language->module['head_headlines8'].'  
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-08.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-08.jpg" title="'.$_language->module['head_headlines8'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_09.'
   <label class="form-check-label" for="flexRadioDefault9">
-    Überschrift 9  
+    '.$_language->module['head_headlines9'].'  
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-09.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-09.jpg" title="'.$_language->module['head_headlines9'].'" >
 <hr>
 <div class="form-check">
   '.$headlines_10.'
   <label class="form-check-label" for="flexRadioDefault10">
-    Überschrift 10  
+    '.$_language->module['head_headlines10'].'  
   </label>
 </div>
-<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-10.jpg" title="Überschrift 1" >
+<img style="border:1px solid #000;height:185px" src="/../components/admin/images/headlines/headlines-10.jpg" title="'.$_language->module['head_headlines10'].'" >
 
    </div>
     </div>
@@ -1740,7 +1732,7 @@ echo'
 <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingFive">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFour">
-        <i class="fas fa-square"></i> Buttons
+        <i class="fas fa-square"></i>&nbsp;'.$_language->module['buttons_set'].'
       </button>
     </h2>
     <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
@@ -1754,12 +1746,12 @@ echo'
 echo'
       <div class="col-md-12 row">
 
-<div class="col-md-1 p-3 mb-2 bg-secondary text-white" align="center"><b>Button:</b></div>
-<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>background-color:</b></div>
-<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>hover background-color:</b></div>
-<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>font color:</b></div>
-<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>border color:</b></div>
-<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>hover border color:</b></div>
+<div class="col-md-1 p-3 mb-2 bg-secondary text-white" align="center"><b>'.$_language->module['buttons_button'].':</b></div>
+<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>'.$_language->module['buttons_background'].':</b></div>
+<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>'.$_language->module['buttons_hover'].':</b></div>
+<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>'.$_language->module['buttons_font'].':</b></div>
+<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>'.$_language->module['buttons_border'].':</b></div>
+<div class="col-md-2 p-3 mb-2 bg-secondary text-white" align="center"><b>'.$_language->module['buttons_hover_color'].':</b></div>
 <div class="col-md-1 p-3 mb-2 bg-secondary text-white" align="center"><b>&nbsp;</b></div>
 <div class="col-md-12 p-2" align="center"><b>&nbsp;</b></div>
 
@@ -2354,7 +2346,7 @@ echo'
 <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingSix">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseFive">
-        <i class="fas fa-boxes"></i> Plugin Settings
+        <i class="fas fa-boxes"></i>&nbsp;'.$_language->module['plugin_set'].'
       </button>
     </h2>
     <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
@@ -2363,7 +2355,7 @@ echo'
 
      <!--<div class="alert alert-warning">Führe hier bitte erst Änderungen durch, wenn das zu bearbeitende Plugin auch zuvor installiert wurde! Diese Änderungen betreffen <strong>nur</strong> die jeweiligen Widgets und themebedingte Anpassungen. Übergreifende CSS Eigenschaften bleiben im jeweiligen Plugin enthalten!<br><br>Theme angepasste Plugins sind: <strong>Carousel, eSport Footer, Calendar</strong></div>-->
 
-<h4>Footer Plugin Settings</h4>';
+<h4>'.$_language->module['plugin_foot_set'].'</h4>';
 
 $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='footer'"));
         if (@$dx[ 'modulname' ] != 'footer') {
@@ -2464,7 +2456,7 @@ echo'
 <hr>
 
 
-<h4>Carousel Plugin Settings</h4>';
+<h4>'.$_language->module['plugin_carousel_set'].'</h4>';
 
 $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='carousel'"));
         if (@$dx[ 'modulname' ] != 'carousel') {
@@ -2525,14 +2517,14 @@ echo'
 <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingSeven">
       <button class="accordion-button collapsed alert alert-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSix">
-        <i class="far fa-file-code"></i> stylesheet.css
+        <i class="far fa-file-code"></i>&nbsp;'.$_language->module['stylesheet_set'].'
       </button>
     </h2>
     <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
       <div class="accordion-body">
 
       <div class="mb-3 row">
-    <label class="col-md-3">'.$_language->module['stylesheet_info'].'<br><br><small>Ordner: <b>/includes/themes/'.$ds['pfad'].'/css/</b>stylesheet.css</small></label>
+    <label class="col-md-3">'.$_language->module['stylesheet_info'].'<br><br><small>'.$_language->module['folder_template'].': <b>/includes/themes/'.$ds['pfad'].'/css/</b>stylesheet.css</small></label>
     <div class="col-md-8">
         <textarea class="form-control" name="stylesheet" rows="20" cols="">'.$stylesheet.'</textarea>
     </div>
@@ -2689,15 +2681,15 @@ echo'<div class="card">
         </td>
 
         <td style="width: 45%"><h5>'.getinput($db['name']).'</h5><br>
-        Templatename: '.getinput($db['name']).'
-        <br>Modulname: '.$db['modulname'].'
-        <br>Ordner: /includes/themes/'.getinput($db['pfad']).'
-        <br>Version: '.$db['version'].'';
+        '.$_language->module['template_name'].': '.getinput($db['name']).'
+        <br>'.$_language->module['modulname'].': '.$db['modulname'].'
+        <br>'.$_language->module['folder_template'].': /includes/themes/'.getinput($db['pfad']).'
+        <br>'.$_language->module['version'].': '.$db['version'].'';
         
 
         if (@$db[ 'modulname' ] != 'default') {
         }else{
-        echo'<p class="text-danger">Template <b>Default</b> kann nicht gelöscht werden!!! Es ist ein Bestandteil von Webspell-RM!</p>';
+        echo'<p class="text-danger">' . $_language->module[ 'template_default' ] . '</p>';
         }
 
         echo'</td>';

@@ -1812,7 +1812,7 @@ $id = $_GET[ 'id' ];
 if (@$ds[ 'admin_file' ] != '') {     
 
 echo'<div class="mb-3 row">
-    <label class="col-md-1 control-label">Optionen:</label>
+    <label class="col-md-1 control-label">' . $_language->module['options'] . ':</label>
     <div class="col-md-8">
 <a class="btn btn-primary" href="admincenter.php?site='.$ds['admin_file'].'" class="input">'.$ds['name'].'</a>
     </div></div>';
@@ -1840,68 +1840,68 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_setti
 
 echo'
 
-<b>Plugin Grundeinstellung:</b>
+<b>'.$_language->module['plugin_basic_setting'].':</b>
   <hr>
 
   <div class="mb-3 row">
   	<input type="hidden" name="pid" value="'.$ds['pluginID'].'" />    
-    <label class="col-sm-5 col-form-label" for="name">Plugin Name:</label>
+    <label class="col-sm-5 col-form-label" for="name">Plugin '.$_language->module['name'].':</label>
     <div class="col-sm-7"><span class="text-muted small"><em>
     <input type="name" class="form-control" name="name" value="'.$ds['name'].'" placeholder="plugin name"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="name">Description:</label>
+    <label class="col-sm-5 col-form-label" for="name">'.$_language->module['description'].':</label>
     <div class="col-sm-7"><span class="text-muted small"><em>
     <textarea class="form-control" name="info" rows="15" cols="" style="width: 100%;" placeholder="info">'.$ds['info'].'</textarea></em></span>
   </div>
   </div>
   <div class="mb-3 row">
- 	<label class="col-sm-5 col-form-label" for="admin_file">Admin file:</label>
+ 	<label class="col-sm-5 col-form-label" for="admin_file">'.$_language->module['admin_file'].': <br><small>('.$_language->module['index_file_nophp'].')</small></label>
  	<div class="col-sm-7"><span class="text-muted small"><em>
  	 <input type="name" class="form-control"  name="admin_file" value="'.$ds['admin_file'].'" placeholder="admin file"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
- 	<label class="col-sm-5 col-form-label" for="author">Author:</label>
+ 	<label class="col-sm-5 col-form-label" for="author">'.$_language->module['author'].':</label>
  	<div class="col-sm-7"><span class="text-muted small"><em>
  	 <input type="name" class="form-control" rows="5" name="author" value="'.$ds['author'].'" placeholder="autor"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
- 	<label class="col-sm-5 col-form-label" for="website">Website:</label>
+ 	<label class="col-sm-5 col-form-label" for="website">'.$_language->module['website'].':</label>
  	<div class="col-sm-7"><span class="text-muted small"><em>
  	 <input type="name" class="form-control" placeholder="http://" rows="5"  value="'.$ds['website'].'" name="website"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="name">Modulname: <br><small>(for uninstall)</small></label>
+    <label class="col-sm-5 col-form-label" for="name">'.$_language->module['modulname'].': <br><small>('.$_language->module['for_uninstall'].')</small></label>
     <div class="col-sm-7"><span class="text-muted small"><em>
     <input type="name" class="form-control" name="modulname" value="'.$ds['modulname'].'" disabled></em></span>
   </div>
   </div>
 
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="index">Index File: <br><small>(without extension, also no .php)</small></label>
+    <label class="col-sm-5 col-form-label" for="index">'.$_language->module['index_file'].': <br><small>('.$_language->module['index_file_nophp'].')</small></label>
     <div class="col-sm-7"><span class="text-muted small"><em>
      <input type="name" class="form-control" placeholder="index file" rows="5"  value="'.$ds['index_link'].'" name="index"></em></span>
   </div>
   </div>
 
    <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="hittenfiles">Hidden file(s): <br><small>(seperate with "," [comma without space] )</small></label>
+    <label class="col-sm-5 col-form-label" for="hittenfiles">'.$_language->module['hidden_file'].': <br><small>('.$_language->module['hidden_file_seperate'].')</small></label>
     <div class="col-sm-7"><span class="text-muted small"><em>
      <input type="name" class="form-control" rows="5" placeholder="myfile,secondfile,anotherfile" value="'.$ds['hiddenfiles'].'" name="hiddenfiles"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="version">Version:</label>
+    <label class="col-sm-5 col-form-label" for="version">'.$_language->module['version_file'].':</label>
     <div class="col-sm-7"><span class="text-muted small"><em>
      <input type="name" class="form-control" rows="5" value="'.$ds['version'].'" name="version" placeholder="version"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="path">Folder Path: <br><small>(includes/plugins/myplugin/ (end with slash / ) )</small></label>
+    <label class="col-sm-5 col-form-label" for="path">'.$_language->module['folder_file'].': <br><small>('.$_language->module['folder_file_slash'].')</small></label>
     <div class="col-sm-7"><span class="text-muted small"><em>
      <input type="name" class="form-control" placeholder="includes/plugins/myplugin/"  value="'.$ds['path'].'" rows="5" name="path"></em></span>
   </div>
@@ -1909,7 +1909,7 @@ echo'
   #Speichern muss noch angepasst werden Startpage!!!
 }else{
     echo'
-    <h4>Plugin Name: '.$ds['name'].'</h4>';
+    <h4>Plugin '.$_language->module['name'].': '.$ds['name'].'</h4>';
 
 }
 
@@ -1926,10 +1926,13 @@ echo''; #Keine Anzeige bei allen Plugins
     $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '".$ds['modulname']."' AND themes_modulname='".$db['modulname']."'");
     $dxsidebar = mysqli_fetch_array($ergebnis);
             $sidebar = '
-            <option value="activated">Beide Sidebar deaktiviert</option>
-            <option value="le_activated">Linke Sidebar aktiviert</option>
-            <option value="re_activated">Rechte Sidebar aktiviert</option>
-            <option value="full_activated">Beide Sidebars aktiviert</option>';
+
+			<option value="activated">'.$_language->module['sidebar_area'].'</option>
+            <option value="activated">'.$_language->module['sidebar_all_disable'].'</option>
+            <option value="le_activated">'.$_language->module['left_sidebar_activated'].'</option>
+            <option value="re_activated">'.$_language->module['right_sidebar_activated'].'</option>
+            <option value="full_activated">'.$_language->module['all_sidebars_activated'].'</option>';
+			
             $sidebar = str_replace('value="' . $dxsidebar['sidebar'] . '"', 'value="' . $dxsidebar['sidebar'] . '" selected="selected"', $sidebar);
 
     $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '".$ds['modulname']."' AND themes_modulname='".$db['modulname']."'");
@@ -1966,16 +1969,17 @@ echo''; #Keine Anzeige bei allen Plugins
             $foot_section_activated = '<input class="form-check-input" type="checkbox" name="foot_section_activated" value="1">';
         } 
 
-
+		
         echo'
 
-        <b>Plugin-Modul Einstellung:</b>
+        <b>'.$_language->module['modul_basic_setting'].':</b>
           <hr>
     <div class="alert alert-success" role="alert">
+			
 
           <div class="mb-3 row">
           <input type="hidden" name="mid" value="'.$dxsidebar['pluginID'].'" />
-            <label class="col-sm-3 col-form-label" for="widget_link">Sidebar Bereich</label>
+            <label class="col-sm-3 col-form-label" for="widget_link">'.$_language->module['sidebar_area'].'</label>
             <div class="col-sm-8">
             <select id="sidebar" name="sidebar" class="form-select">'.$sidebar.'</select>
         </div>
@@ -1987,8 +1991,8 @@ echo''; #Keine Anzeige bei allen Plugins
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Page Head</label>
-                <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
+                    <label type="button" data-toggle="popover"  data-img="../images/plugins/page_head_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['pagehead'].'</label>
+                <div class="col-sm-6 form-check form-switch">
                     '.$head_activated.'
                 </div>
                 </div>
@@ -2009,8 +2013,8 @@ echo''; #Keine Anzeige bei allen Plugins
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Head Section</label>
-                <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
+                    <label type="button" data-toggle="popover"  data-img="../images/plugins/head_section_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['headsection'].'</label>
+                <div class="col-sm-6 form-check form-switch">
                     '.$head_section_activated.'
                 </div>
                 </div>
@@ -2020,8 +2024,8 @@ echo''; #Keine Anzeige bei allen Plugins
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Head Content</label>
-                <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
+                    <label type="button" data-toggle="popover"  data-img="../images/plugins/center_head_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['headcontent'].'</label>
+                <div class="col-sm-6 form-check form-switch">
                     '.$content_head_activated.'
                 </div>
                 </div>
@@ -2030,8 +2034,8 @@ echo''; #Keine Anzeige bei allen Plugins
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Foot Content</label>
-                <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
+                    <label type="button" data-toggle="popover"  data-img="../images/plugins/center_footer_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['footcontent'].'</label>
+                <div class="col-sm-6 form-check form-switch">
                     '.$content_foot_activated.'
                 </div>
                 </div>
@@ -2040,8 +2044,8 @@ echo''; #Keine Anzeige bei allen Plugins
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Foot Section</label>
-                <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
+                    <label type="button" data-toggle="popover"  data-img="../images/plugins/foot_section_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['footselection'].'</label>
+                <div class="col-sm-6 form-check form-switch">
                     '.$foot_section_activated.'
                 </div>
                 </div>
@@ -2082,11 +2086,11 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
     $ergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '".$ds['modulname']."' AND themes_modulname='".$db['modulname']."'");
     $dx_sidebar = mysqli_fetch_array($ergebnis);
             $sidebar = '
-            <option value="activated">Sidebar Bereich auswählen... </option>
-            <option value="activated">Beide Sidebar deaktiviert</option>
-            <option value="le_activated">Linke Sidebar aktiviert</option>
-            <option value="re_activated">Rechte Sidebar aktiviert</option>
-            <option value="full_activated">Alle Sidebars aktiviert</option>';
+            <option value="activated">'.$_language->module['sidebar_area'].'</option>
+            <option value="activated">'.$_language->module['sidebar_all_disable'].'</option>
+            <option value="le_activated">'.$_language->module['left_sidebar_activated'].'</option>
+            <option value="re_activated">'.$_language->module['right_sidebar_activated'].'</option>
+            <option value="full_activated">'.$_language->module['all_sidebars_activated'].'</option>';
             $sidebar = str_replace('value="' . $dx_sidebar['sidebar'] . '"', 'value="' . $dx_sidebar['sidebar'] . '" selected="selected"', $sidebar);
 
     $moduls = safe_query("SELECT * FROM " . PREFIX . "settings_module WHERE modulname = '".$ds['modulname']."' AND themes_modulname='".$db['modulname']."'");
@@ -2125,13 +2129,13 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
 
 
         echo'
-        <b>Plugin-Modul Einstellung:</b>
+        <b>'.$_language->module[ 'modul_basic_setting' ].':</b>
           <hr>
     <div class="alert alert-success" role="alert">
 
           <div class="mb-3 row">
           <input type="hidden" name="mid" value="'.$dx_sidebar['pluginID'].'" />
-            <label class="col-sm-3 col-form-label" for="widget_link">Sidebar Bereich</label>
+            <label class="col-sm-3 col-form-label" for="widget_link">'.$_language->module[ 'sidebar_area' ].'</label>
             <div class="col-sm-8">
             <select id="sidebar" name="sidebar" class="form-select">'.$sidebar.'</select>
         </div>
@@ -2143,7 +2147,7 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Page Head</label>
+                    <label type="button" data-toggle="popover"  data-bs-placement="top" data-img="../images/plugins/page_head_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['pagehead'].'</label>
                 <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
                     '.$head_activated.'
                 </div>
@@ -2165,7 +2169,7 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Head Section</label>
+                    <label type="button" data-toggle="popover"  data-bs-placement="top" data-img="../images/plugins/head_section_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['headsection'].'</label>
                 <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
                     '.$head_section_activated.'
                 </div>
@@ -2176,7 +2180,7 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Head Content</label>
+                    <label type="button" data-toggle="popover"  data-bs-placement="top" data-img="../images/plugins/center_head_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['headcontent'].'</label>
                 <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
                     '.$content_head_activated.'
                 </div>
@@ -2186,7 +2190,7 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Foot Content</label>
+                    <label type="button" data-toggle="popover"  data-bs-placement="top" data-img="../images/plugins/center_footer_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['footcontent'].'</label>
                 <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
                     '.$content_foot_activated.'
                 </div>
@@ -2196,7 +2200,7 @@ if (@$dm_plugin_settings[ 'modulname' ] != $ds['modulname'] && @$dm_plugin_modul
             <div class="col-sm-6">
 
                 <div class="custom-control custom-checkbox mb-3 row">
-                    <label class="col-sm-6 col-form-label" for="widget_link">Foot Section</label>
+                    <label type="button" data-toggle="popover"  data-bs-placement="top" data-img="../images/plugins/foot_section_widget.jpg" class="col-sm-6 col-form-label" for="widget_link">'.$_language->module['footselection'].'</label>
                 <div class="col-sm-6 form-check form-switch" style="padding: 0px 43px;">
                     '.$foot_section_activated.'
                 </div>
@@ -2253,8 +2257,8 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
             <input type="hidden" name="pluginID" value="'.$ds['pluginID'].'" />
             <input type="hidden" name="number" value="1" />
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget Bereich<br><br>
-                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link1'].'.jpg" title="Widget 1" >Vorschau/Preview</button></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['area_widget'].'<br><br>
+                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link1'].'.jpg" title="Widget 1" >'.$_language->module['preview_widget'].'</button></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget1.'</select></em></span>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" />
@@ -2275,8 +2279,8 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
                 <input type="hidden" name="pid" value="'.$ds['pluginID'].'" />
                 <input type="hidden" name="widgetname1" value="'.$ds['widgetname1'].'" />
                 <input type="hidden" name="widget_link1" value="'.$ds['widget_link1'].'" />
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget Bereich<br><br>
-                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link1'].'.jpg" title="Widget 1" >Vorschau/Preview</button></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['area_widget'].'<br><br>
+                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link1'].'.jpg" title="Widget 1" >'.$_language->module['preview_widget'].'</button></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget11.'</select></em></span>                
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$dx['id'].'" />
@@ -2328,7 +2332,7 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
             <input type="hidden" name="pluginID" value="'.$ds['pluginID'].'" />
             <input type="hidden" name="number" value="2" />
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Einen weiteren Bereich auswählen</label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['another_area'].'</label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget1.'</select></em></span>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" />
@@ -2348,7 +2352,7 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
                 <input type="hidden" name="widgetname1" value="'.$ds['widgetname1'].'" />
                 <input type="hidden" name="widget_link1" value="'.$ds['widget_link1'].'" />               
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Einen weiteren Bereich auswählen</label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['another_area'].'</label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget12.'</select></em></span>                
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$dl['id'].'" />
@@ -2390,8 +2394,8 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
             <input type="hidden" name="pluginID" value="'.$ds['pluginID'].'" />
             <input type="hidden" name="number" value="1" />
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget Bereich<br><br>
-                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link2'].'.jpg" title="Widget 2" >Vorschau/Preview</button></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['area_widget'].'<br><br>
+                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link2'].'.jpg" title="Widget 2" >'.$_language->module['preview_widget'].'</button></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget2.'</select></em></span>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" />
@@ -2412,8 +2416,8 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
                 <input type="hidden" name="pid" value="'.$ds['pluginID'].'" />
                 <input type="hidden" name="widgetname2" value="'.$ds['widgetname2'].'" />
                 <input type="hidden" name="widget_link2" value="'.$ds['widget_link2'].'" />
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget Bereich<br><br>
-                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link2'].'.jpg" title="Widget 1" >Vorschau/Preview</button></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['area_widget'].'<br><br>
+                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link2'].'.jpg" title="Widget 1" >'.$_language->module['preview_widget'].'</button></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget21.'</select></em></span>                
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$dx['id'].'" />
@@ -2439,7 +2443,7 @@ if($ds[ 'widget_link2' ] == 'widget_clanwars_sidebar'
             <input type="hidden" name="pluginID" value="'.$ds['pluginID'].'" />
             <input type="hidden" name="number" value="2" />
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Einen weiteren Bereich auswählen</label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['another_area'].'</label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget2.'</select></em></span>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" />
@@ -2459,7 +2463,7 @@ if($ds[ 'widget_link2' ] == 'widget_clanwars_sidebar'
                 <input type="hidden" name="widgetname2" value="'.$ds['widgetname2'].'" />
                 <input type="hidden" name="widget_link2" value="'.$ds['widget_link2'].'" />               
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Einen weiteren Bereich auswählen</label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['another_area'].'</label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget2.'</select></em></span>                
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$dl['id'].'" />
@@ -2501,8 +2505,8 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
             <input type="hidden" name="pluginID" value="'.$ds['pluginID'].'" />
             <input type="hidden" name="number" value="1" />
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget Bereich<br><br>
-                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link3'].'.jpg" title="Widget 1" >Vorschau/Preview</button></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['area_widget'].'<br><br>
+                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link3'].'.jpg" title="Widget 1" >'.$_language->module['preview_widget'].'</button></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget3.'</select></em></span>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" />
@@ -2523,8 +2527,8 @@ $pic="<img src='../components/admin/images/info-logo.jpg'";
                 <input type="hidden" name="pid" value="'.$ds['pluginID'].'" />
                 <input type="hidden" name="widgetname3" value="'.$ds['widgetname3'].'" />
                 <input type="hidden" name="widget_link3" value="'.$ds['widget_link3'].'" />
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget Bereich<br><br>
-                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link3'].'.jpg" title="Widget 1" >Vorschau/Preview</button></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['area_widget'].'<br><br>
+                <button type="button" class="btn btn btn-info" data-toggle="popover" data-placement="top" data-img="../includes/plugins/'.$ds['modulname'].'/images/'.$ds['widget_link3'].'.jpg" title="Widget 1" >'.$_language->module['preview_widget'].'</button></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget31.'</select></em></span>                
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$dx['id'].'" />
@@ -2551,7 +2555,7 @@ if($ds[ 'widget_link3' ] == 'widget_about_us_sidebar_verdux'
             <input type="hidden" name="pluginID" value="'.$ds['pluginID'].'" />
             <input type="hidden" name="number" value="2" />
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Einen weiteren Bereich auswählen</label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['another_area'].'</label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget3.'</select></em></span>
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" />
@@ -2571,7 +2575,7 @@ if($ds[ 'widget_link3' ] == 'widget_about_us_sidebar_verdux'
                 <input type="hidden" name="widgetname3" value="'.$ds['widgetname3'].'" />
                 <input type="hidden" name="widget_link3" value="'.$ds['widget_link3'].'" />               
                 <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Einen weiteren Bereich auswählen</label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['another_area'].'</label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <select id="description" name="description" class="form-select">'.$widget3.'</select></em></span>                
                 <input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$dl['id'].'" />
@@ -2590,16 +2594,16 @@ if($ds[ 'widget_link3' ] == 'widget_about_us_sidebar_verdux'
             if (@$widgetone[ 'widget1' ] != '0') {
             # Widget Bereich wird nicht angezeigt 
 
-            echo'<b>Widget Einstellung:</b>
+            echo'<b>'.$_language->module['widget_setting'].':</b>
             <hr>';        
             echo'<div class="mb-3 row">  
-                <label class="col-sm-5 col-form-label" for="name">Widgetname 1: <br><small>(for widget 1)</small></label>
+                <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widgetname1'].': <br><small>('.$_language->module['for_widgetname1'].')</small></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <input type="name" class="form-control" placeholder="Widget_name" name="widget_name1" value="'.$ds['widgetname1'].'"></em></span>
               </div>
               </div>
               <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget_File 1: <br><small>(empty if not exists, else without extension)</small></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['widgetfile1'].': <br><small>('.$_language->module['widgetfile1_empty'].')</small></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                  <input type="name" class="form-control" rows="5" placeholder="Widget_myplugin" value="'.$ds['widget_link1'].'" name="widget_link_1"></em></span>
               </div>
@@ -2613,13 +2617,13 @@ if($ds[ 'widget_link3' ] == 'widget_about_us_sidebar_verdux'
                 # Widget Bereich wird nicht angezeigt 
             echo' 
              <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="name">Widgetname 2: <br><small>(for widget 2)</small></label>
+                <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widgetname2'].': <br><small>('.$_language->module['for_widgetname2'].')</small></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <input type="name" class="form-control" placeholder="Widget_name" name="widgetname2" value="'.$ds['widgetname2'].'"></em></span>
               </div>
               </div>
               <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget_File 2: <br><small>(empty if not exists, else without extension)</small></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['widgetfile2'].': <br><small>('.$_language->module['widgetfile1_empty'].')</small></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                  <input type="name" class="form-control" rows="5" placeholder="Widget_myplugin" value="'.$ds['widget_link2'].'" name="widget_link2"></em></span>
               </div>
@@ -2633,13 +2637,13 @@ if($ds[ 'widget_link3' ] == 'widget_about_us_sidebar_verdux'
                 # Widget Bereich wird nicht angezeigt 
             echo' 
               <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="name">Widgetname 3: <br><small>(for widget3)</small></label>
+                <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widgetname3'].': <br><small>('.$_language->module['for_widgetname3'].')</small></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                 <input type="name" class="form-control" placeholder="Widget_name" name="widgetname3" value="'.$ds['widgetname3'].'"></em></span>
               </div>
               </div>
               <div class="mb-3 row">
-                <label class="col-sm-5 col-form-label" for="widget_link">Widget_File 3: <br><small>(empty if not exists, else without extension)</small></label>
+                <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['widgetfile3'].': <br><small>('.$_language->module['widgetfile1_empty'].')</small></label>
                 <div class="col-sm-7"><span class="text-muted small"><em>
                  <input type="name" class="form-control" rows="5" placeholder="Widget_myplugin" value="'.$ds['widget_link3'].'" name="widget_link3"></em></span>
               </div>
@@ -2719,62 +2723,62 @@ $themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE a
 <div class="col-sm-6">
 
   <div class="mb-3 row">
-     <label class="col-sm-5 col-form-label" for="name">Plugin Name:<font color="#DD0000">*</font></label>
+     <label class="col-sm-5 col-form-label" for="name">'.$_language->module['name'].':<font color="#DD0000">*</font></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
     <input type="text" name="name" id="name" placeholder="plugin name" maxlength="30" autocomplete="name" class="form-control"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-     <label class="col-sm-5 col-form-label" for="name">Description:</label>
+     <label class="col-sm-5 col-form-label" for="name">'.$_language->module['description'].':</label>
     <div class="col-sm-6"><span class="text-muted small"><em>
     <textarea class="form-control" name="info" rows="5" cols="" style="width: 100%;" placeholder="info"></textarea></em></span>
   </div>
   </div>
   
   <div class="mb-3 row">
- 	<label class="col-sm-5 col-form-label" for="admin_file">Admin File:</label>
+ 	<label class="col-sm-5 col-form-label" for="admin_file">'.$_language->module['admin_file'].': <br><small>('.$_language->module['index_file_nophp'].')</small></label>
  	<div class="col-sm-6"><span class="text-muted small"><em>
  	 <input type="name" class="form-control" name="admin_file" placeholder="admin_file"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
- 	<label class="col-sm-5 col-form-label" for="author">Author:</label>
+ 	<label class="col-sm-5 col-form-label" for="author">'.$_language->module['author'].':</label>
  	<div class="col-sm-6"><span class="text-muted small"><em>
  	 <input type="name" class="form-control" rows="5" name="author" placeholder="author"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
- 	<label class="col-sm-5 col-form-label" for="website">Website:</label>
+ 	<label class="col-sm-5 col-form-label" for="website">'.$_language->module['website'].':</label>
  	<div class="col-sm-6"><span class="text-muted small"><em>
  	 <input type="name" class="form-control" placeholder="http://" rows="5" name="website"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-     <label class="col-sm-5 col-form-label" for="name">Modulname:<font color="#DD0000">*</font> <br><small>(for uninstall and widget)</small></label>
+     <label class="col-sm-5 col-form-label" for="name">'.$_language->module['modulname'].': <font color="#DD0000">*</font> <br><small>('.$_language->module['for_uninstall'].')</small></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
     <input type="text" name="modulname" id="modulname" placeholder="modulname" maxlength="30" autocomplete="modulname" class="form-control"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-  <label class="col-sm-5 col-form-label" for="index">Index File: <br><small>(without extension, also no .php)</small></label>
+  <label class="col-sm-5 col-form-label" for="index">'.$_language->module['index_file'].': <br><small>('.$_language->module['index_file_nophp'].')</small></label>
   <div class="col-sm-6"><span class="text-muted small"><em>
    <input type="name" class="form-control" placeholder="index file" rows="5" name="index"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-  <label class="col-sm-5 col-form-label" for="hittenfiles">Hidden file(s): <br><small>(seperate with "," [comma without space] )</small></label>
+  <label class="col-sm-5 col-form-label" for="hittenfiles">'.$_language->module['hidden_file'].': <br><small>('.$_language->module['hidden_file_seperate'].')</small></label>
   <div class="col-sm-6"><span class="text-muted small"><em>
    <input type="name" class="form-control" rows="5" placeholder="myfile,secondfile,anotherfile" name="hiddenfiles"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-  <label class="col-sm-5 col-form-label" for="version">Version:</label>
+  <label class="col-sm-5 col-form-label" for="version">'.$_language->module['version_file'].':</label>
   <div class="col-sm-6"><span class="text-muted small"><em>
    <input type="name" class="form-control" rows="5" name="version" placeholder="version"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-  <label class="col-sm-5 col-form-label" for="path">Folder Path: <br><small>(includes/plugins/myplugin/ (end with slash / ) )</small></label>
+  <label class="col-sm-5 col-form-label" for="path">'.$_language->module['folder_file'].': <br><small>('.$_language->module['folder_file_slash'].')</small></label>
   <div class="col-sm-6"><span class="text-muted small"><em>
    <input type="name" class="form-control" placeholder="includes/plugins/myplugin/" rows="5" name="path"></em></span>
   </div>
@@ -2785,16 +2789,16 @@ $themeergebnis = safe_query("SELECT * FROM " . PREFIX . "settings_themes WHERE a
 
   
     
-Widget Einstellung:
+'.$_language->module['widget_setting'].':
   <hr>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="name">Widgetname 1: <br><small>(for widget 1)</small></label>
+    <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widgetname1'].': <br><small>('.$_language->module['for_widgetname1'].')</small></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
     <input type="name" class="form-control" placeholder="Widget_name" name="widgetname1"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-  <label class="col-sm-5 col-form-label" for="widget_link">Widget_File 1: <br><small>(empty if not exists, else without extension)</small></label>
+  <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['widgetfile1'].': <br><small>('.$_language->module['widgetfile1_empty'].')</small></label>
   <div class="col-sm-6"><span class="text-muted small"><em>
    <input type="name" class="form-control" rows="5" placeholder="Widget_myplugin" name="widget_link1"></em></span>
   </div>
@@ -2804,13 +2808,13 @@ Widget Einstellung:
   
  <hr> 
  <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="name">Widgetname 2: <br><small>(for widget 2)</small></label>
+    <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widgetname2'].': <br><small>('.$_language->module['for_widgetname2'].')</small></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
     <input type="name" class="form-control" placeholder="Widget_name" name="widgetname2"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="widget_link">Widget_File 2: <br><small>(empty if not exists, else without extension)</small></label>
+    <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['widgetfile2'].': <br><small>('.$_language->module['widgetfile1_empty'].')</small></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
      <input type="name" class="form-control" rows="5" placeholder="Widget_myplugin" name="widget_link2"></em></span>
   </div>
@@ -2819,13 +2823,13 @@ Widget Einstellung:
   
   <hr>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="name">Widgetname 3: <br><small>(for widget3)</small></label>
+    <label class="col-sm-5 col-form-label" for="name">'.$_language->module['widgetname3'].': <br><small>('.$_language->module['for_widgetname3'].')</small></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
     <input type="name" class="form-control" placeholder="Widget_name" name="widgetname3"></em></span>
   </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-5 col-form-label" for="widget_link">Widget_File 3: <br><small>(empty if not exists, else without extension)</small></label>
+    <label class="col-sm-5 col-form-label" for="widget_link">'.$_language->module['widgetfile3'].': <br><small>('.$_language->module['widgetfile1_empty'].')</small></label>
     <div class="col-sm-6"><span class="text-muted small"><em>
      <input type="name" class="form-control" rows="5" placeholder="Widget_myplugin" name="widget_link3"></em></span>
   </div>

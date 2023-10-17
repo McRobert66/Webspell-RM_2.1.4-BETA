@@ -407,7 +407,8 @@ echo'<div class="">
         $forum = "<option value='forum'>Forum</option>";
         }
 
-        $widget_alle = "<option value='blank'>Keine Startpage</option>
+        $widget_alle = "<option value='blank'>" . $_language->module[ 'no_startpage' ] . "</option>
+        <option value='welcome_page'>" . $_language->module[ 'welcome_startpage' ] . "</option>
         <option value='startpage'>Startpage</option>
         '".@$news."'
         '".@$about_us."'
@@ -855,7 +856,7 @@ echo'
             </div>
 
 <div class="mb-3 row">
-                <label for="select-squad" class="col-xs-12 col-md-2 control-label"><i class="fas fa-gamepad"></i>&nbsp;Gametracker:<br><small>(Für Social-Sidebar Widget)</small></label>
+                <label for="select-squad" class="col-xs-12 col-md-2 control-label"><i class="fas fa-gamepad"></i>&nbsp;Gametracker:<br><small>('. $_language->module[ 'social_sidebar_widget' ] .')</small></label>
 
                 <div class="col-xs-12 col-md-10">
                     
@@ -864,7 +865,7 @@ echo'
             </div>            
 
 <div class="mb-3 row">
-                <label for="select-squad" class="col-xs-12 col-md-2 control-label"><i class="fab fa-discord"></i>&nbsp;Discord:<br><small>(Für Social-Sidebar Widget)</small></label>
+                <label for="select-squad" class="col-xs-12 col-md-2 control-label"><i class="fab fa-discord"></i>&nbsp;Discord:<br><small>('. $_language->module[ 'social_sidebar_widget' ] .')</small></label>
 
                 <div class="col-xs-12 col-md-10">
                     

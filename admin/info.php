@@ -216,7 +216,7 @@ echo'
 
 <div class="card" style="margin-left: 50px; margin-right: 50px">
         <div class="card-header">
-            <i class="fas fa-exclamation-triangle text-warning"></i> Live Ticker
+            <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['live_ticker'].'
         </div>
 <div class="card-body" style="height: 400px">';?>
 <style>

@@ -71,11 +71,11 @@ $server_status = '(Beta Server)';
 if (!$getnew = $plugin) {
   echo '<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer
+            <i class="fas fa-puzzle-piece"></i> ' . $_language->module['plugin_installer'] . '
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">Plugin Installer</a></li>
+          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">' . $_language->module['plugin_installer'] . '</a></li>
           <li class="breadcrumb-item active" aria-current="page">Error</li>
         </ol>
       </nav>
@@ -83,13 +83,59 @@ if (!$getnew = $plugin) {
     <div class="card-body">
 
       <div class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Plugin Installer</h4>
+        <h4 class="alert-heading">' . $_language->module['plugin_installer'] . '</h4>
           '.$_language->module['info_error'].'
           <hr>
           <i><b>' . $_language->module[ 'error' ] . '</b></i>
       </div></div></div>';
 } else {
 
+/*if(isset($_GET['deinstall'] )== 'plugin') {
+  $dir = $_GET['dir'];
+  $name = $_GET['modulname'];
+  // Name Tabelle | Where Klause | ID name
+  DeleteData("settings_plugins","modulname",$name);
+  DeleteData("navigation_dashboard_links","modulname",$name);
+  DeleteData("navigation_website_sub","modulname",$name);
+  DeleteData("settings_module","modulname",$name);
+  DeleteData("settings_widgets","modulname",$name);
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_settings");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_comments ");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_comments_recomment");
+
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_matchtype");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_gametype");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_spieleranzahl");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_challenge");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_maps");
+
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_announcements");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_boards");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_categories");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_notify");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_posts");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_topics");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_poll");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_votes");
+
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_payed");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_groups");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_pictures");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_server");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_ts");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_status");
+  
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_rubrics");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_announce");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_teams");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_config");
+  safe_query("DROP TABLE IF EXISTS " . PREFIX . "plugins_".$name."_list");
+
+  recursiveRemoveDirectory('../includes/plugins'. $dir); 
+  header('Location: ?site=plugin_installer');
+  exit;
+*/
 if(isset($_GET['deinstall'] )== 'plugin') {
   $dir = $_GET['dir'];
   $name = str_replace("/", "", $dir);
@@ -101,11 +147,11 @@ if(isset($_GET['deinstall'] )== 'plugin') {
 } elseif(!empty($_GET['do'])) {
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer
+            <i class="fas fa-puzzle-piece"></i> ' . $_language->module['plugin_installer'] . '
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">Plugin Installer</a></li>
+          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">' . $_language->module['plugin_installer'] . '</a></li>
           <li class="breadcrumb-item active" aria-current="page">Install</li>
         </ol>
       </nav>
@@ -124,11 +170,11 @@ if(isset($_GET['deinstall'] )== 'plugin') {
 } elseif(!empty($_GET['re'])) {
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer
+            <i class="fas fa-puzzle-piece"></i> ' . $_language->module['plugin_installer'] . '
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">Plugin Installer</a></li>
+          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">' . $_language->module['plugin_installer'] . '</a></li>
           <li class="breadcrumb-item active" aria-current="page">Install</li>
         </ol>
       </nav>
@@ -147,11 +193,11 @@ if(isset($_GET['deinstall'] )== 'plugin') {
 } elseif(!empty($_GET['up'])) {
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer Update
+            <i class="fas fa-puzzle-piece"></i> ' . $_language->module['plugin_installer_update'] . '
         </div>
         <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">Plugin Installer</a></li>
+          <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">' . $_language->module['plugin_installer'] . '</a></li>
           <li class="breadcrumb-item" aria-current="page">Update</li>
         </ol>
       </nav>
@@ -239,9 +285,9 @@ $imgurl = $dangerupdateserverurl.'/plugin/plugin-base_v.'.$getversion.'';
                     ' . $_language->module['inst_plugin_ver'] . ' '.$installed_version.'<br />
                     ' . $_language->module['required'] . ' '.$result['item'.$plug]['req'].'<br />
                     
-                    Update: '.$result['item'.$plug]['update'].'<br />
-                    Coding by '.$result['item'.$plug]['author'].'<br />
-                    Language: '.$result['item'.$plug]['languages'].'</td>';
+                    ' . $_language->module['plugin_update'] . ': '.$result['item'.$plug]['update'].'<br />
+                    Coding by: '.$result['item'.$plug]['author'].'<br />
+                    ' . $_language->module['plugin_lang'] . ': '.$result['item'.$plug]['languages'].'</td>';
     
       include("../system/version.php");
       if(is_dir("../includes/plugins/".$result['item'.$plug]['path'])) {
@@ -303,18 +349,18 @@ $_language->readModule('plugin_installer', false, true);
  
   echo'<div class="card">
         <div class="card-header">
-            <i class="fas fa-puzzle-piece"></i> Plugin Installer
+            <i class="fas fa-puzzle-piece"></i> ' . $_language->module['plugin_installer'] . '
         </div>
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">Plugin Installer</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a href="admincenter.php?site=plugin_installer">' . $_language->module['plugin_installer'] . '</a></li>
   </ol>
 </nav>
 
 <div class="card-body">
 
 <div class="alert alert-success" role="alert">
-  <h4 class="alert-heading">Plugin Installer</h4><p class="text-sm-start">'.$server_status.'</p>
+  <h4 class="alert-heading">' . $_language->module['plugin_installer'] . '</h4><p class="text-sm-start">'.$server_status.'</p>
   '.$_language->module['info'].'
   <hr>
   <i class="fas fa-info-circle"></i> '.$_language->module['all_plugins_1'].' '.$anz.' '.$_language->module['all_plugins_2'].'

@@ -31,6 +31,10 @@ $language_array = Array(
   'tooltip_4'                 => 'Es steht ein Update zur Verfügung. Das Template wird neu installiert. Datenbank-Einträge könnten überschrieben oder gelöscht werden. Backup bitte vorher anfertigen.',
   'tooltip_5'                 => 'Das Template wird installiert.',
   'tooltip_6'                 => 'Das Template wird geupdatet. Alle Template und Plugin-Datenbankeinträge bleiben erhalten. Es werden nur die Templatedateien überschrieben.',
+  'not_installed'             => 'Nicht installiert',
+  'update'                    => 'Aktualisiert am',
+  'code_by'                   => 'Code und Bearbeitung durch',
+  'language'                  => 'Sprache',
 );
 
 

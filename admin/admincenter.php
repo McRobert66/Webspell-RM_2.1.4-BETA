@@ -167,21 +167,10 @@ if ($getavatar = getavatar($userID)) {
 	<!-- DataTables -->	   
 	<link href="../components/admin/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 
-	<!-- ckeditor -->
-
-<?php	
-	if (issuperadmin($userID)) {
-		$ckeditor= '<script src="../components/ckeditor/admin_config.js"></script>';
-	} else {
-		$ckeditor= '<script src="../components/ckeditor/user_config.js"></script>';
-	}
-?>
-
-
 </head>
 
 <body>
-<?php echo $ckeditor ?>
+
 	<div id="wrapper">
 		<!-- Navigation -->
 		<ul class="nav nav-top-links justify-content-end">
@@ -221,7 +210,7 @@ if ($getavatar = getavatar($userID)) {
 				<!-- /.sidebar-collapse -->
 				<!-- Copy -->
 				<div class="copy">
-					<em>&nbsp;Admin Template by <a href="https://www.webspell-rm.de" target="_blank" rel="noopener">Webspell-RM</a></em>
+					<em>&nbsp;Admin Template by<a href="https://www.webspell-rm.de" target="_blank" rel="noopener">Webspell-RM</a></em>
 				</div>
 			</div>
 		</div>
@@ -255,9 +244,17 @@ if ($getavatar = getavatar($userID)) {
 		<!-- /#wrapper -->
 	</div>
 
+<!-- ckeditor -->
+<?php	
+	if (issuperadmin($userID)) {
+		echo'<script src="../components/ckeditor/ckeditor.js"></script>
+<script src="../components/ckeditor/admin_config.js"></script>';
+	} else {
+		echo'<script src="../components/ckeditor/ckeditor.js"></script>
+<script src="../components/ckeditor/user_config.js"></script>';
+	}
+?>
 
-<script src="../components/ckeditor/admin_config.js"></script>
-<script src="../components/ckeditor/ckeditor.js"></script>
 
 <!-- jQuery -->
 <script src="../components/admin/js/jquery.min.js"></script>
@@ -283,10 +280,25 @@ if ($getavatar = getavatar($userID)) {
 <script type="text/javascript" src="../components/admin/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../components/admin/js/dataTables.bootstrap5.min.js"></script>
 <script>
-  $(document).ready(function () {
+	$(document).ready(function () {
 	$('#plugini').dataTable({
-	  'language': {
-		'url': '../components/datatables/langs/German.lang'
+		'aLengthMenu': [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<? 
+		$lang_datatable_all = detectCurrentLanguage();
+		if ($lang_datatable_all == 'de') {echo "Alle";}
+		elseif ($lang_datatable_all == 'en') {echo "All";}
+		elseif ($lang_datatable_all == 'it') {echo "Tutti";}
+		elseif ($lang_datatable_all == 'pl') {echo "Wszyscy";}
+		?>"]],
+		
+		'language': {
+			
+		<? 
+		$lang_datatable = detectCurrentLanguage();
+			if ($lang_datatable == 'de') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'";}
+		elseif ($lang_datatable == 'en') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json'";}
+		elseif ($lang_datatable == 'it') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json'";}
+		elseif ($lang_datatable == 'pl') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json'";}
+		?>
 	  }
 	});
 	$('#confirm-delete').on('show.bs.modal', function (e) {

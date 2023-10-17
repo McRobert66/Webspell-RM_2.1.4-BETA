@@ -871,5 +871,5 @@ blockquote {
 /* Plugin-Manager Widget Screens */
  .popover{
     max-width: 600px; /* Max Width of the popover (depending on the container!) */
-    width: 650px;
+    width: auto;
 }

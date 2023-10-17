@@ -33,7 +33,8 @@ $language_array = Array(
   'plugin_update'           => 'Neue Updates für installierte Plugins',
   'templates_update'        => 'Neue Updates für installierte Templates',
   'update_support'          => 'Webspell-RM Version und Support Info',
-  'title'                   => 'Webspell-RM Dashboard'
+  'title'                   => 'Webspell-RM Dashboard',
+  'live_ticker'             => 'Live Ticker'
   
 );
 
