@@ -103,8 +103,7 @@ if(isset($_POST['submit'])) {
                 profilelast='" . $_POST[ 'lastposts' ] . "',
                 de_lang='" . isset($_POST[ 'de_lang' ]) . "',
                 en_lang='" . isset($_POST[ 'en_lang' ]) . "',
-                it_lang='" . isset($_POST[ 'it_lang' ]) . "',
-                pl_lang='" . isset($_POST[ 'pl_lang' ]) . "'"
+                it_lang='" . isset($_POST[ 'it_lang' ]) . "'"
         );
         
         redirect("admincenter.php?site=settings", $_language->module[ 'updated_successfully' ], 2);
@@ -239,11 +238,6 @@ if(isset($_POST['submit'])) {
         $it_lang = '<input class="form-check-input" type="checkbox" name="it_lang" value="1" />';
     }
 
-    if ($ds[ 'pl_lang' ]) {
-        $pl_lang = '<input class="form-check-input" type="checkbox" name="pl_lang" value="1" checked="checked" />';
-    } else {
-        $pl_lang = '<input class="form-check-input" type="checkbox" name="pl_lang" value="1" />';
-    }
 
 echo'<div class="card">
   <div class="card-header">
@@ -358,13 +352,6 @@ echo'<div class="">
 
 
 
-        /*$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname=''"));
-        if (@$dx[ 'modulname' ] != '') {
-        
-        } else {
-        $startpage = '<option value="startpage">Startpage</option>';
-        }*/
-
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='news_manager'"));
         if (@$dx[ 'modulname' ] != 'news_manager') {
         
@@ -408,7 +395,6 @@ echo'<div class="">
         }
 
         $widget_alle = "<option value='blank'>" . $_language->module[ 'no_startpage' ] . "</option>
-        <option value='welcome_page'>" . $_language->module[ 'welcome_startpage' ] . "</option>
         <option value='startpage'>Startpage</option>
         '".@$news."'
         '".@$about_us."'
@@ -633,26 +619,21 @@ echo'<div class="col-md-6">
                                         <div class="col-md-8 form-check form-switch" style="padding: 0px 43px;">
                                         <span class="text-start"><em data-toggle="tooltip" data-html="true" title="'.$_language->module[ 'tooltip_66' ].'">'.$de_lang.'</em></span>
                                     </div>
-                                    </div><div class="mb-3 row">
+                                    </div>
+                                    <div class="mb-3 row">
                                     <div class="col-md-4">
                                             '.$_language->module['en_language'].' :
                                         </div>
                                         <div class="col-md-8 form-check form-switch" style="padding: 0px 43px;">
                                         <span class="pull-left text-muted mdall"><em data-toggle="tooltip" data-html="true" title="'.$_language->module[ 'tooltip_67' ].'">'.$en_lang.'</em></span>
                                         </div>
-                                        </div><div class="mb-3 row">
+                                        </div>
+                                        <div class="mb-3 row">
                                     <div class="col-md-4">
                                             '.$_language->module['it_language'].' :
                                         </div>
                                         <div class="col-md-8 form-check form-switch" style="padding: 0px 43px;">
                                         <span class="pull-left text-muted mdall"><em data-toggle="tooltip" data-html="true" title="'.$_language->module[ 'tooltip_68' ].'">'.$it_lang.'</em></span>
-                                        </div>
-                                        </div><div class="mb-3 row">
-                                    <div class="col-md-4">
-                                            '.$_language->module['pl_language'].' :
-                                        </div>
-                                        <div class="col-md-8 form-check form-switch" style="padding: 0px 43px;">
-                                        <span class="pull-left text-muted mdall"><em data-toggle="tooltip" data-html="true" title="'.$_language->module[ 'tooltip_69' ].'">'.$pl_lang.'</em></span>
                                         </div>
                                         </div>
 
