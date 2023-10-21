@@ -76,7 +76,13 @@ if (isset($_GET[ 'delete' ])) {
     if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
         $name = $_POST[ 'name' ];
         $info = $_POST[ 'info' ];
-        $site = $_POST[ 'site' ];
+        #$site = $_POST[ 'site' ] == "" && $_POST['site_field'];
+
+        if ($_POST['site'] == "*") {
+            $site = $_POST[ 'site_field' ];
+        } else {
+            $site = $_POST[ 'site' ];
+        }
 
         if (isset($_POST[ "displayed" ])) {
             $displayed = 1;
@@ -167,7 +173,13 @@ if (isset($_GET[ 'delete' ])) {
     if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
         $name = $_POST[ 'name' ];
         $info = $_POST[ 'info' ];
-        $site = $_POST[ 'site' ];
+        #$site = $_POST[ 'site' ];
+
+        if ($_POST['site'] == "*") {
+            $site = $_POST[ 'site_field' ];
+        } else {
+            $site = $_POST[ 'site' ];
+        }
 
         if (isset($_POST[ "displayed" ])) {
             $displayed = 1;
@@ -282,7 +294,8 @@ if ($action == "add") {
     $CAPCLASS->createTransaction();
     $hash = $CAPCLASS->getHash();
 
-    $site = '<option value="contact">Contact</option>
+    $site = '<option value="*">...</option>
+                    <option value="contact">Contact</option>
                      <option value="imprint">Imprint</option>
                      <option value="privacy_policy">Privacy Policy</option>
                      <option value="articles">Articles</option>
@@ -324,9 +337,13 @@ echo'<div class="card">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-sm-2 control-label">'.$_language->module['headelements_side_name'].':</label>
+    <label class="col-sm-2 control-label">'.$_language->module['headelements_side_name'].':<br><small>(vordefiniert)</small></label>
+    <div class="col-sm-10"><span class="text-muted small"><em>    
+      <select class="form-select" name="site">'.$site.'</select></em></span>
+    </div>
+      <label class="col-sm-2 control-label">'.$_language->module['headelements_side_name'].':<br><small>(manuelle Eingabe)</small></label>
     <div class="col-sm-10"><span class="text-muted small"><em>
-      <select class="form-select" name="site">'.$site.'</select></em></span></em></span>
+      <input type="text" class="form-control" name="site_field" size="60" /></em></span>
     </div>
   </div>
   <div class="mb-3 row">
@@ -390,7 +407,8 @@ echo'<div class="card">
         $displayed = '<input class="form-check-input" type="checkbox" name="displayed" value="1" />';
     }
 
-    $site = '<option value="contact">Contact</option>
+    $site = '<option value="*">...</option>
+                    <option value="contact">Contact</option>
                      <option value="imprint">Imprint</option>
                      <option value="privacy_policy">Privacy Policy</option>
                      <option value="articles">Articles</option>
@@ -433,6 +451,10 @@ echo'<div class="card">
     <label class="col-sm-2 control-label">'.$_language->module['headelements_side_name'].':</label>
     <div class="col-sm-10"><span class="text-muted small"><em>
     <select class="form-select" name="site">'.$site.'</select></em></span>
+    </div>
+      <label class="col-sm-2 control-label">'.$_language->module['headelements_side_name'].':<br><small>(manuelle Eingabe)</small></label>
+    <div class="col-sm-10"><span class="text-muted small"><em>
+      <input type="text" class="form-control" name="site_field" value="'.getinput($ds['site']).'" size="60" /></em></span>
     </div>
   </div>
   <div class="mb-3 row">
@@ -537,7 +559,7 @@ echo'<div class="card">
         if (!empty($db[ 'banner' ])) {
             $pic = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 450px" src="' . $filepath . $db[ 'banner' ] . '" alt="">';
         } else {
-            $pic = '<img id="img-upload" class="img-thumbnail" style="width: 100%; max-width: 450px" src="' . $filepath . 'no-image.jpg" alt="">';
+            $pic = '<img id="img-upl1oad" class="img-thumbnail" style="height: 100%; width: 300px" src="' . $filepath . 'no-image.jpg" alt="">';
         }
 
         $db[ 'displayed' ] == 1 ? $displayed = '<font color="green"><b>' . $_language->module[ 'yes' ] . '</b></font>' :
@@ -557,7 +579,7 @@ echo'<div class="card">
     ' . $_language->module['delete'] . '
     </button>
     <!-- Button trigger modal END-->
-
+ </td>
      <!-- Modal -->
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -577,7 +599,7 @@ echo'<div class="card">
 </div>
 <!-- Modal END -->
 	 
-      </td>
+     
       
     </tr>';
     $i++;
