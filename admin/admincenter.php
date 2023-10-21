@@ -191,7 +191,13 @@ if ($getavatar = getavatar($userID)) {
 			</li>
 		</ul>
 	  <!-- /.navbar-top-links -->
-
+ <nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Webspell RM</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
 		<!-- sidebar-links -->
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
@@ -215,7 +221,8 @@ if ($getavatar = getavatar($userID)) {
 			</div>
 		</div>
 		<!-- /.navbar-static-side -->
-
+        </nav>
+		<!-- /.navbar-static-side -->
 		<div id="page-wrapper">
 			<?php
 				if (isset($site) && $site!="news") {
@@ -287,17 +294,15 @@ if ($getavatar = getavatar($userID)) {
 			if ($lang_datatable_all == 'de') {echo "Alle";}
 		elseif ($lang_datatable_all == 'en') {echo "All";}
 		elseif ($lang_datatable_all == 'it') {echo "Tutti";}
-		elseif ($lang_datatable_all == 'pl') {echo "Wszyscy";}
 		?>"]],
 		
 		'language': {
 			
 		<? 
 		$lang_datatable = detectCurrentLanguage();
-			if ($lang_datatable == 'de') {echo "'url': '/components/datatables/langs/German.json'";}
-		elseif ($lang_datatable == 'en') {echo "'url': '/components/datatables/langs/English.json'";}
-		elseif ($lang_datatable == 'it') {echo "'url': '/components/datatables/langs/Italian.json'";}
-		elseif ($lang_datatable == 'pl') {echo "'url': '/components/datatables/langs/Polish.json'";}
+			if ($lang_datatable == 'de') {echo "'url': '/components/datatables/langs/german.json'";}
+		elseif ($lang_datatable == 'en') {echo "'url': '/components/datatables/langs/english.json'";}
+		elseif ($lang_datatable == 'it') {echo "'url': '/components/datatables/langs/italian.json'";}
 		?>
 	
 	  }
