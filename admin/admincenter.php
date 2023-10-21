@@ -294,8 +294,6 @@ if ($getavatar = getavatar($userID)) {
 			
 		<? 
 		$lang_datatable = detectCurrentLanguage();
-			if ($lang_datatable == 'de') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'";}
-		elseif ($lang_datatable == 'en') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json'";}
 			if ($lang_datatable == 'de') {echo "'url': '/components/datatables/langs/German.json'";}
 		elseif ($lang_datatable == 'en') {echo "'url': '/components/datatables/langs/English.json'";}
 		elseif ($lang_datatable == 'it') {echo "'url': '/components/datatables/langs/Italian.json'";}
