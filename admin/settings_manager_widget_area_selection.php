@@ -39,10 +39,11 @@
                     <option value="right_side_widget">'.$_language->module[ 'right_sidebar_activated' ].'</option>';
 
         }else if($ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_default'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_default_two'
                 || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_2one'
                 || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_agency'
-                || $ds[ 'widget_link1' ] == ''.$_language->module[ 'select_widget_navigation' ].'_nor_navbar'
-                || $ds[ 'widget_link1' ] == ''.$_language->module[ 'select_widget_navigation' ].'_partner'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_nor_navbar'
+                || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_partner'
                 || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_sticky'
                 || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_vargul'
                 || $ds[ 'widget_link1' ] == 'widget_'.$_language->module[ 'select_widget_navigation' ].'_skewed'

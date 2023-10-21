@@ -2,6 +2,7 @@
 #Widgets werden nicht aktiviert.
 $widget_akti = @$modulname == 'footer'
                 || @$modulname == 'navigation_default'
+                || @$modulname == 'navigation_default_two'
                 || @$modulname == 'navigation_agency'
                 || @$modulname == 'navigation_nor_navbar'
                 || @$modulname == 'navigation_sticky'
@@ -38,6 +39,7 @@ $widget_akti = @$modulname == 'footer'
 
 $widget_css = @$modulname == 'footer'
                 || @$modulname == 'navigation_default'
+                || @$modulname == 'navigation_default_two'
                 || @$modulname == 'navigation_agency'
                 || @$modulname == 'navigation_nor_navbar'
                 || @$modulname == 'navigation_sticky'
@@ -76,6 +78,7 @@ $widget_css = @$modulname == 'footer'
 #Widgets bekommen keinen Navigationseintrag
 $widget_nav = @$modulname == 'footer'
                 || @$modulname == 'navigation_default'
+                || @$modulname == 'navigation_default_two'
                 || @$modulname == 'navigation_agency'
                 || @$modulname == 'navigation_nor_navbar'
                 || @$modulname == 'navigation_sticky'
