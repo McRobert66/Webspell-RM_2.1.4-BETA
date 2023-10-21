@@ -436,11 +436,6 @@ blockquote {
   font-size: 70px;
 }
 
-.noheadcol_title_2 {
-  color: #FFF; 
-  font-size: 30px;
-}
-
 .noheadcol_text {
   color: #FFF;
   font-size: 13px;
@@ -449,6 +444,21 @@ blockquote {
 
 .noheadcol_link {
   color: #FFF; 
+  font-size: 20px;
+}
+
+.noheadcol_no_pic {
+background-color: rgba(var(--bs-body-secondary-color), 0.7);
+padding: 15px 0 0 0;
+  min-height: 65px;
+}
+.noheadcol_title_no_pic {
+  color: rgba(var(--bs-body-color),1); 
+  font-size: 30px;
+}
+
+.noheadcol_link_no_pic {
+  color: rgba(var(--bs-body-color),1); 
   font-size: 20px;
 }
 

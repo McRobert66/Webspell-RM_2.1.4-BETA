@@ -267,14 +267,17 @@ function get_head_modul() {
                 <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p></figcaption>
                 </figure>';
             } else{
-                $pic='<div class="container-fluid" style="
-  padding: 15px 0 0 0;
-  background: #2b2320;
-  min-height: 65px;">
+                $pic='
+<style>.head-h2 {font-size: 0px;}
+.head-boxes-title {font-size: 0px;}
+span.head-boxes-head {font-size: 0px;}
+.head-boxes {height: 0px;}</style>
+
+<div class="container-fluid noheadcol_no_pic">
 <div class="container">
-        <div class="d-flex justify-content-between align-items-center noheadcol_link">
-          <p class="noheadcol_title_2">'.$name.'</p>
-                <p class="noheadcol_link"><a href="#">Home</a> / '.$name.'</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="noheadcol_title_no_pic">'.$name.'</p>
+                <p class="noheadcol_link_no_pic"><a href="#">Home</a> / '.$name.'</p>
         </div>
 </div>
       </div>';
