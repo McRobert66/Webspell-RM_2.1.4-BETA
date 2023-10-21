@@ -284,7 +284,7 @@ if ($getavatar = getavatar($userID)) {
 	$('#plugini').dataTable({
 		'aLengthMenu': [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<? 
 		$lang_datatable_all = detectCurrentLanguage();
-		if ($lang_datatable_all == 'de') {echo "Alle";}
+			if ($lang_datatable_all == 'de') {echo "Alle";}
 		elseif ($lang_datatable_all == 'en') {echo "All";}
 		elseif ($lang_datatable_all == 'it') {echo "Tutti";}
 		elseif ($lang_datatable_all == 'pl') {echo "Wszyscy";}
@@ -294,11 +294,12 @@ if ($getavatar = getavatar($userID)) {
 			
 		<? 
 		$lang_datatable = detectCurrentLanguage();
-			if ($lang_datatable == 'de') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json'";}
-		elseif ($lang_datatable == 'en') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json'";}
-		elseif ($lang_datatable == 'it') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json'";}
-		elseif ($lang_datatable == 'pl') {echo "'url': '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Polish.json'";}
+			if ($lang_datatable == 'de') {echo "'url': '/components/datatables/langs/German.json'";}
+		elseif ($lang_datatable == 'en') {echo "'url': '/components/datatables/langs/English.json'";}
+		elseif ($lang_datatable == 'it') {echo "'url': '/components/datatables/langs/Italian.json'";}
+		elseif ($lang_datatable == 'pl') {echo "'url': '/components/datatables/langs/Polish.json'";}
 		?>
+	
 	  }
 	});
 	$('#confirm-delete').on('show.bs.modal', function (e) {
