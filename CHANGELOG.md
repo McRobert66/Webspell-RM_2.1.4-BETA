@@ -6,11 +6,16 @@
 + /admin/template_installer.php     -> Fehler bei verschiedenen Versionen bereinigt 
 + /admin/plugin_manager.php         -> Ausgliederung von einigen Bereichen
                                     -> Side-Widgets können jetzt gleichzeitig rechts und links positioniert werden
++ /admin/settings_headelements      -> Designanpassungen vorgenommen (Ohne Bild wird eine Art Überschrift erstellt)
 
 
+- /admin/welcome_page.php           -> neue Begrüssungsseite (wurde wieder entfernt)
 
+Languages                           -> Für die RM-Base wurden alle languages Dateien angepasst und vervollständigt (Poland wurde entfernt)
 
-install,update und unistall neu gestallten für Plugins und Themes
+Pluginänderungen                    -> Es wurden zahlreiche Plugins responsive angepasst. So wird die Webseite auf dem Handy richtig angezeigt   
+
+install,update und unistall neu gestaltet für Plugins und Themes
 Global zentralisieren 
 
 
