@@ -40,7 +40,7 @@ function getanzcwcomments($cwID)
 function getsquads()
 {
     $squads = "";
-    $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "squads`");
+    $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "plugins_squads`");
     while ($ds = mysqli_fetch_array($ergebnis)) {
         $squads .= '<option value="' . $ds[ 'squadID' ] . '">' . $ds[ 'name' ] . '</option>';
     }
@@ -50,7 +50,7 @@ function getsquads()
 function getgamesquads()
 {
     $squads = '';
-    $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "squads` WHERE `gamesquad` = 1");
+    $ergebnis = safe_query("SELECT * FROM `" . PREFIX . "plugins_squads` WHERE `gamesquad` = 1");
     while ($ds = mysqli_fetch_array($ergebnis)) {
         $squads .= '<option value="' . $ds[ 'squadID' ] . '">' . $ds[ 'name' ] . '</option>';
     }
@@ -61,7 +61,7 @@ function getsquadname($squadID)
 {
     $ds = mysqli_fetch_array(
         safe_query(
-            "SELECT `name` FROM `" . PREFIX . "squads` WHERE `squadID` = " . (int)$squadID
+            "SELECT `name` FROM `" . PREFIX . "plugins_squads` WHERE `squadID` = " . (int)$squadID
         )
     );
     return $ds[ 'name' ];
@@ -75,7 +75,7 @@ function issquadmember($userID, $squadID)
                 "SELECT
                     `sqmID`
                 FROM
-                    `" . PREFIX . "squads_members`
+                    `" . PREFIX . "plugins_squads_members`
                 WHERE
                     `userID` = " . (int)$userID . " AND
                     `squadID` = " . (int)$squadID
@@ -91,7 +91,7 @@ function isgamesquad($squadID)
                 "SELECT
                     `squadID`
                 FROM
-                    `" . PREFIX . "squads`
+                    `" . PREFIX . "plugins_squads`
                 WHERE
                     `squadID` = " . (int)$squadID . " AND
                     gamesquad = 1"

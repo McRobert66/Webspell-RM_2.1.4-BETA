@@ -95,12 +95,14 @@ if (isset($_GET[ 'delete' ])) {
                 `" . PREFIX . "settings_headelements` (
                     `name`,
                     `info`,
+                    `modulname`,
                     `displayed`,
                     `site`
                 )
                 VALUES (
                     '$name',
                     '$info',
+                    '$site',
                     '" . $displayed . "',
                     '$site'
                 )"
@@ -197,7 +199,8 @@ if (isset($_GET[ 'delete' ])) {
                 `name` = '" . $name . "',
                 `info` = '" . $info . "',
                 `displayed` = '" . $displayed . "',
-                `site` = '" . $site . "'
+                `site` = '" . $site . "',
+                `modulname` = '" . $site . "'
             WHERE
                 `headelementID` = '" . $headelementID . "'"
         );
@@ -550,6 +553,11 @@ echo'<div class="card">
 
     $i = 1;
     while ($db = mysqli_fetch_array($headelements)) {
+
+        if (@$db[ 'modulname' ] != 'startpage') {
+        
+
+
         if ($i % 2) {
             $td = 'td1';
         } else {
@@ -564,6 +572,7 @@ echo'<div class="card">
 
         $db[ 'displayed' ] == 1 ? $displayed = '<font color="green"><b>' . $_language->module[ 'yes' ] . '</b></font>' :
             $displayed = '<font color="red"><b>' . $_language->module[ 'no' ] . '</b></font>';
+
 
         echo '<tr>
         <td>'.$pic.'</td>
@@ -602,8 +611,14 @@ echo'<div class="card">
      
       
     </tr>';
+
+        
+        } else {
+echo'';
+
     $i++;
-         
+    
+}         
 	}
 	echo'
   </table>

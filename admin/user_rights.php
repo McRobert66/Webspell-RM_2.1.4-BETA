@@ -26,7 +26,7 @@
  */
 
 
-$_language->readModule('members', false, true);
+$_language->readModule('user_rights', false, true);
 $_language->readModule('rank_special', true, true);
 
 $ergebnis = safe_query("SELECT * FROM ".PREFIX."navigation_dashboard_links WHERE modulname='ac_members'");
@@ -38,6 +38,37 @@ if (!$accesslevel($userID) || mb_substr(basename($_SERVER[ 'REQUEST_URI' ]), 0, 
 }
 }
 
+if (isset($_GET[ 'action' ])) {
+    $action = $_GET[ 'action' ];
+} else {
+    $action = '';
+}
+
+if (isset($_POST[ 'add_to_clan' ])) {
+    $CAPCLASS = new \webspell\Captcha;
+    if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
+        $anz = mysqli_num_rows(safe_query(
+            "SELECT userID FROM " . PREFIX . "plugins_squads_members WHERE squadID='" .
+            $_POST[ 'squad' ] . "' AND userID='" . $_POST[ 'id' ] . "'"
+        ));
+        if (!$anz) {
+            safe_query(
+                "INSERT INTO " . PREFIX . "plugins_squads_members (squadID, userID, position, activity, sort) values('" .
+                $_POST[ 'squad' ] . "', '" . $_POST[ 'id' ] . "', '" . $_POST[ 'position' ] . "', '" .
+                $_POST[ 'activity' ] . "', '1')"
+            );
+            echo'<div class="alert alert-success" role="alert">'.$_language->module['user_exists'].'</div>';
+    
+        } else {
+            echo'<div class="alert alert-danger" role="alert">
+                '.$_language->module[ 'user_not_exists' ].'</div>';
+        }
+    } else {
+        echo $_language->module[ 'transaction_invalid' ];
+    }
+    redirect('admincenter.php?site=users','', 1);
+} 
+
 if (isset($_POST[ 'sortieren' ])) {
     $CAPCLASS = new \webspell\Captcha;
     if ($CAPCLASS->checkCaptcha(0, $_POST[ 'captcha_hash' ])) {
@@ -46,7 +77,7 @@ if (isset($_POST[ 'sortieren' ])) {
             if (is_array($sort)) {
                 foreach ($sort as $sortstring) {
                     $sorter = explode("-", $sortstring);
-                    safe_query("UPDATE " . PREFIX . "squads_members SET sort='$sorter[1]' WHERE sqmID='$sorter[0]' ");
+                    safe_query("UPDATE " . PREFIX . "plugins_squads_members SET sort='$sorter[1]' WHERE sqmID='$sorter[0]' ");
                 }
             }
         }
@@ -60,12 +91,12 @@ if (isset($_GET[ 'delete' ])) {
     if ($CAPCLASS->checkCaptcha(0, $_GET[ 'captcha_hash' ])) {
         $id = $_GET[ 'id' ];
         $squadID = $_GET[ 'squadID' ];
-        $squads = mysqli_num_rows(safe_query("SELECT userID FROM " . PREFIX . "squads_members WHERE userID='$id'"));
+        $squads = mysqli_num_rows(safe_query("SELECT userID FROM " . PREFIX . "plugins_squads_members WHERE userID='$id'"));
         if ($squads < 2 && !issuperadmin($id)) {
             safe_query("DELETE FROM " . PREFIX . "user_groups WHERE userID='$id'");
         }
 
-        safe_query("DELETE FROM " . PREFIX . "squads_members WHERE userID='$id' AND squadID='$squadID'");
+        safe_query("DELETE FROM " . PREFIX . "plugins_squads_members WHERE userID='$id' AND squadID='$squadID'");
     } else {
         echo $_language->module[ 'transaction_invalid' ];
     }
@@ -80,7 +111,12 @@ if (isset($_POST[ 'saveedit' ])) {
         $pollsadmin = isset($_POST[ 'pollsadmin' ]);
         $feedbackadmin = isset($_POST[ 'feedbackadmin' ]);
         $useradmin = isset($_POST[ 'useradmin' ]);
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+        $specialrank = '';
+    }else{
         $specialrank = $_POST[ 'special_rank' ];
+}        
         $cwadmin = isset($_POST[ 'cwadmin' ]);
         $boardadmin = isset($_POST[ 'boardadmin' ]);
         $moderator = isset($_POST[ 'moderator' ]);
@@ -139,6 +175,9 @@ if (isset($_POST[ 'saveedit' ])) {
                         userID='" . $id . "'"
                 );
             //remove from mods
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+    }else{   
             if ($moderator === false) {
                 safe_query("DELETE FROM " . PREFIX . "forum_moderators WHERE userID='" . $id . "'");
             }
@@ -181,18 +220,20 @@ if (isset($_POST[ 'saveedit' ])) {
                 WHERE
                     userID='" . $id . "'"
             );
+        }
+        
 
             foreach ($position as $sqmID => $pos) {
-                safe_query("UPDATE " . PREFIX . "squads_members SET position='$pos' WHERE sqmID='$sqmID'");
+                safe_query("UPDATE " . PREFIX . "plugins_squads_members SET position='$pos' WHERE sqmID='$sqmID'");
             }
             foreach ($activity as $sqmID => $act) {
-                safe_query("UPDATE " . PREFIX . "squads_members SET activity='$act' WHERE sqmID='$sqmID'");
+                safe_query("UPDATE " . PREFIX . "plugins_squads_members SET activity='$act' WHERE sqmID='$sqmID'");
             }
             foreach ($join as $sqmID => $joi) {
-                safe_query("UPDATE " . PREFIX . "squads_members SET joinmember='$joi' WHERE sqmID='$sqmID'");
+                safe_query("UPDATE " . PREFIX . "plugins_squads_members SET joinmember='$joi' WHERE sqmID='$sqmID'");
             }
             foreach ($war as $sqmID => $wara) {
-                safe_query("UPDATE " . PREFIX . "squads_members SET warmember='$wara' WHERE sqmID='$sqmID'");
+                safe_query("UPDATE " . PREFIX . "plugins_squads_members SET warmember='$wara' WHERE sqmID='$sqmID'");
             }
             if (issuperadmin($userID)) {
                 safe_query(
@@ -202,7 +243,7 @@ if (isset($_POST[ 'saveedit' ])) {
                 );
             }
         } else {
-            redirect('admincenter.php?site=members', $_language->module[ 'error_own_rights' ], 3);
+            redirect('admincenter.php?site=user_rights', $_language->module[ 'error_own_rights' ], 3);
         }
     } else {
         echo $_language->module[ 'transaction_invalid' ];
@@ -213,12 +254,12 @@ if (isset($_POST[ 'saveedit' ])) {
 if (isset($_GET[ 'action' ]) && $_GET[ 'action' ] == "edit") {
     echo '<div class="card">
         <div class="card-header">
-            <i class="fas fa-users"></i> '.$_language->module['members'].'
+            <i class="fas fa-users"></i> '.$_language->module['users'].'
         </div>
             
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="admincenter.php?site=members">' . $_language->module[ 'members' ] .'</a></li>
+    <li class="breadcrumb-item"><a href="admincenter.php?site=users">' . $_language->module[ 'users' ] .'</a></li>
     <li class="breadcrumb-item active" aria-current="page">' . $_language->module[ 'edit_member' ] . '</li>
   </ol>
 </nav>
@@ -232,8 +273,11 @@ if (isset($_GET[ 'action' ]) && $_GET[ 'action' ] == "edit") {
     $id = $_GET[ 'id' ];
     $squads = '';
     /*==========================================================*/
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+    if (@$dx[ 'modulname' ] != 'squads') {
+    }else{            
     $ergebnis =
-        safe_query("SELECT * FROM " . PREFIX . "squads_members WHERE userID='$id' AND squadID!='0' GROUP BY squadID");
+        safe_query("SELECT * FROM " . PREFIX . "plugins_squads_members WHERE userID='$id' AND squadID!='0' GROUP BY squadID");
     $anz = mysqli_num_rows($ergebnis);
     if ($anz) {
         while ($ds = mysqli_fetch_array($ergebnis)) {
@@ -322,7 +366,7 @@ $squads .= '
 ';
         }
     }
-
+}
     if (isnewsadmin($id)) {
         $news =
             '<input class="form-check-input" type="checkbox" name="newsadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_1' ] . '" checked="checked" />';
@@ -338,7 +382,9 @@ $squads .= '
         $newswriter =
             '<input class="form-check-input" type="checkbox" name="newswriter" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_2' ] . '" />';
     }
-
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='polls'"));
+    if (@$dx[ 'modulname' ] != 'polls') {
+    }else{
     if (ispollsadmin($id)) {
         $polls =
             '<input class="form-check-input" type="checkbox" name="pollsadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_3' ] . '" checked="checked" />';
@@ -346,7 +392,7 @@ $squads .= '
         $polls =
             '<input class="form-check-input" type="checkbox" name="pollsadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_3' ] . '" />';
     }
-
+}
     if (isfeedbackadmin($id)) {
         $feedback =
             '<input class="form-check-input" type="checkbox" name="feedbackadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_4' ] . '" checked="checked" />';
@@ -370,6 +416,9 @@ $squads .= '
         $cwadmin =
             '<input class="form-check-input" type="checkbox" name="cwadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_6' ] . '" />';
     }
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+    }else{
 
     if (isforumadmin($id)) {
         $board =
@@ -386,7 +435,7 @@ $squads .= '
         $mod =
             '<input class="form-check-input" type="checkbox" name="moderator" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_8' ] . '" />';
     }
-
+}
     if (ispageadmin($id)) {
         $page =
             '<input class="form-check-input" type="checkbox" name="pageadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_9' ] . '" checked="checked" />';
@@ -427,6 +476,10 @@ $squads .= '
             '<input class="form-check-input" type="checkbox" name="superadmin" value="1" data-bs-toggle="tooltip" data-bs-html="true" title="' . $_language->module[ 'tooltip_13' ] . '" />';
     }
 
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+    }else{  
+
     $usergrp = array();
     $ergebnis = safe_query("SELECT * FROM " . PREFIX . "forum_groups");
     while ($ds = mysqli_fetch_array($ergebnis)) {
@@ -438,8 +491,13 @@ $squads .= '
             $usergrp[ $fgrID ] = '<input class="form-check-input" type="checkbox" name="' . $fgrID . '" value="1" />';
         }
     }
+}
 
-    if (isclanmember($id)) {
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+    if (@$dx[ 'modulname' ] != 'squads') {
+    }else{
+
+        if (isclanmember($id)) {
 
         $userdes = '<div class="col-md-12">
             <div class="col-md-12 row"></div>
@@ -456,7 +514,12 @@ $squads .= '
     } else {
         $userdes = '';
     }
+}
 
+
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+    }else{ 
     $get_rank = mysqli_fetch_assoc(
         safe_query(
             "SELECT
@@ -482,7 +545,7 @@ $squads .= '
     } else {
         $ranks = str_replace("value='0", "value='0' selected='selected'", $ranks);
     }
-
+}
     echo '<script>
         function chkFormular() {
             if(!validbbcode(document.getElementById(\'message\').value, \'admin\')){
@@ -492,7 +555,7 @@ $squads .= '
     </script>';
 
     echo '
-    <form method="post" id="post" name="post" action="admincenter.php?site=members" onsubmit="return chkFormular();">
+    <form method="post" id="post" name="post" action="admincenter.php?site=user_rights" onsubmit="return chkFormular();">
     <div class="mb-3 row bt alert alert-warning" role="alert">
     <label class="col-md-2 control-label"><h3>' . $_language->module[ 'nickname' ] . ':</h3></label>
     <div class="col-md-8"><a class="form-control-static" href="../index.php?site=profile&amp;id=' . $id . '" target="_blank"><h3>' .
@@ -505,10 +568,14 @@ $squads .= '
 <div class="col-md-12">
         
         ' . $squads . '
+        ';
       
-    
-        ' . $userdes . '
- 
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+    if (@$dx[ 'modulname' ] != 'squads') {
+    }else{    
+        $userdes;
+    }
+    echo' 
 
 
     <div class="mb-3 row bt">
@@ -532,13 +599,18 @@ $squads .= '
     <label class="col-md-6 control-label">' . $_language->module[ 'news_writer' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $newswriter . '
     </div>
-    </div>
-
+    </div>';
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='polls'"));
+    if (@$dx[ 'modulname' ] != 'polls') {
+    }else{echo'
     <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'polls_admin' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $polls . '
     </div>
-    </div>
+    </div>';
+    }
+
+echo '
 
     <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'feedback_admin' ] . ':</b></label>
@@ -559,7 +631,11 @@ echo '
 <br>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-4">';
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+    }else{ 
+        echo'
     <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'messageboard_admin' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $board . '
@@ -570,8 +646,9 @@ echo '
     <label class="col-md-6 control-label">' . $_language->module[ 'messageboard_moderator' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $mod . '
     </div>
-    </div>
-
+    </div>';
+}
+echo'
     <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'gallery_admin' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $gallery . '
@@ -586,21 +663,28 @@ echo '
 
 </div>
 
-<div class="col-md-4">
+<div class="col-md-4">';
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwar'"));
+    if (@$dx[ 'modulname' ] != 'clanwar') {
+    }else{ 
+        echo'
 
     <div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'clanwar_admin' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $cwadmin . '
     </div>
-    </div>
-
-    <div class="mb-3 row bt">
+    </div>';
+}
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='cashbox'"));
+    if (@$dx[ 'modulname' ] != 'cashbox') {
+    }else{ 
+echo'<div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'cash_admin' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $cash . '
     </div>
-    </div>
-
-    <div class="mb-3 row bt">
+    </div>';
+}
+echo'<div class="mb-3 row bt">
     <label class="col-md-6 control-label">' . $_language->module[ 'user_admin' ] . ':</b></label>
     <div class="col-md-6 form-check form-switch">' . $useradmin . '
     </div>
@@ -612,8 +696,11 @@ echo '
     </div>
     </div>
 
-</div>
-
+</div>';
+$dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
+    if (@$dx[ 'modulname' ] != 'forum') {
+    }else{ 
+        echo'
 <br><br>
 
 <div class="col-md-12">
@@ -650,7 +737,7 @@ echo '
         
         $i++;
     }
-
+}
 echo '</div></div>  
 
 
@@ -665,131 +752,69 @@ echo '</div></div>
 
     unset($squads);
     unset($userdes);
-} else {
-    
-    $CAPCLASS = new \webspell\Captcha;
-    $CAPCLASS->createTransaction();
-    $hash = $CAPCLASS->getHash();
-echo'<div class="card">
+
+} elseif ($action == "addtoclan") {
+    echo '<div class="card">
         <div class="card-header">
-            <i class="fas fa-users"></i> '.$_language->module['members'].'
+            <i class="fas fa-user-cog"></i> ' . $_language->module[ 'users' ] . '
         </div>
             
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item">' . $_language->module[ 'members' ] .'</li>
+    <li class="breadcrumb-item"><a href="admincenter.php?site=users">' . $_language->module[ 'users' ] . '</a></li>
+    <li class="breadcrumb-item active" aria-current="page">' . $_language->module[ 'add_to_clan' ] . '</li>
   </ol>
 </nav>
      <div class="card-body">';
 
-    $squads = safe_query("SELECT * FROM " . PREFIX . "squads ORDER BY sort");
-    echo '<form method="post" action="admincenter.php?site=members">';
-    while ($ds = mysqli_fetch_array($squads)) {
-        echo'<div class="card">
-        <div class="card-header">
-            <i class="fas fa-users"></i> ' . $ds[ 'name' ] . ' <span class="small"><em>'.$_language->module['members'].'</em></span>
-        </div>
-            
-<div class="card-body">';
-        echo '<table class="table table-striped">
+    $id = $_GET[ 'id' ];
+    $nickname = getnickname($id);
+    $squads = getsquads();
+    $CAPCLASS = new \webspell\Captcha;
+    $CAPCLASS->createTransaction();
+    $hash = $CAPCLASS->getHash();
+
     
-<thead>';
-
-        $members = safe_query(
-            "SELECT * FROM " . PREFIX . "squads_members WHERE squadID='" . $ds[ 'squadID' ] . "' ORDER BY sort"
-        );
-        $tmp = mysqli_fetch_assoc(
-            safe_query(
-                "SELECT count(squadID) as cnt
-                FROM " . PREFIX . "squads_members
-                WHERE squadID='" . $ds[ 'squadID' ] . "'"
-            )
-        );
-        $anzmembers = $tmp[ 'cnt' ];
-
-        echo '<tr>
-      <th>' . $_language->module[ 'nickname' ] . ':</th>
-      <th>' . $_language->module[ 'position' ] . ':</th>
-      <th>' . $_language->module[ 'activity' ] . ':</th>
-      <th>' . $_language->module[ 'actions' ] . ':</th>
-      <th>' . $_language->module[ 'sort' ] . ':</th>
-    </tr></thead>
-          <tbody>';
-
-        $i = 1;
-        while ($dm = mysqli_fetch_array($members)) {
-            if ($i % 2) {
-                $td = 'td1';
-            } else {
-                $td = 'td2';
-            }
-
-            $nickname = '<a href="../index.php?site=profile&amp;id=' . $dm[ 'userID' ] . '" target="_blank">' .
-                strip_tags(stripslashes(getnickname($dm[ 'userID' ]))) . '</a>';
-            if ($dm[ 'activity' ]) {
-                $activity = '<font color="green">' . $_language->module[ 'active' ] . '</font>';
-            } else {
-                $activity = '<font color="red">' . $_language->module[ 'inactive' ] . '</font>';
-            }
-
-            echo '<tr>
-        <td>' . $nickname . '</td>
-        <td>' . $dm[ 'position' ] . '</td>
-        <td>' . $activity . '</td>
-        <td>
 
 
-        <a href="admincenter.php?site=members&amp;action=edit&amp;id=' . $dm[ 'userID' ] . '" class="hidden-xs hidden-sm btn btn-warning" type="button">' . $_language->module[ 'edit' ] . '</a>
 
-<!-- Button trigger modal -->
-    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete" data-href="admincenter.php?site=members&amp;delete=true&amp;id=' . $dm[ 'userID' ] . '&amp;squadID=' . $dm[ 'squadID' ] . '&amp;captcha_hash=' . $hash . '">
-    ' . $_language->module['delete'] . '
-    </button>
-    <!-- Button trigger modal END-->
-
-     <!-- Modal -->
-<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">' . $_language->module[ 'members' ] . '</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body"><p>' . $_language->module['really_delete'] . '</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a class="btn btn-danger btn-ok">' . $_language->module['delete'] . '</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal END -->
-
-       
-    </td>
-        <td><select name="sort[]">';
-            for ($j = 1; $j <= $anzmembers; $j++) {
-                if ($dm[ 'sort' ] == $j) {
-                    echo '<option value="' . $dm[ 'sqmID' ] . '-' . $j . '" selected="selected">' . $j . '</option>';
-                } else {
-                    echo '<option value="' . $dm[ 'sqmID' ] . '-' . $j . '">' . $j . '</option>';
-                }
-            }
-            echo '</select></td>
-        </tr>';
-
-            $i++;
-        }
-
-
-        echo '</tbody></table> <div align="right"><input type="hidden" name="captcha_hash" value="' . $hash .
-        '" /><input type="submit" name="sortieren" class="btn btn-primary" value="' . $_language->module[ 'to_sort' ] . '" /></div></div>
-        </div>';
-    }
-    echo '
-        </form></div>
+ #echo'<form class="form-horizontal" method="post" action="admincenter.php?site=users&amp;page='.(int)$_GET['page'].'">
+ 
+ echo'<form class="form-horizontal" method="post" action="admincenter.php?site=user_rights">
+    <div class="mb-3 row">
+        <label class="col-md-2 control-label">'.$_language->module['nickname'].':</label>
+        <div class="col-md-8"><h4>'.$nickname.'</h4>
         </div>
-       <br />';
+    </div>
+
+    <div class="mb-3 row">
+        <label class="col-md-2 control-label">'.$_language->module['squad'].':</label>
+        <div class="col-md-8"><select class="form-select" name="squad">'.$squads.'</select>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label class="col-md-2 control-label">'.$_language->module['position'].':</label>
+        <div class="col-md-8"><input class="form-control" type="text" name="position" size="20" />
+        </div>
+    </div>
+ 
+    <div class="mb-3 row">
+        <label class="col-md-2 control-label">'.$_language->module['activity'].':</label>
+        <div class="col-md-8 form-check form-switch">
+        <input class="form-check-input" type="radio" name="activity" value="1" checked="checked" />&nbsp;&nbsp;'.$_language->module['active'].'  <br><br>
+        <input class="form-check-input" type="radio" name="activity" value="0" />&nbsp;&nbsp;'.$_language->module['inactive'].'
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-md-offset-2 col-md-8"><input type="hidden" name="captcha_hash" value="'.$hash.'" /><input type="hidden" name="id" value="'.$id.'" />
+        <button class="btn btn-success" type="submit" name="add_to_clan">'.$_language->module['add_to_clan'].'</button>
+        </div>
+    </div>
+  </form>
+  </div></div>';    
+} else {
+    
 
 }

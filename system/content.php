@@ -212,14 +212,14 @@ function get_navigation_modul(){
 
 #Ausgabe Head elements
 function get_head_modul() {
-    GLOBAL $hide, $site;
+    GLOBAL $hide, $site,$modulname;
    
     if (!in_array($site, $hide)) {
         $widget_menu = new widgets();
         $widget_menu->registerWidget("page_head_widget");
     } else {
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_headelements WHERE site='".$site."' AND displayed='1'"));
-        if(@$dx[ 'site' ] != $site) {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_headelements WHERE site='".$site."' AND modulname='".$site."' AND displayed='1'"));
+        if(@$dx[ 'modulname' ] != $site || @$dx[ 'modulname' ] == "") {
             $head_elements = '';
         } else {
             if(@$dx[ 'headelementID' ] != '') {

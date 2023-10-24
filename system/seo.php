@@ -582,7 +582,7 @@ function parseWebspellURL($parameters = null)
                 }
                 if ($action == "show") {
                     $get = mysqli_fetch_array(
-                        safe_query("SELECT name FROM `" . PREFIX . "squads` WHERE squadID=" . (int)$squadID)
+                        safe_query("SELECT name FROM `" . PREFIX . "plugins_squads` WHERE squadID=" . (int)$squadID)
                     );
                     $returned_title[] = array(
                         $_language->module['members'],
@@ -746,7 +746,7 @@ function parseWebspellURL($parameters = null)
                 }
                 if ($action == "show") {
                     $get = mysqli_fetch_array(
-                        safe_query("SELECT name FROM `" . PREFIX . "squads` WHERE squadID=" . (int)$squadID)
+                        safe_query("SELECT name FROM `" . PREFIX . "plugins_squads` WHERE squadID=" . (int)$squadID)
                     );
                     $returned_title[] = array(
                         $_language->module['squads'],

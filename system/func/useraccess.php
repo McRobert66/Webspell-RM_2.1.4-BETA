@@ -336,7 +336,7 @@ function isclanmember($userID)
 {
     if (mysqli_num_rows(
         safe_query(
-            "SELECT userID FROM `" . PREFIX . "squads_members` WHERE `userID` = " . (int)$userID
+            "SELECT userID FROM `" . PREFIX . "plugins_squads_members` WHERE `userID` = " . (int)$userID
         )
     ) > 0
     ) {
@@ -350,7 +350,7 @@ function isjoinusmember($userID)
 {
     if (mysqli_num_rows(
         safe_query(
-            "SELECT userID FROM `" . PREFIX . "squads_members` WHERE `userID` = " . (int)$userID
+            "SELECT userID FROM `" . PREFIX . "plugins_squads_members` WHERE `userID` = " . (int)$userID
         )
     ) > 0
     ) {

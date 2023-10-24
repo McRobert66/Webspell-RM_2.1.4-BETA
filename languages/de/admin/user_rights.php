@@ -13,7 +13,7 @@ $language_array = Array(
   'delete'                  => 'löschen',
   'description'             => 'Benutzer Beschreibung',
   'edit'                    => 'ändern',
-  'edit_member'             => 'Mitglied ändern',
+  'edit_member'             => 'Zugriffsrechte anpasssen',
   'error_own_rights'        => 'FEHLER: Eigene Rechte können nicht geändert werden',
   'feedback_admin'          => 'Feedback-Admin',
   'fightus_admin'           => 'Herausforderung-Admin',
@@ -61,6 +61,10 @@ $language_array = Array(
   'options'                 => 'Optionen',
   'saved successfully'      => 'erfolgreich gespeichert',
   'delete_info'             => 'Möchten Sie dieses Mitglied wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.',
-  'success'                 => '<div class="alert alert-success" role="alert">Rechte erfolgreich bearbeitet</div>'
+  'success'                 => 'Rechte erfolgreich bearbeitet',
+  'users'                 => 'Benutzer',
+  'add_to_clan'           => 'einem Team zuweisen',
+  'user_not_exists'           => 'Benutzer bereits vorhanden',
+  'user_exists'           => 'Benutzer bereits vorhanden',
 );
 

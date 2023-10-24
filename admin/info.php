@@ -215,7 +215,7 @@ echo'<div class="card">
             <i class="fas fa-exclamation-triangle text-warning"></i> '.$_language->module['update_support'].'
           </div>
           <div class="card-body">
-            <div class="style_prevu_kit" style="width: 300px;">
+            <div class="style_prevu_kit">
               <a href="admincenter.php?site=update&action=update" target="_self" style="text-decoration:none">
                 <div class="cart">
                   <div class="cart-block">
@@ -235,7 +235,7 @@ echo'<div class="card">
                 </div>
               </a>
             </div>
-            <div class="style_prevu_kit" style="width: 300px;">
+            <div class="style_prevu_kit">
               <div class="cart">
                 <div class="cart-block">
                   <div class="logo1 image_caption text-center" style="height:220px">
@@ -253,7 +253,7 @@ echo'<div class="card">
                 </div>
               </div>
             </div>
-            <div class="style_prevu_kit" style="width: 300px;">
+            <div class="style_prevu_kit">
               <a href="https://webspell-rm.de/index.php?site=forum" target="_blank" style="text-decoration:none">
                 <div class="cart">
                   <div class="cart-block">
@@ -267,7 +267,7 @@ echo'<div class="card">
                 </div>
               </a>
             </div>
-            <div class="style_prevu_kit" style="width: 300px;">
+            <div class="style_prevu_kit">
               <a href="https://www.webspell-rm.de/wiki.html" target="_blank" style="text-decoration:none">
                 <div class="cart">
                   <div class="cart-block">
@@ -281,7 +281,7 @@ echo'<div class="card">
                 </div>
               </a>
             </div>
-            <div class="style_prevu_kit" style="width: 300px;">
+            <div class="style_prevu_kit">
               <a href="https://discordapp.com/invite/SgPrVk?utm_source=Discord%20Widget&utm_medium=Connect" target="_blank" style="text-decoration:none">
                 <div class="cart">
                   <div class="cart-block">

@@ -22,7 +22,7 @@ $language_array = Array(
   'new_squad'               => 'neues Team',
   'no_icon'                 => 'Kein Symbol vorhanden',
   'non_gaming_squad'        => 'nicht spielendes Team',
-  'really_delete'           => 'Dieses Team wirklich löschen?',
+  'really_delete'           => 'Möchten Sie dieses Team wirklich entfernen? <br><br>Es werden alle Benutzer dieses Teams mit gelöscht!!!',
   'sort'                    => 'Sortierung',
   'squad_info'              => 'Team Info',
   'squad_name'              => 'Team Name',
@@ -35,7 +35,16 @@ $language_array = Array(
   'na'                      => 'Not available',
   'options'                 => 'Optionen',
   'saved successfully'      => 'erfolgreich gespeichert',
-  'delete_info'             => 'Möchten Sie dieses Team wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.'
+  'delete_info'             => 'Möchten Sie dieses Team wirklich entfernen? <br><br>Es wird alles endgültig gelöscht.',
+  'nickname'                => 'Nickname',
+  'position'                => 'Position',
+  'activity'                => 'Aktivität',
+  'active'                  => 'aktiv',
+  'inactive'                => 'inaktiv',
+  'members'                 => 'Mitglied',
+  'squads_members'                 => 'Teams & Mitglieder',
+  'really_members_delete'=>'Möchten Sie diesem Benutzer wirklich aus diesem Team entfernen?'
+
 );
 
 

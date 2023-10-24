@@ -191,13 +191,25 @@ if ($getavatar = getavatar($userID)) {
 			</li>
 		</ul>
 	  <!-- /.navbar-top-links -->
- <nav class="navbar navbar-expand-lg bg-light">
+<!--<nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Webspell RM</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+    	<ul class="metismenu" id="side-bar">
+					<li class="sidebar-head mm-active">
+						<a class="nav-link link-head" href="admincenter.php"> <i class="fa fa-home"></i> Dashboard</a>
+					</li>
+					<?php 
+						echo dashnavi();
+					?> 
+				</ul>
+
+			</div></div></nav>-->
+
 		<!-- sidebar-links -->
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
@@ -221,8 +233,16 @@ if ($getavatar = getavatar($userID)) {
 			</div>
 		</div>
 		<!-- /.navbar-static-side -->
-        </nav>
-		<!-- /.navbar-static-side -->
+
+
+
+
+
+
+
+
+
+
 		<div id="page-wrapper">
 			<?php
 				if (isset($site) && $site!="news") {
@@ -294,6 +314,7 @@ if ($getavatar = getavatar($userID)) {
 			if ($lang_datatable_all == 'de') {echo "Alle";}
 		elseif ($lang_datatable_all == 'en') {echo "All";}
 		elseif ($lang_datatable_all == 'it') {echo "Tutti";}
+		elseif ($lang_datatable_all == 'pl') {echo "Wszyscy";}
 		?>"]],
 		
 		'language': {
