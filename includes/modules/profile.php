@@ -604,8 +604,8 @@ echo '<ul class="nav nav-tabs">
         
         $nickname = $ds[ 'nickname' ];
 
-        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
-        if (@$dx[ 'modulname' ] != 'clanwars') {    
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+        if (@$dx[ 'modulname' ] != 'squads') {    
             $member = '';
         } else {
             if (isclanmember($id)) {
@@ -879,9 +879,9 @@ echo '<ul class="nav nav-tabs">
             foreach ($array as $id) {
                 if (!empty($id)) {
                     if ($n > 1) {
-                        $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="images/games/'.$id.'.png" alt="">';
+                        $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="../includes/plugins/games_pic/images/'.$id.'.png" alt="">';
                     } else {
-                        $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="images/games/'.$id.'.png" alt="">';
+                        $games .= '<img id="icon" style="width: 100%; max-width: 150px;" class="img-fluid" src="../includes/plugins/games_pic/images/'.$id.'.png" alt="">';
                     }
                     $n++;
                 }
@@ -905,7 +905,7 @@ echo '<ul class="nav nav-tabs">
             $team = $dd[ 'squadID' ];
             $position = $dd[ 'position' ];
 
-            $settings = safe_query("SELECT * FROM " . PREFIX . "squads WHERE squadID='".$team."' ORDER BY sort");
+            $settings = safe_query("SELECT * FROM " . PREFIX . "plugins_squads WHERE squadID='".$team."' ORDER BY sort");
             while ($df = mysqli_fetch_array($settings)) {
             
             if (!empty($df[ 'icon' ])) {
