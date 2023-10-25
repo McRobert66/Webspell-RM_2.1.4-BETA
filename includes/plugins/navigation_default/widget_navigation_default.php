@@ -37,7 +37,7 @@ $ergebnis=safe_query("SELECT * FROM ".PREFIX."settings_themes WHERE active = 1")
 $ds=mysqli_fetch_array($ergebnis);
 ?>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-            <div class="container-lg">
+            <div class="container-lg" style="padding-bottom: 5px;margin-bottom: -10px;">
                 <span class="logo">
                     <a class="navbar-brand" href="#">
                         <img class="float-left bg-primary img-fluid" style="max-width:100%;height: 65px;" src="../includes/themes/<?php echo $theme_name; ?>/images/<?php echo $ds[ 'logo_pic' ]; ?>" alt="">
@@ -54,7 +54,7 @@ $ds=mysqli_fetch_array($ergebnis);
                     <ul class="navbar-nav <?php echo $ds[ 'nav_text_alignment' ];?>">
                         <?php include("./includes/modules/navigation.php"); ?>
                         <?php include("./includes/modules/navigation_login.php"); ?>
-                        <?php include("./includes/modules/language.php"); ?>        
+                        <?php include("./includes/modules/language_flag.php"); ?>        
                     </ul>
                 </div>
             </div>
