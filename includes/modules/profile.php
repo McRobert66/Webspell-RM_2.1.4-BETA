@@ -603,12 +603,18 @@ echo '<ul class="nav nav-tabs">
 
         
         $nickname = $ds[ 'nickname' ];
-        if (isclanmember($id)) {
-            $member = ' <i class="fa fa-user" style="color: #5cb85c"></i> '.$_language->module[ 'clanmember' ].' ';
-        } else {
+
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
+        if (@$dx[ 'modulname' ] != 'clanwars') {    
             $member = '';
+        } else {
+            if (isclanmember($id)) {
+                $member = ' <i class="fa fa-user" style="color: #5cb85c"></i> '.$_language->module[ 'clanmember' ].' ';
+            } else {
+                $member = '';
+            }
         }
-        
+
         $registerdate = getformatdatetime($ds[ 'registerdate' ]);
         $lastlogin = getformatdatetime($ds[ 'lastlogin' ]);
         
@@ -889,8 +895,11 @@ echo '<ul class="nav nav-tabs">
         /*-----------squad images --------------*/
 
         $banner = ""; 
-
-        $ergebnis = safe_query("SELECT * FROM " . PREFIX . "squads_members WHERE userID='".$ds['userID']."' ORDER BY sort");
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
+    if (@$dx[ 'modulname' ] != 'clanwars') {    
+            
+    } else {    
+        $ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_squads_members WHERE userID='".$ds['userID']."' ORDER BY sort");
 
         while ($dd = mysqli_fetch_array($ergebnis)) {
             $team = $dd[ 'squadID' ];
@@ -926,6 +935,7 @@ echo '<ul class="nav nav-tabs">
             }
             
         }
+    }
         /*-----------squad images END--------------*/ 
 
         if ($ds[ 'about' ]) {

@@ -53,12 +53,17 @@ if ($loggedin && $cookievalue == 'accepted') {
             $userpic = '';
         }
 
-        if (isclanmember($userID)) {
-            $member = '<i class="fa fa-user" style="color: #5cb85c"></i> '.$_language->module[ 'clanmember' ].' ';
-        } else {
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
+        if (@$dx[ 'modulname' ] != 'clanwars') {    
             $member = '';
+        } else {
+            if (isclanmember($userID)) {
+                $member = '<i class="fa fa-user" style="color: #5cb85c"></i> '.$_language->module[ 'clanmember' ].' ';
+            } else {
+                $member = '';
+            }
         }
-
+            
         $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='forum'"));
         if (@$dx[ 'modulname' ] != 'forum') {
             $usertype = '';
@@ -172,112 +177,117 @@ if ($loggedin && $cookievalue == 'accepted') {
             } else {    
             $upcoming = 
         //upcoming
+
+        $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+        if (@$dx[ 'modulname' ] != 'squads') {    
         $clanwars = '';
-        if (isclanmember($userID)) {
-            $clanwars .= "<hr><h5>" . $_language->module[ 'upcoming_clanwars' ] . "</h5>";
+        } else {
+            if (isclanmember($userID)) {
+                $clanwars .= "<hr><h5>" . $_language->module[ 'upcoming_clanwars' ] . "</h5>";
 
-            $squads = safe_query("SELECT squadID FROM `" . PREFIX . "squads_members` WHERE userID='" . $userID . "'");
-            while ($squad = mysqli_fetch_array($squads)) {
-                if (isgamesquad($squad[ 'squadID' ])) {
-                    $dn = mysqli_fetch_array(
-                        safe_query(
+                $squads = safe_query("SELECT squadID FROM `" . PREFIX . "plugins_squads_members` WHERE userID='" . $userID . "'");
+                while ($squad = mysqli_fetch_array($squads)) {
+                    if (isgamesquad($squad[ 'squadID' ])) {
+                        $dn = mysqli_fetch_array(
+                            safe_query(
+                                "SELECT
+                                    name
+                                FROM
+                                    `" . PREFIX . "squads`
+                                WHERE
+                                    squadID='" . $squad[ 'squadID' ] . "'
+                                AND
+                                    gamesquad='1'"
+                            )
+                        );
+                        $clanwars .= '<p><b>' . $_language->module[ 'squad' ] . ':</b> ' . $dn[ 'name' ] . '</p>';
+                        $n = 1;
+                        $ergebnis = safe_query(
                             "SELECT
-                                name
+                                *
                             FROM
-                                `" . PREFIX . "squads`
+                                `" . PREFIX . "plugins_upcoming`
                             WHERE
-                                squadID='" . $squad[ 'squadID' ] . "'
+                                type='c'
                             AND
-                                gamesquad='1'"
-                        )
-                    );
-                    $clanwars .= '<p><b>' . $_language->module[ 'squad' ] . ':</b> ' . $dn[ 'name' ] . '</p>';
-                    $n = 1;
-                    $ergebnis = safe_query(
-                        "SELECT
-                            *
-                        FROM
-                            `" . PREFIX . "plugins_upcoming`
-                        WHERE
-                            type='c'
-                        AND
-                            squad='" . $squad[ 'squadID' ] . "'
-                        AND
-                            date>" . time() . "
-                        ORDER BY
-                            date"
-                    );
-                    $anz = mysqli_num_rows($ergebnis);
+                                squad='" . $squad[ 'squadID' ] . "'
+                            AND
+                                date>" . time() . "
+                            ORDER BY
+                                date"
+                        );
+                        $anz = mysqli_num_rows($ergebnis);
 
-                    if ($anz) {
-                        $clanwars .= '<table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>' . $_language->module[ 'date' ] . '</th>
-                                <th>' . $_language->module[ 'against' ] . '</th>
-                                <th>' . $_language->module[ 'announcement' ] . '</th>
-                                <th>' . $_language->module[ 'announce' ] . '</th>
-                            </tr>
-                        </thead><tbody>';
+                        if ($anz) {
+                            $clanwars .= '<table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>' . $_language->module[ 'date' ] . '</th>
+                                    <th>' . $_language->module[ 'against' ] . '</th>
+                                    <th>' . $_language->module[ 'announcement' ] . '</th>
+                                    <th>' . $_language->module[ 'announce' ] . '</th>
+                                </tr>
+                            </thead><tbody>';
 
-                        while ($ds = mysqli_fetch_array($ergebnis)) {
-                            
-                            $date = getformatdate($ds[ 'date' ]);
+                            while ($ds = mysqli_fetch_array($ergebnis)) {
+                                
+                                $date = getformatdate($ds[ 'date' ]);
 
-                            $anmeldung =
-                                safe_query(
-                                    "SELECT
-                                        *
-                                    FROM
-                                        " . PREFIX . "plugins_upcoming_announce
-                                    WHERE
-                                        upID='" . $ds[ 'upID' ] . "'"
-                                );
-                            if (mysqli_num_rows($anmeldung)) {
-                                $i = 1;
-                                $players = "";
-                                while ($da = mysqli_fetch_array($anmeldung)) {
-                                    if ($da[ 'status' ] == "y") {
-                                        $fontcolor = "label-success";
-                                    } elseif ($da[ 'status' ] == "n") {
-                                        $fontcolor = "label-important";
-                                    } else {
-                                        $fontcolor = "label-warning";
+                                $anmeldung =
+                                    safe_query(
+                                        "SELECT
+                                            *
+                                        FROM
+                                            " . PREFIX . "plugins_upcoming_announce
+                                        WHERE
+                                            upID='" . $ds[ 'upID' ] . "'"
+                                    );
+                                if (mysqli_num_rows($anmeldung)) {
+                                    $i = 1;
+                                    $players = "";
+                                    while ($da = mysqli_fetch_array($anmeldung)) {
+                                        if ($da[ 'status' ] == "y") {
+                                            $fontcolor = "label-success";
+                                        } elseif ($da[ 'status' ] == "n") {
+                                            $fontcolor = "label-important";
+                                        } else {
+                                            $fontcolor = "label-warning";
+                                        }
+
+                                        if ($i > 1) {
+                                            $players .= ', <a href="index.php?site=profile&amp;id=' . $da[ 'userID' ] .
+                                                '"><span class="label ' . $fontcolor . '">' .
+                                                strip_tags(stripslashes(getnickname($da[ 'userID' ]))) . '</span></a>';
+                                        } else {
+                                            $players .= '<a href="index.php?site=profile&amp;id=' . $da[ 'userID' ] .
+                                                '"><span class="label ' . $fontcolor . '">' .
+                                                strip_tags(stripslashes(getnickname($da[ 'userID' ]))) . '</span></a>';
+                                        }
+                                        $i++;
                                     }
-
-                                    if ($i > 1) {
-                                        $players .= ', <a href="index.php?site=profile&amp;id=' . $da[ 'userID' ] .
-                                            '"><span class="label ' . $fontcolor . '">' .
-                                            strip_tags(stripslashes(getnickname($da[ 'userID' ]))) . '</span></a>';
-                                    } else {
-                                        $players .= '<a href="index.php?site=profile&amp;id=' . $da[ 'userID' ] .
-                                            '"><span class="label ' . $fontcolor . '">' .
-                                            strip_tags(stripslashes(getnickname($da[ 'userID' ]))) . '</span></a>';
-                                    }
-                                    $i++;
+                                } else {
+                                    $players = $_language->module[ 'no_players_announced' ];
                                 }
-                            } else {
-                                $players = $_language->module[ 'no_players_announced' ];
+
+                                $tag = date("d", $ds[ 'date' ]);
+                                $monat = date("m", $ds[ 'date' ]);
+                                $yahr = date("Y", $ds[ 'date' ]);
+
+                                $clanwars .= '<tr>
+                                    <td>' . $date . '</td>
+                                    <td><a href="' . $ds[ 'opphp' ] . '" target="_blank">' . $ds[ 'opptag' ] . ' / ' .
+                                    $ds[ 'opponent' ] . '</a></td>
+                                    <td>' . $players . '</td>
+                                    <td><a href="index.php?site=calendar&amp;action=announce&amp;upID=' . $ds[ 'upID' ] .
+                                    '&amp;tag=' . $tag . '&amp;month=' . $monat . '&amp;year=' . $yahr . '#event">' .
+                                    $_language->module[ 'click' ] . '</a></td>
+                                </tr>';
+                                $n++;
                             }
-
-                            $tag = date("d", $ds[ 'date' ]);
-                            $monat = date("m", $ds[ 'date' ]);
-                            $yahr = date("Y", $ds[ 'date' ]);
-
-                            $clanwars .= '<tr>
-                                <td>' . $date . '</td>
-                                <td><a href="' . $ds[ 'opphp' ] . '" target="_blank">' . $ds[ 'opptag' ] . ' / ' .
-                                $ds[ 'opponent' ] . '</a></td>
-                                <td>' . $players . '</td>
-                                <td><a href="index.php?site=calendar&amp;action=announce&amp;upID=' . $ds[ 'upID' ] .
-                                '&amp;tag=' . $tag . '&amp;month=' . $monat . '&amp;year=' . $yahr . '#event">' .
-                                $_language->module[ 'click' ] . '</a></td>
-                            </tr>';
-                            $n++;
+                            $clanwars .= '</tbody></table>';
+                        } else {
+                            $clanwars .= $_language->module[ 'no_entries' ];
                         }
-                        $clanwars .= '</tbody></table>';
-                    } else {
-                        $clanwars .= $_language->module[ 'no_entries' ];
                     }
                 }
             }

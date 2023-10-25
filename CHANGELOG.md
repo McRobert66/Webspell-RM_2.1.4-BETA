@@ -11,6 +11,9 @@
 
 - /admin/welcome_page.php           -> neue Begrüssungsseite (wurde wieder entfernt)
 
+
+Squad ist ausgelagert und kann mit dem Squad-Plugin neu installiert werden. Update mit angepassten install Datei ist auf GIT
+
 Languages                           -> Für die RM-Base wurden alle languages Dateien angepasst und vervollständigt (Poland wurde entfernt)
 
 Pluginänderungen                    -> Es wurden zahlreiche Plugins responsive angepasst. So wird die Webseite auf dem Handy richtig angezeigt   
