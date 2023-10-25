@@ -895,8 +895,8 @@ echo '<ul class="nav nav-tabs">
         /*-----------squad images --------------*/
 
         $banner = ""; 
-    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='clanwars'"));
-    if (@$dx[ 'modulname' ] != 'clanwars') {    
+    $dx = mysqli_fetch_array(safe_query("SELECT * FROM " . PREFIX . "settings_plugins WHERE modulname='squads'"));
+    if (@$dx[ 'modulname' ] != 'squads') {    
             
     } else {    
         $ergebnis = safe_query("SELECT * FROM " . PREFIX . "plugins_squads_members WHERE userID='".$ds['userID']."' ORDER BY sort");
